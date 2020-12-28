@@ -37,7 +37,7 @@
 </div>
 
 <div>
-  Xem nhiều nhất
+  <div class="col-md-3 carousel-title">Most viewed</div>
   <div>
     <div class="col-md-12">
       <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
@@ -51,13 +51,14 @@
         <div class="carousel-inner">
           <div class="carousel-item active">
             <div class="row">
+              {{#each courses}}
               <div class="col-sm-3">
                 <div class="thumb-wrapper">
                   <div class="img-box">
-                    <img src="/examples/images/products/ipad.jpg" class="img-fluid" alt="">
+                    <img src={{this.image}} class="img-fluid" alt="">
                   </div>
                   <div class="thumb-content">
-                    <h4>{{courses.name}}</h4>
+                    <h4>{{this.name}}</h4>
                     <p class="item-price"><strike>$400.00</strike> <span>$369.00</span></p>
                     <div class="star-rating">
                       <ul class="list-inline">
@@ -72,69 +73,8 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper">
-                  <div class="img-box">
-                    <img src="/examples/images/products/headphone.jpg" class="img-fluid" alt="">
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Sony Headphone</h4>
-                    <p class="item-price"><strike>$25.00</strike> <span>$23.99</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
-                    </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper">
-                  <div class="img-box">
-                    <img src="/examples/images/products/macbook-air.jpg" class="img-fluid" alt="">
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Macbook Air</h4>
-                    <p class="item-price"><strike>$899.00</strike> <span>$649.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
-                      </ul>
-                    </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="thumb-wrapper">
-                  <div class="img-box">
-                    <img src="/examples/images/products/nikon.jpg" class="img-fluid" alt="">
-                  </div>
-                  <div class="thumb-content">
-                    <h4>Nikon DSLR</h4>
-                    <p class="item-price"><strike>$315.00</strike> <span>$250.00</span></p>
-                    <div class="star-rating">
-                      <ul class="list-inline">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
-                    </div>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                  </div>
-                </div>
-              </div>
+              {{/each}}
+             
             </div>
           </div>
           <div class="carousel-item">
@@ -142,7 +82,7 @@
               <div class="col-sm-3">
                 <div class="thumb-wrapper">
                   <div class="img-box">
-                    <img src="/examples/images/products/play-station.jpg" class="img-fluid" alt="">
+                    <img src="https://i.imgur.com/vHNHZCC.jpg" class="img-fluid" alt="">
                   </div>
                   <div class="thumb-content">
                     <h4>Sony Play Station</h4>
@@ -163,7 +103,7 @@
               <div class="col-sm-3">
                 <div class="thumb-wrapper">
                   <div class="img-box">
-                    <img src="/examples/images/products/macbook-pro.jpg" class="img-fluid" alt="">
+                    <img src="https://i.imgur.com/vHNHZCC.jpg" class="img-fluid" alt="">
                   </div>
                   <div class="thumb-content">
                     <h4>Macbook Pro</h4>
@@ -339,4 +279,21 @@
   Mới nhất
 </div>
 <div> Lĩnh vực được đăng ký nhiều nhất</div>
+<div class="row">
+
+  <ul class="inline">
+    {{#each courses}}
+    <li class="list-inline-item">
+      abc
+    </li>
+
+    {{/each}}
+  </ul>
+</div>
+
+<ul class="list-inline">
+  <li class="list-inline-item">Lorem ipsum</li>
+  <li class="list-inline-item">Phasellus iaculis</li>
+  <li class="list-inline-item">Nulla volutpat</li>
+</ul>
 </div>

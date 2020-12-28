@@ -1,6 +1,10 @@
 .homeslider {
   margin: 0 auto;
-  width: 65%;
+  width: 72%;
+}
+.carousel-title {
+	font-size: 25px;
+	font-weight: 600;
 }
 
 .carousel {
