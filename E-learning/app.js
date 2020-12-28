@@ -15,10 +15,11 @@ app.use(express.urlencoded({
     extended: true
   })); 
 
-
-require('./middlewares/view.mdw')(app);
-require('./middlewares/routes.mdw')(app);
-require('./middlewares/error.mdw')(app);
+  require('./middlewares/view.mdw')(app);
+  require('./middlewares/session.mdw')(app);
+  require('./middlewares/locals.mdw')(app);
+  require('./middlewares/routes.mdw')(app);
+  require('./middlewares/error.mdw')(app);
 const PORT = 3000;
 app.listen(PORT, function () {
   console.log(`Example app listening at http://localhost:${PORT}`);

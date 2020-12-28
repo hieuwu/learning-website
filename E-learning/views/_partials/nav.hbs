@@ -29,7 +29,28 @@
         Tìm kiếm
       </button>
     </form>
+    <form id="frmLogout" method="POST" action="/account/logout"></form>
      <ul class="navbar-nav ml-auto">
+       {{#if isAuth}}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-user" aria-hidden="true"></i>
+          Welcome, <b>{{authUser.FullName}}</b>!
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/account/profile">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            Profile
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            Sign Out
+          </a>
+        </div>
+      </li>
+      {{else}}
       <li class="nav-item">
         <a class="btn btn-success" href="/account/login">
           <i class="fa fa-sign-in" aria-hidden="true"></i>
@@ -42,6 +63,8 @@
           Đăng kí
         </a>
       </li>
+      {{/if}}
+      
     </ul>
   </div>
 </nav>
