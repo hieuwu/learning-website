@@ -1,3 +1,28 @@
+{{#section 'css'}}
+{{/section}}
+
+{{#section 'js'}}
+<script>
+  $('#frmRegister').on('submit', function (e) {
+    e.preventDefault();
+
+    const username = $('#txtUsername').val();
+    if (username.length === 0) {
+      alert('Invalid data.');
+      return;
+    }
+
+    $.getJSON(`/account/is-available?user=${username}`, function (data) {
+      if (data === true) {
+        $('#frmRegister').off('submit').submit();
+      } else {
+        alert('Invalid data.');
+      }
+    })
+  });
+
+</script>
+{{/section}}
 
 <form action="" method="post" id="frmRegister">
   <div class="card">
@@ -16,16 +41,12 @@
         <input type="password" class="form-control" id="txtConfirm">
       </div>
       <div class="form-group">
-        <label for="txtName">Name</label>
+        <label for="txtName">FullName</label>
         <input type="text" class="form-control" id="txtName" name="name">
       </div>
       <div class="form-group">
         <label for="txtEmail">Email</label>
         <input type="text" class="form-control" id="txtEmail" name="email">
-      </div>
-      <div class="form-group">
-        <label for="txtDOB">DOB</label>
-        <input type="text" class="form-control" id="txtDOB" name="dob">
       </div>
 
     </div>
