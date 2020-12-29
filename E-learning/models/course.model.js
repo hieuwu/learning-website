@@ -8,12 +8,24 @@ module.exports = {
 
     async getLatest() {
         return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,
-                                course.nameCourse,category.NameCategory
+                                course.nameCourse,category.NameCategory, course.Price, course.SaleCost
                                 from ${TBL_COURSE}
                                 left join user_profile
                                 on course.IdTeacher = user_profile.IdUser
                                 inner join category
                                 on course.IdCategory = category.Id
-                                order by IdCourse ASC limit 10`);
+                                order by IdCourse DESC limit 10`);
+    },
+
+    async getMostViewed() {
+        return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,
+                            course.nameCourse, category.NameCategory, course.Price, course.SaleCost,
+                            course.createdTime, course.nOViews
+                            from ${TBL_COURSE} 
+                            left join user_profile
+                            on course.IdTeacher = user_profile.IdUser
+                            inner join category
+                            on course.IdCategory = category.Id
+                            order by course.nOViews DESC limit 10`);
     }
 };
