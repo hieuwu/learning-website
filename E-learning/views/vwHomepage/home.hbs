@@ -48,15 +48,16 @@
                 <!-- Wrapper for carousel items -->
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <div class="row">
-                            {{#each courses}}
-                                <div class="col-sm-3">
+                        <div class="row justify-content-center">
+                            {{#each latestPage1}}
+                                <div class="col-sm-2">
                                     <div class="thumb-wrapper">
                                         <div class="img-box">
-                                            <img src={{this.image}} class="img-fluid" alt="">
+                                            <img src='./public/images/course/{{this.IdCourse}}/thumb.jpg' class="img-fluid" alt="">
                                         </div>
                                         <div class="thumb-content">
-                                            <h4>{{this.name}}</h4>
+                                            <h4>{{this.nameCourse}}</h4>
+                                            <div>{{this.Description}}</div>
                                             <p class="item-price"><strike>$400.00</strike> <span>$369.00</span></p>
                                             <div class="star-rating">
                                                 <ul class="list-inline">
@@ -75,15 +76,17 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <div class="row">
-                            {{#each courses}}
-                                <div class="col-sm-3">
+                        <div class="row justify-content-center">
+                            {{#each latestPage2}}
+                                <div class="col-sm-2">
                                     <div class="thumb-wrapper">
                                         <div class="img-box">
-                                            <img src={{this.image}} class="img-fluid" alt="">
+                                            <img src='./public/images/course/{{this.IdCourse}}/thumb.jpg' class="img-fluid" alt="">
                                         </div>
                                         <div class="thumb-content">
-                                            <h4>{{this.name}}</h4>
+                                            <h4>{{this.nameCourse}}</h4>
+                                            <div>{{this.Description}}</div>
+                                            <h6>{{this.NameCategory}}</h6>
                                             <p class="item-price"><strike>$400.00</strike> <span>$369.00</span></p>
                                             <div class="star-rating">
                                                 <ul class="list-inline">
@@ -169,10 +172,11 @@
                                 <div class="col-sm-3">
                                     <div class="thumb-wrapper">
                                         <div class="img-box">
-                                            <img src={{this.image}} class="img-fluid" alt="">
+                                            <img src="..." class="img-fluid" alt="">
                                         </div>
                                         <div class="thumb-content">
-                                            <h4>{{this.name}}</h4>
+                                            <h4>{{this.nameCourse}}</h4>
+                                            <div>{{this.Description}}</div>
                                             <p class="item-price"><strike>$400.00</strike> <span>$369.00</span></p>
                                             <div class="star-rating">
                                                 <ul class="list-inline">
@@ -190,7 +194,6 @@
                             {{/each}}
                         </div>
                     </div>
-
                 </div>
                 <!-- Carousel controls -->
 

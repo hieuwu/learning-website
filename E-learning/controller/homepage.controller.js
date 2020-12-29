@@ -1,66 +1,27 @@
+const courseModel = require('../models/course.model');
+
 module.exports = {
-  getHighlightCourse:  (req, res) => {
-    // let courses = [
-    //   {
-    //     name: "Lập trình game cơ bản",
-    //     category: "Lập trình web",
-    //     teacher: "Khoa Trần",
-    //     rating: 5,
-    //     image: ""
-    //   },
-    //   {
-    //     name: "Lập trình di động nâng cao",
-    //     category: "Lập trình di động",
-    //     teacher: "Nhân Trần",
-    //     rating: 5,
-    //     image: ""
-    //   },
-    //   {
-    //     name: "Lập trình Android",
-    //     category: "Lập trình di động",
-    //     teacher: "Hiếu Vũ",
-    //     rating: 5,
-    //     image: ""
-    //   },
-    //   {
-    //     name: "Lập trình Website cơ bản",
-    //     category: "Lập trình web",
-    //     teacher: "Khoa Trần",
-    //     rating: 5,
-    //     image: ""
-    //   },
-    //   {
-    //     name: "Lập trình Website nâng cao",
-    //     category: "Lập trình web",
-    //     teacher: "Ngọc Nguyễn",
-    //     rating: 5,
-    //     image: ""
-    //   },
-    //   {
-    //     name: "Lập trình iOS",
-    //     category: "Lập trình di động",
-    //     teacher: "Lộc Linh",
-    //     rating: 5,
-    //     image: ""
-    //   },
-    //   {
-    //     name: "Lập trình game nâng cao",
-    //     category: "Lập trình web",
-    //     teacher: "Hoàng Đỗ",
-    //     rating: 5,
-    //     image: ""
-    //   }
-    // ];
-    // res.render("vwHomepage/home");
+  getLatestCourse: async (req, res) => {
+    let listOfLatestCourse = [];
+    try {
+      listOfLatestCourse = await courseModel.getLatest();
+    } catch (e) {
+      console.log(e);
+    }
+    let latestPage1 = listOfLatestCourse.slice(0, 5);
+    let latestPage2 = listOfLatestCourse.slice(5 ,listOfLatestCourse.length);
+
+
+    res.render("vwHomepage/home", {
+      latestPage1: latestPage1,
+      latestPage2: latestPage2,
+    });
   },
 
   getMostViewedCourse:  (req, res) => {
 
   },
 
-  getLatestCourse:  (req, res) => {
-
-  },
 
   getMostRegisteredCourse: (req, res) => {
 
