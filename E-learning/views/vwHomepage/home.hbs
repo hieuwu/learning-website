@@ -36,7 +36,15 @@
 </div>
 
 <div>
-    <div class="col-md-3 carousel-title">Latest</div>
+    <div class="row col-md-12">
+        <div class="col-md-1 carousel-title"></div>
+        <div class="col-md-10 carousel-title">Latest course
+            <div>
+                <hr/>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
     <div>
         <div class="col-md-12">
             <div id="mostViewCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
@@ -53,12 +61,14 @@
                                 <div class="col-sm-2">
                                     <div class="thumb-wrapper">
                                         <div class="img-box">
-                                            <img src='./public/images/course/{{this.IdCourse}}/thumb.jpg' class="img-fluid" alt="">
+                                            <img src='./public/images/course/{{this.IdCourse}}/thumb.jpg'
+                                                 class="img-fluid" alt="">
                                         </div>
                                         <div class="thumb-content">
                                             <h4>{{this.nameCourse}}</h4>
                                             <div>{{this.Description}}</div>
-                                            <p class="item-price"><strike>${{this.Price}}</strike> <span>${{this.SaleCost}}</span></p>
+                                            <p class="item-price"><strike>${{this.Price}}</strike>
+                                                <span>${{this.SaleCost}}</span></p>
                                             <div class="star-rating">
                                                 <ul class="list-inline">
                                                     <li class="list-inline-item"><i class="fa fa-star"></i></li>
@@ -81,13 +91,15 @@
                                 <div class="col-sm-2">
                                     <div class="thumb-wrapper">
                                         <div class="img-box">
-                                            <img src='./public/images/course/{{this.IdCourse}}/thumb.jpg' class="img-fluid" alt="">
+                                            <img src='./public/images/course/{{this.IdCourse}}/thumb.jpg'
+                                                 class="img-fluid" alt="">
                                         </div>
                                         <div class="thumb-content">
                                             <h4>{{this.nameCourse}}</h4>
                                             <div>{{this.Description}}</div>
                                             <h6>{{this.NameCategory}}</h6>
-                                            <p class="item-price"><strike>{{this.Price}}</strike> <span>${{this.SaleCost}}</span></p>
+                                            <p class="item-price"><strike>{{this.Price}}</strike>
+                                                <span>${{this.SaleCost}}</span></p>
                                             <div class="star-rating">
                                                 <ul class="list-inline">
                                                     <li class="list-inline-item"><i class="fa fa-star"></i></li>
@@ -128,7 +140,15 @@
 </div>
 </div>
 <div>
-    <div class="col-md-3 carousel-title">Most viewed</div>
+    <div class="row col-md-12">
+        <div class="col-md-1 carousel-title"></div>
+        <div class="col-md-10 carousel-title">Most viewed
+            <div>
+                <hr/>
+            </div>
+        </div>
+
+    </div>
     <div>
         <div class="col-md-12">
             <div id="latestCarousel" class="carousel slide" data-ride="carousel" data-interval="0">
@@ -145,13 +165,15 @@
                                 <div class="col-sm-2">
                                     <div class="thumb-wrapper">
                                         <div class="img-box">
-                                            <img src='./public/images/course/{{this.IdCourse}}/thumb.jpg' class="img-fluid" alt="">
+                                            <img src='./public/images/course/{{this.IdCourse}}/thumb.jpg'
+                                                 class="img-fluid" alt="">
                                         </div>
                                         <div class="thumb-content">
                                             <h4>{{this.nameCourse}}</h4>
                                             <div>{{this.Description}}</div>
                                             <h6>{{this.NameCategory}}</h6>
-                                            <p class="item-price"><strike>{{this.Price}}</strike> <span>${{this.SaleCost}}</span></p>
+                                            <p class="item-price"><strike>{{this.Price}}</strike>
+                                                <span>${{this.SaleCost}}</span></p>
                                             <div class="star-rating">
                                                 <ul class="list-inline">
                                                     <li class="list-inline-item"><i class="fa fa-star"></i></li>
@@ -174,13 +196,15 @@
                                 <div class="col-sm-2">
                                     <div class="thumb-wrapper">
                                         <div class="img-box">
-                                            <img src='./public/images/course/{{this.IdCourse}}/thumb.jpg' class="img-fluid" alt="">
+                                            <img src='./public/images/course/{{this.IdCourse}}/thumb.jpg'
+                                                 class="img-fluid" alt="">
                                         </div>
                                         <div class="thumb-content">
                                             <h4>{{this.nameCourse}}</h4>
                                             <div>{{this.Description}}</div>
                                             <h6>{{this.NameCategory}}</h6>
-                                            <p class="item-price"><strike>{{this.Price}}</strike> <span>${{this.SaleCost}}</span></p>
+                                            <p class="item-price"><strike>{{this.Price}}</strike>
+                                                <span>${{this.SaleCost}}</span></p>
                                             <div class="star-rating">
                                                 <ul class="list-inline">
                                                     <li class="list-inline-item"><i class="fa fa-star"></i></li>
@@ -219,7 +243,15 @@
     </div>
 </div>
 
-<div class="col-md-3 carousel-title">Most registered</div>
+<div class="row col-md-12">
+    <div class="col-md-1 carousel-title"></div>
+    <div class="col-md-10 carousel-title">Most registered
+        <div>
+            <hr/>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
 <div class="row">
     <ul class="inline">
         {{#each courses}}
