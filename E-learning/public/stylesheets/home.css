@@ -7,6 +7,11 @@
 	font-weight: 600;
 }
 
+.item-content {
+	align-content: space-between;
+	height: 100px;
+}
+
 hr {
 	border: 0;
 	border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -66,7 +71,7 @@ hr {
 	text-align: center;
 }
 .carousel .thumb-content {
-	padding: 15px;
+	padding: 0px;
 }
 .carousel-control-prev, .carousel-control-next {
 	height: 100px;
@@ -74,6 +79,18 @@ hr {
 	background: none;
 	margin: auto 0;
 	background: rgba(0, 0, 0, 0.2);
+}
+.course-item{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 260px;
+}
+
+.two-line{
+    line-height: 1.5em;
+    height: 3.1em;       /* height is 2x line-height, so two lines will display */
+    overflow: hidden;  /* prevents extra lines from being visible */
 }
 
 .carousel-control-prev i, .carousel-control-next i {
