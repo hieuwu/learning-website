@@ -2,7 +2,6 @@
 {{/section}}
 
 {{#section 'js'}}
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
   $('#frmRegister').on('submit', function (e) {
@@ -55,21 +54,21 @@
       })
       return;
     }
-    const data  = 
-    $.getJSON(`/account/is-available?user=${username}`, function (data) {
-      if (data === true) {
-        $('#frmRegister').off('submit').submit();
-        Swal.fire({
-          icon: 'success',
-          text: 'Register successful'
-        })
-      } else {
-        Swal.fire({
-          icon: 'error',
-          text: 'Username already exists'
-        })
-      }
-    })
+    const data =
+      $.getJSON(`/account/is-available?user=${username}`, async function (data) {
+        if (data === true) {
+          await Swal.fire({
+            icon: 'success',
+            text: 'Register successful'
+          })
+          $('#frmRegister').off('submit').submit();
+        } else {
+          Swal.fire({
+            icon: 'error',
+            text: 'Username already exists'
+          })
+        }
+      })
   });
 
 </script>
@@ -93,7 +92,7 @@
       </div>
       <div class="form-group">
         <label for="txtFullName">FullName</label>
-        <input type="text" class="form-control" id="txtFullName" name="fullname">
+        <input type="text" class="form-control" id="txtFullName" name="fullName">
       </div>
       <div class="form-group">
         <label for="txtEmail">Email</label>

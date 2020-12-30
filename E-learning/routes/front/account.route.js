@@ -9,4 +9,7 @@ router.get('/login', controller.getLogin);
 router.post('/login', controller.postLogin);
 router.post('/logout', controller.postLogout);
 router.get('/profile', auth, controller.getProfile);
+router.get('/edit-password', auth, controller.getEditPassword);
+router.post('/profile/edit', controller.postEditProfile);
+router.post('/edit-password/edit', controller.postEditPassword);
 module.exports = router;
