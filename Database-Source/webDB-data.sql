@@ -97,17 +97,17 @@ create table `Lesson`(
     REFERENCES Chapter(IdChapter)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*---------Data Demo*/
-insert into HeaderCategory(NameCategory) values('Development');
-insert into HeaderCategory(NameCategory) values('Business');
-insert into HeaderCategory(NameCategory) values('Finance & Accounting');
-insert into HeaderCategory(NameCategory) values('IT & Software');
-insert into HeaderCategory(NameCategory) values('Music');
+insert into HeaderCategory(HeaderNameCategory) values('Development');
+insert into HeaderCategory(HeaderNameCategory) values('Business');
+insert into HeaderCategory(HeaderNameCategory) values('Finance & Accounting');
+insert into HeaderCategory(HeaderNameCategory) values('IT & Software');
+insert into HeaderCategory(HeaderNameCategory) values('Music');
 
 insert into Category(NameCategory,HeaderCategoryID) values('Web Development',1);
 insert into Category(NameCategory,HeaderCategoryID) values('Mobile Development',1);
 insert into Category(NameCategory,HeaderCategoryID) values('Game Development',1);
 insert into Category(NameCategory,HeaderCategoryID) values('Programming Languages',1);
-insert into Category(NameCategory,HeaderCategoryID) values('Data Design & Development',1);
+
 insert into Category(NameCategory,HeaderCategoryID) values('Management',2);
 insert into Category(NameCategory,HeaderCategoryID) values('Sales',2);
 insert into Category(NameCategory,HeaderCategoryID) values('Accounting & Bookkeeping',3);
@@ -129,43 +129,6 @@ insert into User_profile(FullName,Email,isTeacher,Permission,UserName,password) 
 insert into User_profile(FullName,Email,isTeacher,Permission,UserName,password) values('Andie Swift','teacher4@gmail.com',0,'teacher','aswift','$2a$10$qoIwjMiJxmYfcX/Nu238KedMxpV54xPvPBRVwLVZZiEtxKb1xg/Zu');
 insert into User_profile(FullName,Email,isTeacher,Permission,UserName,password) values('Andie legend','teacher5@gmail.com',0,'teacher','alegend','$2a$10$6.H6Kp.DtEtghkFH9UkOP.p8Y27HxnvC/hG5SmxvGvv3Ix.NHZgx.');
 insert into User_profile(FullName,Email,isTeacher,Permission,UserName,password) values('Maria','student1@gmail.com',0,'student','maria','$2a$10$znrfkDOSz/H0gyXNOWi9ReQZrPHrnkCFWf5peF0LRmzi46HR.BTx.');
-
-insert into teach_profile(IdUser,Biography) values(2,'Teaching Web development');
-insert into teach_profile(IdUser,Biography) values(3,'Teaching App development');
-insert into teach_profile(IdUser,Biography,status) values(4,'Teaching something maybe you interested in it','Accept');
-insert into teach_profile(IdUser,Biography) values(5,'Teaching Vocal cousre');
-insert into teach_profile(IdUser,Biography) values(6,'Teaching Business course');
-
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('The Web Developer Bootcamp 2020','Learning about HTML,CSS, etc','<P><STRONG>Jewelry Information</STRONG></P> <UL>     <LI>The only course you need to learn web development - HTML, CSS, JS, Node, and More!</LI> </UL>',99.99,69.97,430688,"finished",1,2);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('The Web Developer Bootcamp 2020','Learning about HTML,CSS, etc','<P><STRONG>Jewelry Information</STRONG></P> <UL>     <LI>The only course you need to learn web development - HTML, CSS, JS, Node, and More!</LI> </UL>',199.99,19.97,430688,"unfinished",1,3);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('The Web Developer Bootcamp 2020','Learning about HTML,CSS, etc','<P><STRONG>Jewelry Information</STRONG></P> <UL>     <LI>The only course you need to learn web development - HTML, CSS, JS, Node, and More!</LI> </UL>',99.99,69.97,430688,"finished",1,4);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('The Web Developer Bootcamp 2020','Learning about HTML,CSS, etc','<P><STRONG>Jewelry Information</STRONG></P> <UL>     <LI>The only course you need to learn web development - HTML, CSS, JS, Node, and More!</LI> </UL>',299.99,169.97,430688,"unfinished",1,5);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('The Web Developer Bootcamp 2020','Learning about HTML,CSS, etc','<P><STRONG>Jewelry Information</STRONG></P> <UL>     <LI>The only course you need to learn web development - HTML, CSS, JS, Node, and More!</LI> </UL>',399.99,369.97,430688,"unfinished",1,6);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('iOS & Swift - The Complete iOS App Development Bootcamp','Learning about iOS','<P><STRONG>Information</STRONG></P> <UL>     <LI><P><STRONG>Information</STRONG></P> <UL>     <LI>From Beginner to iOS App Developer with Just One Course! Fully Updated with a Comprehensive Module Dedicated to SwiftUI</LI> </UL></LI> </UL>',499.99,169.97,430688,"unfinished",1,2);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('iOS & Swift - The Complete iOS App Development Bootcamp','Learning about iOS','<P><STRONG>Information</STRONG></P> <UL>     <LI>From Beginner to iOS App Developer with Just One Course! Fully Updated with a Comprehensive Module Dedicated to SwiftUI</LI> </UL>',499.99,169.97,430688,"unfinished",1,3);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('iOS & Swift - The Complete iOS App Development Bootcamp','Learning about iOS','<P><STRONG>Information</STRONG></P> <UL>     <LI><P><STRONG>Information</STRONG></P> <UL>     <LI>From Beginner to iOS App Developer with Just One Course! Fully Updated with a Comprehensive Module Dedicated to SwiftUI</LI> </UL></LI> </UL>',499.99,169.97,430688,"unfinished",1,4);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('iOS & Swift - The Complete iOS App Development Bootcamp','Learning about iOS','<P><STRONG>Information</STRONG></P> <UL>     <LI>From Beginner to iOS App Developer with Just One Course! Fully Updated with a Comprehensive Module Dedicated to SwiftUI</LI> </UL>',499.99,169.97,430688,"unfinished",1,5);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('iOS & Swift - The Complete iOS App Development Bootcamp','Learning about iOS','<P><STRONG>Information</STRONG></P> <UL>     <LI>From Beginner to iOS App Developer with Just One Course! Fully Updated with a Comprehensive Module Dedicated to SwiftUI</LI> </UL>',499.99,169.97,430688,"unfinished",1,6);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('Android & Swift - The Complete Android App Development Bootcamp','Learning about Android','<P><STRONG>Information</STRONG></P> <UL>     <LI>From Beginner to Android App Developer with Just One Course! Fully Updated with a Comprehensive Module Dedicated to SwiftUI</LI> </UL>',499.99,169.97,430688,"unfinished",1,2);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('Android & Swift - The Complete Android App Development Bootcamp','Learning about Android','<P><STRONG>Information</STRONG></P> <UL>     <LI>From Beginner to Android App Developer with Just One Course! Fully Updated with a Comprehensive Module Dedicated to SwiftUI</LI> </UL>',499.99,169.97,430688,"unfinished",1,3);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('Android & Swift - The Complete Android App Development Bootcamp','Learning about Android','<P><STRONG>Information</STRONG></P> <UL>     <LI>From Beginner to Android App Developer with Just One Course! Fully Updated with a Comprehensive Module Dedicated to SwiftUI</LI> </UL>',499.99,169.97,430688,"unfinished",1,4);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('Android & Swift - The Complete Android App Development Bootcamp','Learning about Android','<P><STRONG>Information</STRONG></P> <UL>     <LI>From Beginner to Android App Developer with Just One Course! Fully Updated with a Comprehensive Module Dedicated to SwiftUI</LI> </UL>',499.99,169.97,430688,"finished",1,5);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('Android & Swift - The Complete Android App Development Bootcamp','Learning about Android','<P><STRONG>Information</STRONG></P> <UL>     <LI>From Beginner to Android App Developer with Just One Course! Fully Updated with a Comprehensive Module Dedicated to SwiftUI</LI> </UL>',499.99,169.97,430688,"unfinished",1,6);
-
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('Become a Product Manager',' Learn the Skills & Get the Job','<P><STRONG>Information</STRONG></P> <UL>     <LI>The most complete course available on Product Management. 13+ hours of videos, activities, interviews, & more</LI> </UL>',499.99,169.97,430688,"unfinished",7,6);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('The Complete Product Management Course','Learn the skills, tools, and processes needed to become an irreplaceable PM.','<P><STRONG>Information</STRONG></P> <UL>     <LI>The most complete course available on Product Management. 13+ hours of videos, activities, interviews, & more</LI> </UL>',499.99,169.97,430688,"unfinished",7,5);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('Become a Product Manager',' Learn the Skills & Get the Job','<P><STRONG>Information</STRONG></P> <UL>     <LI>The most complete course available on Product Management. 13+ hours of videos, activities, interviews, & more</LI> </UL>',499.99,169.97,430688,"unfinished",7,4);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('The Complete Product Management Course','Learn the skills, tools, and processes needed to become an irreplaceable PM','<P><STRONG>Information</STRONG></P> <UL>     <LI>The most complete course available on Product Management. 13+ hours of videos, activities, interviews, & more</LI> </UL>',499.99,169.97,430688,"unfinished",7,3);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('Become a Product Manager',' Learn the Skills & Get the Job','<P><STRONG>Information</STRONG></P> <UL>     <LI>The most complete course available on Product Management. 13+ hours of videos, activities, interviews, & more</LI> </UL>',499.99,169.97,430688,"unfinished",7,2);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('Cryptocurrency Financial Crime Compliance Bootcamp','Blockchain/Crypto | Financial Crime | Money Laundering Tools','<P><STRONG>Information</STRONG></P> <UL>     <LI>Blockchain/Crypto | Financial Crime | Money Laundering | Terrorist Financing | AML & CTF | Regulation | Compliance Tools</LI> </UL>',499.99,169.97,430688,"unfinished",9,6);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('Cryptocurrency Financial Crime Compliance Bootcamp','Blockchain/Crypto | Financial Crime | Money Laundering Tools','<P><STRONG>Information</STRONG></P> <UL>     <LI>Blockchain/Crypto | Financial Crime | Money Laundering | Terrorist Financing | AML & CTF | Regulation | Compliance Tools</LI> </UL>',499.99,169.97,430688,"unfinished",9,3);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('Cryptocurrency Financial Crime Compliance Bootcamp','Blockchain/Crypto | Financial Crime | Money Laundering Tools','<P><STRONG>Information</STRONG></P> <UL>     <LI>Blockchain/Crypto | Financial Crime | Money Laundering | Terrorist Financing | AML & CTF | Regulation | Compliance Tools</LI> </UL>',499.99,169.97,430688,"unfinished",9,2);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('AWS Certified Developer - Associate 2020',' being an AWS Certified Developer Associate?','<P><STRONG>Information</STRONG></P> <UL>     <LI>Pass the AWS Certified Developer - Associate 2020 Exam</LI><LI>Become intimately familiar with the AWS platform from a developer perspective.</LI> </UL>',499.99,169.97,430688,"unfinished",11,6);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('AWS Certified Developer - Associate 2020',' being an AWS Certified Developer Associate?','<P><STRONG>Information</STRONG></P> <UL>     <LI>Pass the AWS Certified Developer - Associate 2020 Exam</LI><LI>Become intimately familiar with the AWS platform from a developer perspective.</LI> </UL>',499.99,169.97,430688,"unfinished",11,5);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('AWS Certified Developer - Associate 2020',' being an AWS Certified Developer Associate?','<P><STRONG>Information</STRONG></P> <UL>     <LI>Pass the AWS Certified Developer - Associate 2020 Exam</LI><LI>Become intimately familiar with the AWS platform from a developer perspective.</LI> </UL>',499.99,169.97,430688,"unfinished",11,4);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('AWS Certified Developer - Associate 2020',' being an AWS Certified Developer Associate?','<P><STRONG>Information</STRONG></P> <UL>     <LI>Pass the AWS Certified Developer - Associate 2020 Exam</LI><LI>Become intimately familiar with the AWS platform from a developer perspective.</LI> </UL>',499.99,169.97,430688,"unfinished",11,3);
-insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher) values('AWS Certified Developer - Associate 2020',' being an AWS Certified Developer Associate?','<P><STRONG>Information</STRONG></P> <UL>     <LI>Pass the AWS Certified Developer - Associate 2020 Exam</LI><LI>Become intimately familiar with the AWS platform from a developer perspective.</LI> </UL>',499.99,169.97,430688,"unfinished",11,2);
-
 
 insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',1);
 insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',2);
@@ -202,6 +165,7 @@ insert into Chapter(NameChapter,idCourse) values('Chapter 1: About The Course',2
 insert into Chapter(NameChapter,idCourse) values('Chapter 1: About The Course',28);
 
 
+
 insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',1);
 insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',2);
 insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',3);
@@ -231,12 +195,117 @@ insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Cours
 insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',27);
 insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',28);
 
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate) values(7,1,'2020-12-28 09:14:31');
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate) values(7,2,'2020-12-28 09:14:31');
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate) values(7,3,'2020-12-28 09:14:31');
 
-insert into watchlist(IdUser,IdCourse) values(7,4);
-insert into watchlist(IdUser,IdCourse) values(7,5);
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments,status) values(7,1,'2020-12-28 09:14:31',5,'Great Course <3','finished');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(7,2,'2020-12-28 09:14:31',3,'Watching videos is time consuming <3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(7,3,'2020-12-28 09:14:31',1,'Bad Course, too boring');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(8,1,'2020-12-28 09:14:31',5,'wow, I love this course');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(8,6,'2020-12-28 09:14:31',4,'Good course<3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(8,11,'2020-12-28 09:14:31',2,'Bad Course');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(9,6,'2020-12-28 09:14:31',5,'Great Course <3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(9,7,'2020-12-28 09:14:31',3,'Watching videos is time consuming<3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(9,11,'2020-12-28 09:14:31',2,'So boring');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(10,6,'2020-12-28 09:14:31',5,'Great Course <3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(10,11,'2020-12-28 09:14:31',3,'video is very laggy<3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(10,12,'2020-12-28 09:14:31',1,'Bad Course');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(11,21,'2020-12-28 09:14:31',5,'Great Course <3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(11,22,'2020-12-28 09:14:31',3,'video is very laggy<3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(11,26,'2020-12-28 09:14:31',1,'Bad Course!');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(12,21,'2020-12-28 09:14:31',5,'Great Course <3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(12,26,'2020-12-28 09:14:31',3,'video is very laggy<3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(12,31,'2020-12-28 09:14:31',1,'Bad Course @@@');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(13,31,'2020-12-28 09:14:31',5,'Great Course <3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(13,36,'2020-12-28 09:14:31',3,'a beautiful life<3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(13,39,'2020-12-28 09:14:31',1,'Bad Course!!!');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(14,31,'2020-12-28 09:14:31',5,'<3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(14,36,'2020-12-28 09:14:31',3,'yeah, good course but video is so lag :D');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(14,39,'2020-12-28 09:14:31',1,'Bad Course =))');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(15,39,'2020-12-28 09:14:31',5,'Great Course <3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(15,40,'2020-12-28 09:14:31',3,'hi every guys :D');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(15,44,'2020-12-28 09:14:31',1,'Bad Course :(');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(16,39,'2020-12-28 09:14:31',5,'Great Course <3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(16,44,'2020-12-28 09:14:31',3,'alala');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(16,46,'2020-12-28 09:14:31',1,'I didnt like this course');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(17,1,'2020-12-28 09:14:31',5,'Great Course <3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(17,40,'2020-12-28 09:14:31',3,'this voice in video is so sweet');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(17,46,'2020-12-28 09:14:31',1,'Bad Course <3');
+
+insert into watchlist(IdUser,IdCourse) values(7,1);
+insert into watchlist(IdUser,IdCourse) values(8,1);
+insert into watchlist(IdUser,IdCourse) values(9,1);
+insert into watchlist(IdUser,IdCourse) values(10,1);
+insert into watchlist(IdUser,IdCourse) values(11,1);
+insert into watchlist(IdUser,IdCourse) values(8,2);
+insert into watchlist(IdUser,IdCourse) values(9,2);
+insert into watchlist(IdUser,IdCourse) values(10,2);
+insert into watchlist(IdUser,IdCourse) values(9,3);
+insert into watchlist(IdUser,IdCourse) values(10,3);
+insert into watchlist(IdUser,IdCourse) values(11,3);
+insert into watchlist(IdUser,IdCourse) values(10,4);
+insert into watchlist(IdUser,IdCourse) values(11,4);
+insert into watchlist(IdUser,IdCourse) values(12,4);
+insert into watchlist(IdUser,IdCourse) values(11,5);
+insert into watchlist(IdUser,IdCourse) values(12,5);
+insert into watchlist(IdUser,IdCourse) values(13,5);
+insert into watchlist(IdUser,IdCourse) values(12,6);
+insert into watchlist(IdUser,IdCourse) values(13,6);
+insert into watchlist(IdUser,IdCourse) values(13,7);
+insert into watchlist(IdUser,IdCourse) values(14,7);
+insert into watchlist(IdUser,IdCourse) values(14,8);
+insert into watchlist(IdUser,IdCourse) values(15,9);
+insert into watchlist(IdUser,IdCourse) values(16,10);
+insert into watchlist(IdUser,IdCourse) values(17,11);
 insert into watchlist(IdUser,IdCourse) values(7,12);
+insert into watchlist(IdUser,IdCourse) values(8,13);
+insert into watchlist(IdUser,IdCourse) values(9,14);
+insert into watchlist(IdUser,IdCourse) values(10,15);
+insert into watchlist(IdUser,IdCourse) values(11,16);
+insert into watchlist(IdUser,IdCourse) values(12,17);
+insert into watchlist(IdUser,IdCourse) values(13,18);
+insert into watchlist(IdUser,IdCourse) values(14,19);
+insert into watchlist(IdUser,IdCourse) values(15,20);
+insert into watchlist(IdUser,IdCourse) values(16,21);
+insert into watchlist(IdUser,IdCourse) values(17,22);
 insert into watchlist(IdUser,IdCourse) values(7,23);
-
+insert into watchlist(IdUser,IdCourse) values(8,24);
+insert into watchlist(IdUser,IdCourse) values(9,25);
+insert into watchlist(IdUser,IdCourse) values(10,26);
+insert into watchlist(IdUser,IdCourse) values(11,27);
+insert into watchlist(IdUser,IdCourse) values(12,28);
+insert into watchlist(IdUser,IdCourse) values(13,29);
+insert into watchlist(IdUser,IdCourse) values(14,30);
+insert into watchlist(IdUser,IdCourse) values(15,31);
+insert into watchlist(IdUser,IdCourse) values(16,32);
+insert into watchlist(IdUser,IdCourse) values(17,33);
+insert into watchlist(IdUser,IdCourse) values(7,23);
+insert into watchlist(IdUser,IdCourse) values(8,24);
+insert into watchlist(IdUser,IdCourse) values(9,25);
+insert into watchlist(IdUser,IdCourse) values(10,26);
+insert into watchlist(IdUser,IdCourse) values(11,27);
+insert into watchlist(IdUser,IdCourse) values(12,28);
+insert into watchlist(IdUser,IdCourse) values(13,29);
+insert into watchlist(IdUser,IdCourse) values(14,30);
+insert into watchlist(IdUser,IdCourse) values(15,31);
+insert into watchlist(IdUser,IdCourse) values(16,32);
+insert into watchlist(IdUser,IdCourse) values(17,33);
+insert into watchlist(IdUser,IdCourse) values(7,34);
+insert into watchlist(IdUser,IdCourse) values(8,35);
+insert into watchlist(IdUser,IdCourse) values(9,36);
+insert into watchlist(IdUser,IdCourse) values(10,36);
+insert into watchlist(IdUser,IdCourse) values(11,37);
+insert into watchlist(IdUser,IdCourse) values(12,38);
+insert into watchlist(IdUser,IdCourse) values(13,39);
+insert into watchlist(IdUser,IdCourse) values(14,40);
+insert into watchlist(IdUser,IdCourse) values(15,41);
+insert into watchlist(IdUser,IdCourse) values(16,42);
+insert into watchlist(IdUser,IdCourse) values(17,43);
+insert into watchlist(IdUser,IdCourse) values(8,44);
+insert into watchlist(IdUser,IdCourse) values(9,45);
+insert into watchlist(IdUser,IdCourse) values(10,46);
+insert into watchlist(IdUser,IdCourse) values(11,47);
+insert into watchlist(IdUser,IdCourse) values(12,48);
+insert into watchlist(IdUser,IdCourse) values(13,49);
+insert into watchlist(IdUser,IdCourse) values(14,50);
+insert into watchlist(IdUser,IdCourse) values(15,47);
+insert into watchlist(IdUser,IdCourse) values(16,45);
+insert into watchlist(IdUser,IdCourse) values(17,33);
