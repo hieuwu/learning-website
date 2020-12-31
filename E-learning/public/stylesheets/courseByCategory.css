@@ -1,5 +1,6 @@
 .item-container {
   display: flex;
+  padding-left: 4%;
   flex-direction: row;
   justify-content: space-between;
 }
@@ -15,10 +16,13 @@
   overflow: hidden;  
 }
 .item-image {
-  width: 600px;
-  height: 150px;
+  width: 750px;
   margin-right: 1%;
   background-color: red;
+}
+.item-length {
+  display: flex;
+  justify-content: row;
 }
 
 .star-rating li {
@@ -27,4 +31,16 @@
 .star-rating i {
 	font-size: 14px;
 	color: #ffc000;
+}
+.item-teacher {
+  color: darkslategrey;
+  font-weight: 600;
+}
+.item-real-price {
+  color: #86bd57;
+  font-weight: 600;
+}
+.item-price {
+  display: flex;
+  flex-direction: column;
 }
