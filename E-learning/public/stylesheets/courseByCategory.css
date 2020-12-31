@@ -1,0 +1,30 @@
+.item-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.item-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.content-description {
+  line-height: 1.5em;
+  height: 3.1em;
+  overflow: hidden;  
+}
+.item-image {
+  width: 600px;
+  height: 150px;
+  margin-right: 1%;
+  background-color: red;
+}
+
+.star-rating li {
+	padding: 0;
+}
+.star-rating i {
+	font-size: 14px;
+	color: #ffc000;
+}

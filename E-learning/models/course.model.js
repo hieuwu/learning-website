@@ -40,5 +40,16 @@ module.exports = {
                             on course.IdCategory = category.Id
                             order by course.nOViews DESC limit 10`);
     },
-    
+
+    async getCourseListbyCategory(categoryId) {
+        return await db.load(`select course.IdCourse FullName, nameCourse, course.Description,course.title,
+        course.nameCourse, category.NameCategory, course.Price, course.SaleCost, course.createdTime, course.nOViews
+        from ${TBL_COURSE} 
+        left join user_profile
+        on course.IdTeacher = user_profile.IdUser
+        inner join category
+        on course.IdCategory = category.Id
+        where category.Id=${categoryId}
+        order by course.nOViews DESC limit 10`);
+    }
 };
