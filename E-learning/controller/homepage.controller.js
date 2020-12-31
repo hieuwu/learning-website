@@ -18,8 +18,8 @@ module.exports = {
     let mostViewedPage1 = listOfMostViewedCourse.slice(0,5);
     let mostViewedPage2 = listOfMostViewedCourse.slice(5 ,listOfMostViewedCourse.length);
 
-    let mostRegisteredPage1 = listOfMostRegistered.slice(0,5);
-    let mostRegisteredPage2 = listOfMostRegistered.slice(5 ,listOfMostRegisteredCourse.length);
+    let mostRegisteredPage1 = listOfMostRegisteredCourse.slice(0,5);
+    let mostRegisteredPage2 = listOfMostRegisteredCourse.slice(5 ,listOfMostRegisteredCourse.length);
     res.render("vwHomepage/home", {
       latestPage1: latestPage1,
       latestPage2: latestPage2,
