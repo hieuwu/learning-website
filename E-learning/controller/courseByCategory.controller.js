@@ -3,7 +3,7 @@ const config = require('../config/default.json');
 module.exports = {
   allByCategory: async  (req, res) => {
     let page = +req.query.page || 1;
-    if (page = 0) page = 1;
+    if (page == 0) page = 1;
     let offset = (page - 1) * config.pagination.limit;
     let listOfCourses = await courseModel.pageBycat(req.params.id ,offset);
     const total = await courseModel.countByCat(req.params.id);

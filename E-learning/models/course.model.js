@@ -57,7 +57,9 @@ module.exports = {
         order by course.nOViews DESC limit 10`);
     },
     async pageBycat(catId, offset) {
-        return await db.load(`select *
+        return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,course.title,
+        course.nameCourse, category.NameCategory, course.Price, course.SaleCost, course.createdTime, course.nOViews,
+        count(chapter.IdChapter) as numOfChapters
         from ${TBL_COURSE} 
         left join user_profile
         on course.IdTeacher = user_profile.IdUser
