@@ -1,0 +1,217 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700");
+@font-face {
+  font-family: 'futura-bold';
+  src: url("../fonts/Futura-Bold.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+.text-lighten {
+    color: #d6d6e0 !important;
+  }
+  .section-sm {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .section-sm {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  
+  .section-title {
+    margin-bottom: 30px;
+  }
+  .list-styled {
+    padding-left: 25px;
+  }
+  
+  .list-styled li {
+    position: relative;
+    margin-bottom: 15px;
+  }
+  
+  .list-styled li::before {
+    position: absolute;
+    content: "";
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background: #ffbc3b;
+    left: -25px;
+    top: 5px;
+  }
+  .btn-primary {
+    background: #ffbc3b;
+    color: #fff;
+  }
+  
+  .btn-primary::before {
+    background: #fff;
+  }
+  
+  .btn-primary:active {
+    background: #ffbc3b !important;
+    color: #ffbc3b;
+  }
+  
+  .btn-primary:active::before {
+    height: 80%;
+  }
+  
+  .btn-primary:hover {
+    background: #ffab08;
+    color: #ffbc3b;
+  }
+  
+  .btn-primary:not(:disabled):not(.disabled).active,
+  .btn-primary:not(:disabled):not(.disabled):active,
+  .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #ffab08;
+    border-color: #ffab08;
+  }
+  .btn-sm {
+    font-size: 14px;
+    padding: 10px 35px;
+  }
+  .font-secondary {
+    font-family: "futura-bold";
+  }
+  .custom-breadcrumb li.nasted {
+    position: relative;
+    padding-left: 25px;
+  }
+  
+  .custom-breadcrumb li.nasted::before {
+    position: absolute;
+    font-family: "themify";
+    content: "\e649";
+    font-size: 20px;
+    top: 50%;
+    left: -5px;
+    color: #fff;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+  }
+  .overlay {
+    position: relative;
+  }
+  .overlay::before {
+    position: absolute;
+    content: '';
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: #1a1a37;
+    opacity: .8;
+  }
+  .font-secondary {
+    font-family: "futura-bold";
+  }
+  .text-lighten {
+    color: #d6d6e0 !important;
+  }
+  .text-primary {
+    color: #ffbc3b !important;
+  }
+  a.text-primary:hover {
+    color: #ffbc3b !important;
+  }
+  .border-primary {
+    border-color: #ededf1 !important;
+  }
+  .page-title-section {
+    padding: 200px 0 80px;
+  }
+  .icon-md {
+    font-size: 36px;
+  }
+  .img-fluid{
+    height: 600px;
+    width: 100%;
+    position: relative;
+  }
+  .star-rating li {
+    padding: 0;
+  }
+  .star-rating i {
+    font-size: 14px;
+    color: #ffc000;
+  }
+
+  .thumb-wrapper {
+    text-align: center;
+  }
+  .two-line{
+    line-height: 1.5em;
+    height: 3.1em;       /* height is 2x line-height, so two lines will display */
+    overflow: hidden;  /* prevents extra lines from being visible */
+}
+.course-item{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.img-fluid1{
+  height: 160px;
+  width: 100%;
+  position: relative;
+}
+.RatingContainer{
+  display: flex;
+  justify-content: center;
+}
+.flex-container{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.side {
+  float: left;
+  width: 15%;
+  margin-top:10px;
+}
+
+.middle {
+  margin-top:10px;
+  float: left;
+  width: 70%;
+}
+
+/* Place text to the right */
+.right {
+  text-align: right;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The bar container */
+.bar-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  color: white;
+}
+
+/* Individual bars */
+.bar-5 {width: 60%; height: 18px; background-color: #4CAF50;}
+.bar-4 {width: 30%; height: 18px; background-color: #2196F3;}
+.bar-3 {width: 10%; height: 18px; background-color: #00bcd4;}
+.bar-2 {width: 4%; height: 18px; background-color: #ff9800;}
+.bar-1 {width: 15%; height: 18px; background-color: #f44336;}
+
+/* Responsive layout - make the columns stack on top of each other instead of next to each other */
+@media (max-width: 400px) {
+  .side, .middle {
+    width: 100%;
+  }
+  .right {
+    display: none;
+  }
+}

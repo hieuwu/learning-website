@@ -1,0 +1,250 @@
+{{#section 'css'}}
+
+<link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
+
+
+<!-- Main Stylesheet -->
+<link href="/public/stylesheets/course-detail.css" rel="stylesheet">
+<!--Favicon-->
+{{/section}}
+
+{{#section 'js'}}
+{{/section}}
+
+{{#with course}}
+<!-- page title -->
+<section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="list-inline custom-breadcrumb">
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="#">{{this.HeaderNameCategory}} > </a>
+          </li>
+          <li class="list-inline-item"><a class="text-white h3 font-secondary" href="#">{{this.NameCategory}}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /page title -->
+
+<!-- section -->
+<section class="section-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mb-4">
+        <!-- course thumb -->
+        <img src="/public/images/course/{{this.IdCourse}}/thumb.jpg" class="img-fluid w-100" </div>
+      </div>
+      <!-- course info -->
+      <div class="row align-items-center mb-5">
+        <div class="row align-items-center mb-3">
+          <h1>{{this.nameCourse}}</h1>
+        </div>
+        <div class="col-xl-10 order-sm-3 order-xl-2 col-12 order-2 mb-3">
+          <ul class="list-inline text-xl-center">
+            <li class="list-inline-item mr-4 mb-3 mb-sm-0">
+              <div class="d-flex align-items-center">
+                <img src="/public//icon/update-time.png" class="ti-alarm-clock text-primary icon-md mr-2" />
+                <div class="text-left">
+                  <h6 class="mb-0">UPDATE TIME</h6>
+                  <p class="mb-0">{{this.updatedTime}}</p>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item mr-4 mb-3 mb-sm-0">
+              <div class="d-flex align-items-center">
+                <img src="/public/icon//fee.png" class="ti-wallet text-primary icon-md mr-2" />
+                <div class="text-left">
+                  <h6 class="mb-0">FEE</h6>
+                  <p class="mb-0">${{this.Price}}</p>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item mr-4 mb-3 mb-sm-0">
+              <div class="d-flex align-items-center">
+                <img src="/public/icon/promotion.png" class="ti-wallet text-primary icon-md mr-2" />
+                <div class="text-left">
+                  <h6 class="mb-0">PROMOTION</h6>
+                  <p class="mb-0">${{this.SaleCost}}</p>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item mr-4 mb-3 mb-sm-0">
+              <div class="d-flex align-items-center">
+                <img src="/public/icon/student.png" class="ti-wallet text-primary icon-md mr-2" />
+                <div class="text-left">
+                  <h6 class="mb-0">STUDENTS</h6>
+                  <p class="mb-0">{{this.subscribe}}</p>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item mr-4 mb-3 mb-sm-0">
+              <div class=" align-items-center">
+
+                <div class="text-left">
+                  <h6 class="mb-0">RATING</h6>
+                  <div class="d-flex ">
+                    <p class="mb-0">4.8</p>
+                    <div class="star-rating">
+                      <ul class="">
+                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                      </ul>
+                    </div>
+                    <p class="mb-0"> (100 Ratings)</p>
+                  </div>
+
+                </div>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+        <div class="col-xl-3 text-sm-right order-sm-2 order-3 order-xl-3 col-sm-6 mb-4 mb-xl-0">
+          <a href="#" class="btn btn-primary">Wishlisted</a>
+          <a href="#" class="btn btn-primary">Add to cart</a>
+        </div>
+      </div>
+
+      <!-- course details -->
+      <div class="row">
+        <div class="col-12 mb-4">
+          <h3>About Course</h3>
+          <p>{{course.title}}</p>
+        </div>
+        <div class="col-12 mb-4">
+          <h3>Description</h3>
+          <p>{{{course.Description}}}</p>
+        </div>
+        <!-- teacher -->
+        <div class="col-12 mb-4">
+          <h5 class="mb-3">Teacher</h5>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="media mb-2 mb-sm-0">
+              <img src="images/teacher.jpg" alt="Teacher">
+              <div class="media-body">
+                <h4 class="mt-0">{{this.FullName}}</h4>
+                <p>{{this.Email}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+{{/with}}
+<!-- /section -->
+<section class="section pt-0">
+  <div class="container">
+    <div class="row">
+      <div>
+        <h2 class="section-title">Related Course</h2>
+      </div>
+    </div>
+
+  </div>
+</section>
+<div class="row justify-content-center">
+  {{#each listCourse}}
+  <div class="col-sm-2">
+    <div class="thumb-wrapper">
+
+      <img src='/public/images/course/{{this.IdCourse}}/thumb.jpg' class="img-fluid1" alt="">
+
+      <div class="thumb-content course-item">
+        <div class="two-line">
+          <h5>{{this.nameCourse}}</h5>
+        </div>
+        <div class="two-line"> {{{this.title}}}</div>
+        <div>
+          <h6>{{this.NameCategory}}</h6>
+        </div>
+        <div>
+          <h6>{{this.FullName}}</h6>
+        </div>
+        <div class="item-price"><strike>${{this.Price}}</strike>
+          <span>${{this.SaleCost}}</span>
+        </div>
+        <div class="star-rating">
+          <ul class="list-inline">
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+          </ul>
+        </div>
+        <a href="/course/detail/{{this.IdCourse}}" class="btn btn-primary mb-5">View course</a>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>
+
+
+<hr style="border:3px solid #f1f1f1">
+
+  <div class="RatingContainer">
+<div class="row flex-container">
+
+  <div class="side">
+    <div>5 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-5"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div>150</div>
+  </div>
+  <div class="side">
+    <div>4 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-4"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div>63</div>
+  </div>
+  <div class="side">
+    <div>3 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-3"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div>15</div>
+  </div>
+  <div class="side">
+    <div>2 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-2"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div>6</div>
+  </div>
+  <div class="side">
+    <div>1 star</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-1"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div>20</div>
+  </div>
+  </div>
+</div>
