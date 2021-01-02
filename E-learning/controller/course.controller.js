@@ -14,9 +14,11 @@ module.exports = {
     var str = day+"/"+month+"/" + year;
     course.updatedTime = str;
     const listCourse = await courseModel.getCourseByIdCategory(course.IdCategory, id);
+    const listRating = await courseModel.getListRating(id);
     res.render("vwCourses/detail", {
       course: course,
       listCourse : listCourse,
+      listRating : listRating,
     });
   },
 };

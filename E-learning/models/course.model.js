@@ -1,6 +1,7 @@
 const db = require("../utils/db");
 
 const TBL_COURSE = "course";
+const TBL_ENROLLEDCOURSE = "enrolledcourse";
 module.exports = {
   async all() {
     return await db.load(`select * from ${TBL_COURSE}`);
@@ -60,6 +61,17 @@ module.exports = {
     const rows = await db.load(`select *
                     from ${TBL_COURSE} 
                     where IdCategory = ${IdCategory} AND IdCourse != ${IdCourse}`);
+    return rows;
+  },
+  async getListRating(id) {
+    const rows = await db.load(`select *
+                    from ${TBL_ENROLLEDCOURSE} 
+                    left join user_profile
+                    on ${TBL_ENROLLEDCOURSE}.IdUser = user_profile.IdUser
+                    where IdCourse = ${id}`);
+    if (rows.length === 0) {
+      return null;
+    }
     return rows;
   },
 };

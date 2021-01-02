@@ -2,13 +2,14 @@
 
 <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
 
-
-<!-- Main Stylesheet -->
 <link href="/public/stylesheets/course-detail.css" rel="stylesheet">
-<!--Favicon-->
+
 {{/section}}
 
 {{#section 'js'}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/public/javascript/jsRapStar.js"></script>
+<script>$('#ratingItem').jsRapStar({enabled:false, colorFront:"yellow"});</script>
 {{/section}}
 
 {{#with course}}
@@ -18,7 +19,8 @@
     <div class="row">
       <div class="col-md-8">
         <ul class="list-inline custom-breadcrumb">
-          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="#">{{this.HeaderNameCategory}} > </a>
+          <li class="list-inline-item"><a class="h2 text-primary font-secondary" href="#">{{this.HeaderNameCategory}} >
+            </a>
           </li>
           <li class="list-inline-item"><a class="text-white h3 font-secondary" href="#">{{this.NameCategory}}</a></li>
         </ul>
@@ -26,7 +28,6 @@
     </div>
   </div>
 </section>
-<!-- /page title -->
 
 <!-- section -->
 <section class="section-sm">
@@ -188,63 +189,86 @@
 
 <hr style="border:3px solid #f1f1f1">
 
-  <div class="RatingContainer">
-<div class="row flex-container">
+<div class="RatingContainer">
+  <div class="row flex-container">
 
-  <div class="side">
-    <div>5 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-5"></div>
+    <div class="side">
+      <div>5 star</div>
     </div>
-  </div>
-  <div class="side right">
-    <div>150</div>
-  </div>
-  <div class="side">
-    <div>4 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-4"></div>
+    <div class="middle">
+      <div class="bar-container">
+        <div class="bar-5"></div>
+      </div>
     </div>
-  </div>
-  <div class="side right">
-    <div>63</div>
-  </div>
-  <div class="side">
-    <div>3 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-3"></div>
+    <div class="side right">
+      <div>150</div>
     </div>
-  </div>
-  <div class="side right">
-    <div>15</div>
-  </div>
-  <div class="side">
-    <div>2 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-2"></div>
+    <div class="side">
+      <div>4 star</div>
     </div>
-  </div>
-  <div class="side right">
-    <div>6</div>
-  </div>
-  <div class="side">
-    <div>1 star</div>
-  </div>
-  <div class="middle">
-    <div class="bar-container">
-      <div class="bar-1"></div>
+    <div class="middle">
+      <div class="bar-container">
+        <div class="bar-4"></div>
+      </div>
     </div>
-  </div>
-  <div class="side right">
-    <div>20</div>
-  </div>
+    <div class="side right">
+      <div>63</div>
+    </div>
+    <div class="side">
+      <div>3 star</div>
+    </div>
+    <div class="middle">
+      <div class="bar-container">
+        <div class="bar-3"></div>
+      </div>
+    </div>
+    <div class="side right">
+      <div>15</div>
+    </div>
+    <div class="side">
+      <div>2 star</div>
+    </div>
+    <div class="middle">
+      <div class="bar-container">
+        <div class="bar-2"></div>
+      </div>
+    </div>
+    <div class="side right">
+      <div>6</div>
+    </div>
+    <div class="side">
+      <div>1 star</div>
+    </div>
+    <div class="middle">
+      <div class="bar-container">
+        <div class="bar-1"></div>
+      </div>
+    </div>
+    <div class="side right">
+      <div>20</div>
+    </div>
   </div>
 </div>
+
+<section class="section pt-0">
+  <div class="container">
+    <div class="row">
+      <div>
+        <h2 class="section-title">Ratings Course</h2>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- detail rating -->
+{{#each listRating}}
+<hr style="border:3px solid #f1f1f1">
+<div class="DetailRatingContainer">
+  <div class="d-flex align-items-center detail-flex-container">
+    <p class="ti-wallet text-primary icon-md mr-2">{{this.FullName}}</p>
+    <div class="text-left">
+      <div id="ratingItem" value={{this.rateStar}}></div>
+      <h6 class="mb-0">{{this.Comments}}</h6>
+    </div>
+  </div>
+</div>
+{{/each}}
