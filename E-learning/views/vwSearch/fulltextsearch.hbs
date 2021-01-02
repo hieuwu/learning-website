@@ -1,0 +1,106 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="../../public/stylesheets/courseByCategory.css">
+{{/section}}
+<div class="card">
+  <div class="card-body">
+    {{#if noCourse}}
+      <div>
+        <h2 >{{noCourse}} result for "{{searchValue}}"</h2>
+      <strong>
+        
+        {{#if this.hDisplay}}
+          Students also learn
+          {{#each this.listOfCategories}}
+            <a href="/course/domain/{{this.HeaderCategoryID}}/category/{{this.Id}}">{{this.NameCategory}}</a>
+          {{/each}}
+        {{/if}}     
+        {{#if this.cateDisplay}}
+          Students also learn
+          {{#each this.listOfCategories}}
+            <a href="/course/domain/{{this.HeaderCategoryID}}/category/{{this.Id}}">{{this.NameCategory}}</a>
+          {{/each}}
+        {{/if}}       
+      </strong>
+      </div>
+      <div>
+              <select class=" select-option" ng-model="ligth_r1" searchable="Order by" autofocus onChange="window.location.href=this.value">
+                <option value="" disabled selected>Order by</option>
+                <option value="/search/category?name={{searchValue}}&sortBy=Highest%20Rated">Highest Rated</option>
+                <option value="/search/category?name={{searchValue}}&sortBy=Lowest%20price">Lowest price</option>
+            </select>
+      </div>
+    </div>
+    {{else}}
+      <h2>
+        Sorry, we couldn't find any results for "{{searchValue}}"
+      </h2>
+    {{/if}}
+  </div>  
+</div>
+  {{#each listOfCourses}}
+<div class="row col-md-12 justify-content-center">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <div class="item-container">
+      <div class="item-image col-md-3">
+        <img class="img-thumbnail item-image" src='../../public/images/course/{{this.IdCourse}}/thumb.jpg'
+          alt="Can not display">
+      </div>
+      <div class="item-content col-md-6">
+        <div>
+          <h3>{{this.nameCourse}}</h3>
+        </div>
+        <div>
+          {{{this.title}}}
+        </div>
+        <div class="item-teacher">{{this.FullName}}</div>
+        <div class="item-length">{{this.NameCategory}} | 4 hours &bull; {{this.numOfChapters}} chapters</div>
+        <div class="star-rating">
+          <ul class="list-inline">
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star"></i></li>
+            <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+            <li class="list-inline-item rating-number">(123)</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="item-price col-md-1">
+          <div class="item-real-price">
+            <h4>${{this.SaleCost}}</h4>
+          </div>
+          <div><strike>${{this.Price}}</strike></div>
+        </div>
+      </div>
+      <div class="col-md-1"></div>
+
+    </div>
+    <div>
+      <hr />
+    </div>
+  </div>
+  {{/each}}
+  <div class="row justify-content-center">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item {{#unless can_go_prev}} disabled {{/unless}}">
+          <a class="page-link" href="?page={{prev_value}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        {{#each this.page_items}}
+        <li class="page-item"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+        {{/each}}
+        <li class="page-item {{#unless can_go_next}} disabled {{/unless}}">
+          <a class="page-link" href="?page={{next_value}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span> 
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
