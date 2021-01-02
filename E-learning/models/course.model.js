@@ -109,8 +109,4 @@ module.exports = {
         group by course.IdCourse
         order by course.nOViews DESC limit ${config.pagination.limit} offset ${offset}`);
     },
-
-    
-
-
 };

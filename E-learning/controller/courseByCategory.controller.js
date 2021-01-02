@@ -5,8 +5,8 @@ module.exports = {
     let page = +req.query.page || 1;
     if (page == 0) page = 1;
     let offset = (page - 1) * config.pagination.limit;
-    let listOfCourses = await courseModel.pageBycat(req.params.id ,offset);
-    const total = await courseModel.countByCat(req.params.id);
+    let listOfCourses = await courseModel.pageBycat(req.params.categoryId ,offset);
+    const total = await courseModel.countByCat(req.params.categoryId);
     let nPages = Math.ceil(total/config.pagination.limit);
     let page_items = [];
     for(i = 1; i <= nPages; i++) {
@@ -16,7 +16,7 @@ module.exports = {
       page_items.push(item);
     }
 
-    res.render("vwCourse/byCategory", {
+    res.render("vwCourse/byDomain", {
       listOfCourses: listOfCourses,
       page_items: page_items,
       can_go_next: page < nPages,
