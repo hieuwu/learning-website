@@ -11,13 +11,13 @@
         {{#if this.hDisplay}}
           Students also learn
           {{#each this.listOfCategories}}
-            <a href="/domain/{{../domain}}">{{this.NameCategory}}</a>
+            <a href="/course/domain/{{this.HeaderCategoryID}}/category/{{this.Id}}">{{this.NameCategory}}</a>
           {{/each}}
         {{/if}}     
         {{#if this.cateDisplay}}
           Students also learn
           {{#each this.listOfCategories}}
-            <a href="/domain/{{this.HeaderCategoryID}}/category/{{this.Id}}">{{this.NameCategory}}</a>
+            <a href="/course/domain/{{this.HeaderCategoryID}}/category/{{this.Id}}">{{this.NameCategory}}</a>
           {{/each}}
         {{/if}}       
       </strong>
