@@ -1,23 +1,28 @@
 {
-  "name": "e-learning",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node app"
-  },
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "express-handlebars": "^5.2.0",
-    "express-handlebars-sections": "^1.0.1",
-    "express-session": "^1.17.1",
-    "hbs": "^4.0.6",
-    "http-errors": "~1.6.3",
-    "morgan": "~1.9.1",
-    "mysql": "^2.18.1",
-    "numeral": "^2.0.6",
-    "util": "^0.12.3"
-  }
+    "name": "e-learning",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "start": "node app",
+        "dev": "nodemon app"
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.19.0",
+        "cookie-parser": "~1.4.4",
+        "debug": "~2.6.9",
+        "express": "~4.16.1",
+        "express-handlebars": "^5.2.0",
+        "express-handlebars-sections": "^1.0.1",
+        "express-session": "^1.17.1",
+        "hbs": "^4.0.6",
+        "http-errors": "~1.6.3",
+        "morgan": "~1.9.1",
+        "mysql": "^2.18.1",
+        "numeral": "^2.0.6",
+        "util": "^0.12.3"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.6"
+    }
 }
