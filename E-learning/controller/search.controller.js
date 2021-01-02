@@ -12,6 +12,7 @@ module.exports = {
         let sortBy = req.query.sortBy;
         let cateresult = courseresult = [];
         let hDisplay = cateDisplay = cDisplay = false;
+        let domain;
         let searchValue;
 
         if (sortBy == 'Highest Rated') {
@@ -28,6 +29,7 @@ module.exports = {
             //search by headerCategory Name
             searchValue = headercourse[0].Id;
             cateresult = await categoryModel.getbyHeaderID(searchValue);
+            domain = cateresult.Id;
             hDisplay = true;
         } else {
             //search by Category Name
@@ -64,7 +66,8 @@ module.exports = {
             searchValue: req.query.name,
             hDisplay: hDisplay,
             cateDisplay: cateDisplay,
-            cDisplay: cDisplay
+            cDisplay: cDisplay,
+            domain: domain
         });
     }
 

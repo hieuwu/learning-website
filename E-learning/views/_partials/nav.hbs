@@ -10,19 +10,19 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Categories</a>
-          <ul class="dropdown-menu">
-            {{#each lcCategories}}
-              <li class="nav-link dropdown">
-                  <a class="dropdown-item" href="/error">{{HeaderNameCategory}}</a>                  
-                  <ul class="dropdown-menu">
-                    {{#each details}}
-                      <li><a class="dropdown-item" href="/{{Id}}">{{NameCategory}}</a></li>                      
-                    {{/each}}
-                  </ul>
-              </li>
+        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Categories</a>
+        <ul class="dropdown-menu">
+          {{#each lcCategories}}
+          <li class="nav-link dropdown">
+            <a class="dropdown-item" href="/course/domain/{{this.Id}}">{{HeaderNameCategory}}</a>
+            <ul class="dropdown-menu">
+              {{#each details}}
+              <li><a class="dropdown-item" href="/course/domain/{{../Id}}/category/{{Id}}">{{NameCategory}}</a></li>
               {{/each}}
-          </ul>
+            </ul>
+          </li>
+          {{/each}}
+        </ul>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" method="POST" action="/search/category">
@@ -34,8 +34,8 @@
       </button>
     </form>
     <form id="frmLogout" method="POST" action="/account/logout"></form>
-     <ul class="navbar-nav ml-auto">
-       {{#if isAuth}}
+    <ul class="navbar-nav ml-auto">
+      {{#if isAuth}}
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
@@ -68,7 +68,7 @@
         </a>
       </li>
       {{/if}}
-      
+
     </ul>
   </div>
 </nav>

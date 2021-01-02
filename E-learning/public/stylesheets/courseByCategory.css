@@ -1,5 +1,6 @@
 .item-container {
     display: flex;
+    padding-left: 4%;
     flex-direction: row;
     justify-content: space-between;
 }

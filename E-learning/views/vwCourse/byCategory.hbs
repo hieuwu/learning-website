@@ -1,49 +1,26 @@
 {{#section 'css'}}
 <link rel="stylesheet" href="../../public/stylesheets/courseByCategory.css">
 {{/section}}
-<div class="card">
-  <div class="card-body">
-    {{#if noCourse}}
-      <div>
-        <h2 >{{noCourse}} result for "{{searchValue}}"</h2>
-      <strong>
-        
-        {{#if this.hDisplay}}
-          Students also learn
-          {{#each this.listOfCategories}}
-            <a href="/domain/{{../domain}}">{{this.NameCategory}}</a>
-          {{/each}}
-        {{/if}}     
-        {{#if this.cateDisplay}}
-          Students also learn
-          {{#each this.listOfCategories}}
-            <a href="/domain/{{this.HeaderCategoryID}}/category/{{this.Id}}">{{this.NameCategory}}</a>
-          {{/each}}
-        {{/if}}       
-      </strong>
-      </div>
-      <div>
-              <select class=" select-option" ng-model="ligth_r1" searchable="Order by" autofocus onChange="window.location.href=this.value">
-                <option value="" disabled selected>Order by</option>
-                <option value="/search/category?name={{searchValue}}&sortBy=Highest%20Rated">Highest Rated</option>
-                <option value="/search/category?name={{searchValue}}&sortBy=Lowest%20price">Lowest price</option>
-            </select>
-      </div>
+<div class="row col-md-12 justify-content-center">
+  <div class="col-md-1 carousel-title"></div>
+  <div class="col-md-10 carousel-title">
+    <h1>
+      Mobile development
+    </h1>
+    <div>
+      <hr />
     </div>
-    {{else}}
-      <h2>
-        Sorry, we couldn't find any results for "{{searchValue}}"
-      </h2>
-    {{/if}}
-  </div>  
+    <div class="col-md-1"></div>
+  </div>
 </div>
-  {{#each listOfCourses}}
+
+{{#each listOfCourses}}
 <div class="row col-md-12 justify-content-center">
   <div class="col-md-1"></div>
   <div class="col-md-10">
     <div class="item-container">
       <div class="item-image col-md-3">
-        <img class="img-thumbnail item-image" src='../../public/images/course/{{this.IdCourse}}/thumb.jpg'
+        <img class="img-thumbnail item-image" src='/public/images/course/{{this.IdCourse}}/thumb.jpg'
           alt="Can not display">
       </div>
       <div class="item-content col-md-6">
@@ -103,4 +80,3 @@
       </ul>
     </nav>
   </div>
-
