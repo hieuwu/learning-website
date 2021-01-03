@@ -166,4 +166,10 @@ module.exports = {
     }
     return rows;
   },
+
+  async getDomainName(domainId) {
+    return await db.load(`select *
+            from headercategory
+            where Id = ${domainId}`);
+  },
 };
