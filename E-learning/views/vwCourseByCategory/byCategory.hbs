@@ -1,11 +1,11 @@
 {{#section 'css'}}
-<link rel="stylesheet" href="../../public/stylesheets/courseByCategory.css">
+<link rel="stylesheet" href="/public/stylesheets/courseByCategory.css">
 {{/section}}
 <div class="row col-md-12 justify-content-center">
   <div class="col-md-1 carousel-title"></div>
   <div class="col-md-10 carousel-title">
     <h1>
-      Mobile development
+      {{title}}
     </h1>
     <div>
       <hr />
@@ -18,42 +18,44 @@
 <div class="row col-md-12 justify-content-center">
   <div class="col-md-1"></div>
   <div class="col-md-10">
-    <div class="item-container">
-      <div class="item-image col-md-3">
-        <img class="img-thumbnail item-image" src='/public/images/course/{{this.IdCourse}}/thumb.jpg'
-          alt="Can not display">
-      </div>
-      <div class="item-content col-md-6">
-        <div>
-          <h3>{{this.nameCourse}}</h3>
+    <a href="/course/detail/{{this.IdCourse}}">
+      <div class="item-container">
+        <div class="item-image col-md-3">
+          <img class="img-thumbnail item-image" src='/public/images/course/{{this.IdCourse}}/thumb.jpg'
+            alt="Can not display">
         </div>
-        <div>
-          {{{this.title}}}
-        </div>
-        <div class="item-teacher">{{this.FullName}}</div>
-        <div class="item-length">{{this.NameCategory}} | 4 hours &bull; {{this.numOfChapters}} chapters</div>
-        <div class="star-rating">
-          <ul class="list-inline">
-            <li class="list-inline-item"><i class="fa fa-star"></i></li>
-            <li class="list-inline-item"><i class="fa fa-star"></i></li>
-            <li class="list-inline-item"><i class="fa fa-star"></i></li>
-            <li class="list-inline-item"><i class="fa fa-star"></i></li>
-            <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-            <li class="list-inline-item rating-number">(123)</li>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <div class="item-price col-md-1">
-          <div class="item-real-price">
-            <h4>${{this.SaleCost}}</h4>
+        <div class="item-content col-md-6">
+          <div>
+            <h3>{{this.nameCourse}}</h3>
           </div>
-          <div><strike>${{this.Price}}</strike></div>
+          <div>
+            {{{this.title}}}
+          </div>
+          <div class="item-teacher">{{this.FullName}}</div>
+          <div class="item-length">{{this.NameCategory}} | 4 hours &bull; {{this.numOfChapters}} chapters</div>
+          <div class="star-rating">
+            <ul class="list-inline">
+              <li class="list-inline-item"><i class="fa fa-star"></i></li>
+              <li class="list-inline-item"><i class="fa fa-star"></i></li>
+              <li class="list-inline-item"><i class="fa fa-star"></i></li>
+              <li class="list-inline-item"><i class="fa fa-star"></i></li>
+              <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+              <li class="list-inline-item rating-number">(123)</li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div class="col-md-1"></div>
+        <div>
+          <div class="item-price col-md-1">
+            <div class="item-real-price">
+              <h4>${{this.SaleCost}}</h4>
+            </div>
+            <div><strike>${{this.Price}}</strike></div>
+          </div>
+        </div>
+        <div class="col-md-1"></div>
 
-    </div>
+      </div>
+    </a>
     <div>
       <hr />
     </div>
@@ -74,7 +76,7 @@
         <li class="page-item {{#unless can_go_next}} disabled {{/unless}}">
           <a class="page-link" href="?page={{next_value}}" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">Next</span> 
+            <span class="sr-only">Next</span>
           </a>
         </li>
       </ul>
