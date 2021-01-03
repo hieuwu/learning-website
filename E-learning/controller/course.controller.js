@@ -15,10 +15,20 @@ module.exports = {
     course.updatedTime = str;
     const listCourse = await courseModel.getCourseByIdCategory(course.IdCategory, id);
     const listRating = await courseModel.getListRating(id);
+    let isAvailableAddCart = false;
+    for (const IdCourse of req.session.cart) {
+      if(IdCourse == id){
+        isAvailableAddCart = true;
+        break;
+      }
+    }
+    //let isAvailableAddCart = true;
+    console.log("isAvailableAddCart:",isAvailableAddCart);
     res.render("vwCourses/detail", {
       course: course,
       listCourse : listCourse,
       listRating : listRating,
+      isAvailableAddCart: isAvailableAddCart,
     });
   },
 };

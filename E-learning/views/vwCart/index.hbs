@@ -1,0 +1,69 @@
+{{#section 'js'}}
+<script>
+  $('.removeItem').on('click', function () {
+    const id = $(this).data('id');
+    $('#txtProId').val(id);
+    $('#frmRemoveItem').submit();
+  });
+</script>
+{{/section}}
+
+<div class="card">
+  <h5 class="card-header">
+    Your Cart
+  </h5>
+  {{#if this.empty}}
+  <div class="card-body">
+    <p class="card-text">Không có dữ liệu.</p>
+  </div>
+  {{else}}
+  <form id="frmRemoveItem" action="/cart/remove" method="POST">
+    <input type="hidden" name="id" id="txtProId">
+  </form>
+  <div class="card-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Course</th>
+          <th scope="col">Price</th>
+          <th scope="col">SaleCost</th>
+          <th scope="col">Amount</th>
+          <th scope="col">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each this.items}}
+        <tr>
+          <td>
+            <a href="/course/detail/{{course.IdCourse}}">{{course.nameCourse}}</a>
+          </td>
+          <td>${{course.Price}}</td>
+          <td>${{course.SaleCost}}</td>
+          <td>${{course.SaleCost}}</td>
+          <td class="text-right">
+            <a data-id="{{course.IdCourse}}" class="btn btn-sm btn-outline-danger removeItem" href="javascript:;" role="button"
+              title="Remove Item">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+      <tfoot>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>Total: 9,999,999</td>
+      </tfoot>
+    </table>
+  </div>
+  {{/if}}
+  <div class="card-footer text-muted">
+    <form action="/cart/checkout" method="POST">
+      <button type="submit" class="btn btn-outline-success float-right">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Check Out
+      </button>
+    </form>
+  </div>
+</div>

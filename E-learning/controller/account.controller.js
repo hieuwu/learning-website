@@ -61,7 +61,8 @@ module.exports = {
   postLogout: async (req, res) => {
     req.session.isAuth = false;
     req.session.authUser = null;
-    res.redirect('/');
+    req.session.cart = [];
+    res.redirect(req.headers.referer);
   },
   getProfile: async (req, res) => {
     res.render("vwAccount/profile", 
