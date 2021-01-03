@@ -16,7 +16,7 @@ module.exports = {
       page_items.push(item);
     }
 
-    res.render("vwCourse/byDomain", {
+    res.render("vwCourseByCategory/byDomain", {
       listOfCourses: listOfCourses,
       page_items: page_items,
       can_go_next: page < nPages,
@@ -41,7 +41,7 @@ module.exports = {
       page_items.push(item);
     }
 
-    res.render("vwCourse/byCategory", {
+    res.render("vwCourseByCategory/byCategory", {
       listOfCourses: listOfCourses,
       page_items: page_items,
       can_go_next: page < nPages,
