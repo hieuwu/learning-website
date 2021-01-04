@@ -7,6 +7,7 @@
   $('#frmRegister').on('submit', function (e) {
     e.preventDefault();
 
+
     const username = $('#txtUsername').val();
     if (username.length === 0) {
       Swal.fire({
@@ -54,6 +55,12 @@
       })
       return;
     }
+
+    sessionStorage.setItem("username", $('#txtUsername').val());
+    sessionStorage.setItem("password", $('#txtPassword').val());
+    sessionStorage.setItem("email", $('#txtEmail').val());
+    sessionStorage.setItem("fullName", $('#txtFullName').val());
+
     const data =
       $.getJSON(`/account/is-available?user=${username}`, async function (data) {
         if (data === true) {

@@ -43,8 +43,7 @@ module.exports = {
           console.log('Email sent: ' + info.response);
         }
       });
-    await userModel.add(user);    
-    res.redirect("/");
+    res.redirect("/account/verify");
   },
   isAvailableAccount: async (req, res) => {
     const username = req.query.user;
@@ -140,5 +139,21 @@ module.exports = {
     req.session.authUser = await userModel.singleByUserName(req.body.Username);
     res.render("vwAccount/edit-password", 
     { user: req.session.authUser });
+  },
+
+  getVerifyPage: async (req,res) => {
+    res.render('vwAccount/otp-confirm');
+  },
+  postVerifyAccount: async (req,res) => {
+    const hash = bcrypt.hashSync(req.body.password, 10);
+    const user = {
+      FullName: req.body.fullName,
+      Email: req.body.email,
+      isTeacher: 0,
+      Permission: "student",
+      UserName: req.body.username,
+      password: hash,
+    };
+    await userModel.add(user);
   },
 };
