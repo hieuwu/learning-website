@@ -24,23 +24,26 @@ module.exports = {
       UserName: req.body.username,
       password: hash,
     };
-
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    var mailOptions = {
-      from: process.env.MAIL_SERVER,
-      to: req.body.email,
-      subject: 'Email verification',
-      html: `<h1>Welcome</h1><h1>your verification code is ${otp} :</h1>`
-    }
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+      const verificationObject = {
+        email:  req.body.email,
+        otp: otp
       }
-    });
-
-    await userModel.add(user);
+      await userModel.createVerifyCode(verificationObject);
+      var mailOptions = {
+        from: process.env.MAIL_SERVER,
+        to: req.body.email,
+        subject: 'Email verification',
+        html: `<h1>Welcome</h1><h1>your verification code is ${otp}</h1>`
+      }
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+    await userModel.add(user);    
     res.redirect("/");
   },
   isAvailableAccount: async (req, res) => {
