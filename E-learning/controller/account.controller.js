@@ -1,5 +1,14 @@
 const bcrypt = require("bcryptjs");
 const userModel = require("../models/user.model");
+const nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.MAIL_SERVER,
+    pass:  process.env.MAIL_SERVER_PASSWORD
+  }
+});
 
 module.exports = {
   getRegister: async (req, res) => {
@@ -15,6 +24,22 @@ module.exports = {
       UserName: req.body.username,
       password: hash,
     };
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    var mailOptions = {
+      from: process.env.MAIL_SERVER,
+      to: req.body.email,
+      subject: 'Email verification',
+      html: `<h1>Welcome</h1><h1>your verification code is ${otp} :</h1>`
+    }
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+
     await userModel.add(user);
     res.redirect("/");
   },
