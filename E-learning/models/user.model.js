@@ -41,4 +41,9 @@ module.exports = {
   async createVerifyCode(entity) {
     return db.add(entity, TBL_VERIFICATION);
   },
+
+  async isAvailableCode(code) {
+    let rows = await db.load(`select* from verification where otp='${code}'`);
+    return rows[0];
+  }
 };

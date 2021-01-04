@@ -1,13 +1,13 @@
 const bcrypt = require("bcryptjs");
 const userModel = require("../models/user.model");
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 var transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: "gmail",
   auth: {
     user: process.env.MAIL_SERVER,
-    pass:  process.env.MAIL_SERVER_PASSWORD
-  }
+    pass: process.env.MAIL_SERVER_PASSWORD,
+  },
 });
 
 module.exports = {
@@ -24,25 +24,25 @@ module.exports = {
       UserName: req.body.username,
       password: hash,
     };
-      const otp = Math.floor(100000 + Math.random() * 900000).toString();
-      const verificationObject = {
-        email:  req.body.email,
-        otp: otp
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const verificationObject = {
+      email: req.body.email,
+      otp: otp,
+    };
+    await userModel.createVerifyCode(verificationObject);
+    var mailOptions = {
+      from: process.env.MAIL_SERVER,
+      to: req.body.email,
+      subject: "Email verification",
+      html: `<h1>Welcome</h1><h1>your verification code is ${otp}</h1>`,
+    };
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
       }
-      await userModel.createVerifyCode(verificationObject);
-      var mailOptions = {
-        from: process.env.MAIL_SERVER,
-        to: req.body.email,
-        subject: 'Email verification',
-        html: `<h1>Welcome</h1><h1>your verification code is ${otp}</h1>`
-      }
-      transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-      });
+    });
     res.redirect("/account/verify");
   },
   isAvailableAccount: async (req, res) => {
@@ -88,30 +88,31 @@ module.exports = {
   postLogout: async (req, res) => {
     req.session.isAuth = false;
     req.session.authUser = null;
-    res.redirect('/');
+    res.redirect("/");
   },
   getProfile: async (req, res) => {
-    res.render("vwAccount/profile", 
-    { user: req.session.authUser });
+    res.render("vwAccount/profile", { user: req.session.authUser });
   },
   postEditProfile: async (req, res) => {
-    if(req.body.FullName === ""){
+    if (req.body.FullName === "") {
       return res.render("vwAccount/profile", {
         err_message: "Invalid full name data.",
-        user: req.session.authUser
+        user: req.session.authUser,
       });
     }
     const ret = await userModel.editName(req.body.Username, req.body.FullName);
     req.session.authUser = await userModel.singleByUserName(req.body.Username);
-    res.render("vwAccount/profile", 
-    { user: req.session.authUser });
+    res.render("vwAccount/profile", { user: req.session.authUser });
   },
   getEditPassword: async (req, res) => {
-    res.render("vwAccount/edit-password", 
-    { user: req.session.authUser });
+    res.render("vwAccount/edit-password", { user: req.session.authUser });
   },
   postEditPassword: async (req, res) => {
-    if(req.body.CurrentPassword === "" || req.body.NewPassword === "" || req.body.RetypeNewPassword === ""){
+    if (
+      req.body.CurrentPassword === "" ||
+      req.body.NewPassword === "" ||
+      req.body.RetypeNewPassword === ""
+    ) {
       return res.render("vwAccount/edit-password", {
         err_message: "Invalid password data.",
       });
@@ -119,7 +120,10 @@ module.exports = {
     const hashCurrentPw = bcrypt.hashSync(req.body.CurrentPassword, 10);
     const hashNewPw = bcrypt.hashSync(req.body.NewPassword, 10);
 
-    const compare = bcrypt.compareSync(req.body.CurrentPassword, req.session.authUser.password);
+    const compare = bcrypt.compareSync(
+      req.body.CurrentPassword,
+      req.session.authUser.password
+    );
     if (compare === false) {
       return res.render("vwAccount/edit-password", {
         err_message: "Your password was incorrect.",
@@ -130,30 +134,44 @@ module.exports = {
     //     err_message: "Your password was incorrect.",
     //   });
     // }
-    if(req.body.NewPassword!= req.body.RetypeNewPassword){
+    if (req.body.NewPassword != req.body.RetypeNewPassword) {
       return res.render("vwAccount/edit-password", {
-        err_message: 'Your new password does not match confirmation.',
+        err_message: "Your new password does not match confirmation.",
       });
     }
-    const ret = await userModel.changePassword(req.session.authUser.UserName, hashNewPw);
+    const ret = await userModel.changePassword(
+      req.session.authUser.UserName,
+      hashNewPw
+    );
     req.session.authUser = await userModel.singleByUserName(req.body.Username);
-    res.render("vwAccount/edit-password", 
-    { user: req.session.authUser });
+    res.render("vwAccount/edit-password", { user: req.session.authUser });
   },
 
-  getVerifyPage: async (req,res) => {
-    res.render('vwAccount/otp-confirm');
+  getVerifyPage: async (req, res) => {
+    res.render("vwAccount/otp-confirm");
   },
-  postVerifyAccount: async (req,res) => {
+  postVerifyAccount: async (req, res) => {
     const hash = bcrypt.hashSync(req.body.password, 10);
+    const code = req.body.code;
+    if (code == null) {
+      res.sendStatus(404);
+    }
     const user = {
-      FullName: req.body.fullName,
+      FullName: req.body.fullname,
       Email: req.body.email,
       isTeacher: 0,
       Permission: "student",
       UserName: req.body.username,
       password: hash,
     };
-    await userModel.add(user);
+    let isAvailableCode = await userModel.isAvailableCode(code);
+    if (isAvailableCode !== null) {
+      console.log("Run here");
+      await userModel.add(user);
+      res.status(200).send();
+      return;
+    }
+    console.log("Data:", user);
+    res.status(400).send();
   },
 };

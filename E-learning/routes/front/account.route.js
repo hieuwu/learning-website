@@ -5,7 +5,7 @@ const auth = require('../../middlewares/auth.mdw');
 router.get('/register', controller.getRegister);
 router.post('/register', controller.postRegister);
 router.get('/verify', controller.getVerifyPage);
-router.get('/verify', controller.postVerifyAccount);
+router.post('/verify', controller.postVerifyAccount);
 
 router.get('/is-available', controller.isAvailableAccount);
 router.get('/login', controller.getLogin);

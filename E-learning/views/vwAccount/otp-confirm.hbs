@@ -1,4 +1,55 @@
-<form action="" method="post" id="frmRegister">
+{{#section 'css'}}
+{{/section}}
+
+{{#section 'js'}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+  $('#frmVerify').on('submit', function (e) {
+    e.preventDefault();
+    let username = sessionStorage.getItem("username");
+    let password = sessionStorage.getItem("password");
+    let email = sessionStorage.getItem("email");
+    let fullname = sessionStorage.getItem("fullName");
+    let otp = $('#txtCode').val();
+    if (otp.toString().length === 6) {
+
+
+      $.ajax({
+        url: "/account/verify",
+        type: "POST",
+        data: JSON.stringify(
+          {
+            fullname: fullname,
+            email: email,
+            username: username,
+            password: password,
+            code: otp,
+          }
+        ),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+
+        complete: function (xmlHttp) {
+          // xmlHttp is a XMLHttpRquest object
+          if (xmlHttp.status == 200) {
+            alert("Your account is verified");
+            window.location.href = "/";
+          } else {
+            alert("Some thing went wrong");
+            window.location.href = "/error";
+          }
+        }
+      });
+    } else {
+      alert("Please input the valid code");
+    }
+  });
+
+</script>
+{{/section}}
+
+
+<form action="" method="post" id="frmVerify">
   <div class="card col-md-12">
     <div class="col-md-3"></div>
     <div class="card-body">
