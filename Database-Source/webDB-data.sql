@@ -57,14 +57,14 @@ create table `Teach_profile`(
     CONSTRAINT FK_UserisTeacher FOREIGN KEY (IdUser)
     REFERENCES User_profile(IdUser)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-DROP TABLE IF EXISTS `WatchList`;
-create table `WatchList`(
+DROP TABLE IF EXISTS `WishList`;
+create table `WishList`(
 	Id int unsigned auto_increment primary key,
     IdUser int unsigned not null,
     IdCourse int unsigned not null,
-    CONSTRAINT FK_WatchListUser FOREIGN KEY (IdUser)
+    CONSTRAINT FK_WishListUser FOREIGN KEY (IdUser)
     REFERENCES User_profile(IdUser),
-    CONSTRAINT FK_WatchListCourse FOREIGN KEY (IdCourse)
+    CONSTRAINT FK_WishListCourse FOREIGN KEY (IdCourse)
     REFERENCES course(IdCourse)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 DROP TABLE IF EXISTS `EnrolledCourse`;
@@ -152,6 +152,7 @@ insert into User_profile(FullName,Email,isTeacher,Permission,UserName,password) 
 insert into User_profile(FullName,Email,isTeacher,Permission,UserName,password) values('david taylor','davidtaylor@gmail.com',0,'student','davidtaylor','$2a$10$znrfkDOSz/H0gyXNOWi9ReQZrPHrnkCFWf5peF0LRmzi46HR.BTx.');
 insert into User_profile(FullName,Email,isTeacher,Permission,UserName,password) values('Ji yeon','jiyeon@gmail.com',1,'teacher','jiyeon','$2a$10$znrfkDOSz/H0gyXNOWi9ReQZrPHrnkCFWf5peF0LRmzi46HR.BTx.');
 insert into User_profile(FullName,Email,isTeacher,Permission,UserName,password) values('juky san','jukysan@gmail.com',0,'student','jukysan','$2a$10$znrfkDOSz/H0gyXNOWi9ReQZrPHrnkCFWf5peF0LRmzi46HR.BTx.');
+insert into User_profile(FullName,Email,isTeacher,Permission,UserName,password) values('Vo Minh Hien','hien@gmail.com',0,'student','minhhien','$2a$10$znrfkDOSz/H0gyXNOWi9ReQZrPHrnkCFWf5peF0LRmzi46HR.BTx.');
 
 
 insert into teach_profile(IdUser,Biography,status) values(2,'Teaching Web development','Accept');
@@ -335,83 +336,96 @@ insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(17,1,'2020-12-28 09:14:31',5,'Great Course <3');
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(17,40,'2020-12-28 09:14:31',3,'this voice in video is so sweet');
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(17,46,'2020-12-28 09:14:31',1,'Bad Course <3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,46,'2020-12-28 09:14:31',1,'Bad Course <3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,1,'2020-12-28 09:14:31',5,'Great Course <3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,1,'2020-12-28 09:14:31',null,null);
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,5,'2020-12-28 09:14:31',null,null);
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,3,'2020-12-28 09:14:31',null,null);
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,4,'2020-12-28 09:14:31',null,null);
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,2,'2020-12-28 09:14:31',5,'alala');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,6,'2020-12-28 09:14:31',4,'hi every guys :D');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,7,'2020-12-28 09:14:31',2,'Bad Course :3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,8,'2020-12-28 09:14:31',3,'<3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,9,'2020-12-28 09:14:31',1,'video is very laggy<3');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,10,'2020-12-28 09:14:31',1,'I didnt like this course');
 
-insert into watchlist(IdUser,IdCourse) values(7,1);
-insert into watchlist(IdUser,IdCourse) values(8,1);
-insert into watchlist(IdUser,IdCourse) values(9,1);
-insert into watchlist(IdUser,IdCourse) values(10,1);
-insert into watchlist(IdUser,IdCourse) values(11,1);
-insert into watchlist(IdUser,IdCourse) values(8,2);
-insert into watchlist(IdUser,IdCourse) values(9,2);
-insert into watchlist(IdUser,IdCourse) values(10,2);
-insert into watchlist(IdUser,IdCourse) values(9,3);
-insert into watchlist(IdUser,IdCourse) values(10,3);
-insert into watchlist(IdUser,IdCourse) values(11,3);
-insert into watchlist(IdUser,IdCourse) values(10,4);
-insert into watchlist(IdUser,IdCourse) values(11,4);
-insert into watchlist(IdUser,IdCourse) values(12,4);
-insert into watchlist(IdUser,IdCourse) values(11,5);
-insert into watchlist(IdUser,IdCourse) values(12,5);
-insert into watchlist(IdUser,IdCourse) values(13,5);
-insert into watchlist(IdUser,IdCourse) values(12,6);
-insert into watchlist(IdUser,IdCourse) values(13,6);
-insert into watchlist(IdUser,IdCourse) values(13,7);
-insert into watchlist(IdUser,IdCourse) values(14,7);
-insert into watchlist(IdUser,IdCourse) values(14,8);
-insert into watchlist(IdUser,IdCourse) values(15,9);
-insert into watchlist(IdUser,IdCourse) values(16,10);
-insert into watchlist(IdUser,IdCourse) values(17,11);
-insert into watchlist(IdUser,IdCourse) values(7,12);
-insert into watchlist(IdUser,IdCourse) values(8,13);
-insert into watchlist(IdUser,IdCourse) values(9,14);
-insert into watchlist(IdUser,IdCourse) values(10,15);
-insert into watchlist(IdUser,IdCourse) values(11,16);
-insert into watchlist(IdUser,IdCourse) values(12,17);
-insert into watchlist(IdUser,IdCourse) values(13,18);
-insert into watchlist(IdUser,IdCourse) values(14,19);
-insert into watchlist(IdUser,IdCourse) values(15,20);
-insert into watchlist(IdUser,IdCourse) values(16,21);
-insert into watchlist(IdUser,IdCourse) values(17,22);
-insert into watchlist(IdUser,IdCourse) values(7,23);
-insert into watchlist(IdUser,IdCourse) values(8,24);
-insert into watchlist(IdUser,IdCourse) values(9,25);
-insert into watchlist(IdUser,IdCourse) values(10,26);
-insert into watchlist(IdUser,IdCourse) values(11,27);
-insert into watchlist(IdUser,IdCourse) values(12,28);
-insert into watchlist(IdUser,IdCourse) values(13,29);
-insert into watchlist(IdUser,IdCourse) values(14,30);
-insert into watchlist(IdUser,IdCourse) values(15,31);
-insert into watchlist(IdUser,IdCourse) values(16,32);
-insert into watchlist(IdUser,IdCourse) values(17,33);
-insert into watchlist(IdUser,IdCourse) values(7,23);
-insert into watchlist(IdUser,IdCourse) values(8,24);
-insert into watchlist(IdUser,IdCourse) values(9,25);
-insert into watchlist(IdUser,IdCourse) values(10,26);
-insert into watchlist(IdUser,IdCourse) values(11,27);
-insert into watchlist(IdUser,IdCourse) values(12,28);
-insert into watchlist(IdUser,IdCourse) values(13,29);
-insert into watchlist(IdUser,IdCourse) values(14,30);
-insert into watchlist(IdUser,IdCourse) values(15,31);
-insert into watchlist(IdUser,IdCourse) values(16,32);
-insert into watchlist(IdUser,IdCourse) values(17,33);
-insert into watchlist(IdUser,IdCourse) values(7,34);
-insert into watchlist(IdUser,IdCourse) values(8,35);
-insert into watchlist(IdUser,IdCourse) values(9,36);
-insert into watchlist(IdUser,IdCourse) values(10,36);
-insert into watchlist(IdUser,IdCourse) values(11,37);
-insert into watchlist(IdUser,IdCourse) values(12,38);
-insert into watchlist(IdUser,IdCourse) values(13,39);
-insert into watchlist(IdUser,IdCourse) values(14,40);
-insert into watchlist(IdUser,IdCourse) values(15,41);
-insert into watchlist(IdUser,IdCourse) values(16,42);
-insert into watchlist(IdUser,IdCourse) values(17,43);
-insert into watchlist(IdUser,IdCourse) values(8,44);
-insert into watchlist(IdUser,IdCourse) values(9,45);
-insert into watchlist(IdUser,IdCourse) values(10,46);
-insert into watchlist(IdUser,IdCourse) values(11,47);
-insert into watchlist(IdUser,IdCourse) values(12,48);
-insert into watchlist(IdUser,IdCourse) values(13,49);
-insert into watchlist(IdUser,IdCourse) values(14,50);
-insert into watchlist(IdUser,IdCourse) values(15,47);
-insert into watchlist(IdUser,IdCourse) values(16,45);
-insert into watchlist(IdUser,IdCourse) values(17,33);
+
+insert into WishList(IdUser,IdCourse) values(7,1);
+insert into WishList(IdUser,IdCourse) values(8,1);
+insert into WishList(IdUser,IdCourse) values(9,1);
+insert into WishList(IdUser,IdCourse) values(10,1);
+insert into WishList(IdUser,IdCourse) values(11,1);
+insert into WishList(IdUser,IdCourse) values(8,2);
+insert into WishList(IdUser,IdCourse) values(9,2);
+insert into WishList(IdUser,IdCourse) values(10,2);
+insert into WishList(IdUser,IdCourse) values(9,3);
+insert into WishList(IdUser,IdCourse) values(10,3);
+insert into WishList(IdUser,IdCourse) values(11,3);
+insert into WishList(IdUser,IdCourse) values(10,4);
+insert into WishList(IdUser,IdCourse) values(11,4);
+insert into WishList(IdUser,IdCourse) values(12,4);
+insert into WishList(IdUser,IdCourse) values(11,5);
+insert into WishList(IdUser,IdCourse) values(12,5);
+insert into WishList(IdUser,IdCourse) values(13,5);
+insert into WishList(IdUser,IdCourse) values(12,6);
+insert into WishList(IdUser,IdCourse) values(13,6);
+insert into WishList(IdUser,IdCourse) values(13,7);
+insert into WishList(IdUser,IdCourse) values(14,7);
+insert into WishList(IdUser,IdCourse) values(14,8);
+insert into WishList(IdUser,IdCourse) values(15,9);
+insert into WishList(IdUser,IdCourse) values(16,10);
+insert into WishList(IdUser,IdCourse) values(17,11);
+insert into WishList(IdUser,IdCourse) values(7,12);
+insert into WishList(IdUser,IdCourse) values(8,13);
+insert into WishList(IdUser,IdCourse) values(9,14);
+insert into WishList(IdUser,IdCourse) values(10,15);
+insert into WishList(IdUser,IdCourse) values(11,16);
+insert into WishList(IdUser,IdCourse) values(12,17);
+insert into WishList(IdUser,IdCourse) values(13,18);
+insert into WishList(IdUser,IdCourse) values(14,19);
+insert into WishList(IdUser,IdCourse) values(15,20);
+insert into WishList(IdUser,IdCourse) values(16,21);
+insert into WishList(IdUser,IdCourse) values(17,22);
+insert into WishList(IdUser,IdCourse) values(7,23);
+insert into WishList(IdUser,IdCourse) values(8,24);
+insert into WishList(IdUser,IdCourse) values(9,25);
+insert into WishList(IdUser,IdCourse) values(10,26);
+insert into WishList(IdUser,IdCourse) values(11,27);
+insert into WishList(IdUser,IdCourse) values(12,28);
+insert into WishList(IdUser,IdCourse) values(13,29);
+insert into WishList(IdUser,IdCourse) values(14,30);
+insert into WishList(IdUser,IdCourse) values(15,31);
+insert into WishList(IdUser,IdCourse) values(16,32);
+insert into WishList(IdUser,IdCourse) values(17,33);
+insert into WishList(IdUser,IdCourse) values(7,23);
+insert into WishList(IdUser,IdCourse) values(8,24);
+insert into WishList(IdUser,IdCourse) values(9,25);
+insert into WishList(IdUser,IdCourse) values(10,26);
+insert into WishList(IdUser,IdCourse) values(11,27);
+insert into WishList(IdUser,IdCourse) values(12,28);
+insert into WishList(IdUser,IdCourse) values(13,29);
+insert into WishList(IdUser,IdCourse) values(14,30);
+insert into WishList(IdUser,IdCourse) values(15,31);
+insert into WishList(IdUser,IdCourse) values(16,32);
+insert into WishList(IdUser,IdCourse) values(17,33);
+insert into WishList(IdUser,IdCourse) values(7,34);
+insert into WishList(IdUser,IdCourse) values(8,35);
+insert into WishList(IdUser,IdCourse) values(9,36);
+insert into WishList(IdUser,IdCourse) values(10,36);
+insert into WishList(IdUser,IdCourse) values(11,37);
+insert into WishList(IdUser,IdCourse) values(12,38);
+insert into WishList(IdUser,IdCourse) values(13,39);
+insert into WishList(IdUser,IdCourse) values(14,40);
+insert into WishList(IdUser,IdCourse) values(15,41);
+insert into WishList(IdUser,IdCourse) values(16,42);
+insert into WishList(IdUser,IdCourse) values(17,43);
+insert into WishList(IdUser,IdCourse) values(8,44);
+insert into WishList(IdUser,IdCourse) values(9,45);
+insert into WishList(IdUser,IdCourse) values(10,46);
+insert into WishList(IdUser,IdCourse) values(11,47);
+insert into WishList(IdUser,IdCourse) values(12,48);
+insert into WishList(IdUser,IdCourse) values(13,49);
+insert into WishList(IdUser,IdCourse) values(14,50);
+insert into WishList(IdUser,IdCourse) values(15,47);
+insert into WishList(IdUser,IdCourse) values(16,45);
+insert into WishList(IdUser,IdCourse) values(17,33);

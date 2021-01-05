@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar">
+  <a class="navbar-brand" href="/">
+    <i class="fa fa-home fa-lg"></i>
+  </a>
+  <a class="navbar-brand" href="/">E-teaching</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      {{!-- IF isTeacher --}}
+      {{!-- esle isAdmin --}}
+    </ul>
+    
+    <form id="frmLogout" method="POST" action="/account/logout"></form>
+    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav  mr-sm-2">
+      <a class="btn btn-success mr-sm-2" href="/account/register">
+          become a teacher
+        </a>
+    {{!-- <a href="#" role="button"><span>become a teacher</span></a> --}}
+    {{!-- <a href="/">Student</a> --}}
+    {{!-- IF isTeacher --}}
+    {{!-- esle isAdmin --}}
+    </ul>
+      {{#if isAuth}}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-user" aria-hidden="true"></i>
+          Welcome, <b>{{authUser.FullName}}</b>!
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/account/profile">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            Profile
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            Sign Out
+          </a>
+        </div>
+      </li>
+      {{else}}
+      <li class="nav-item">
+        <a class="btn btn-success mr-sm-2" href="/account/login">
+          <i class="fa fa-sign-in" aria-hidden="true"></i>
+          Log in
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-outline-success" href="/account/register">
+          <i class="fa fa-user-plus" aria-hidden="true"></i>
+          Sign up
+        </a>
+      </li>
+      {{/if}}
+
+    </ul>
+  </div>
+</nav>
