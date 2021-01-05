@@ -1,22 +1,10 @@
-// module.exports = function(app, act) {
-//     console.log(act == 0);
-//     if (act == 0) {
-//         console.log("app")
-//         app.use("/", require("../routes/front/homepage.route"));
-//         app.use("/account", require("../routes/front/account.route"));
-//         app.use("/search", require("../routes/front/searchpage.route"));
-//         app.use("/course", require("../routes/front/course.route"))
-//     } else {
-//         console.log('app1')
-//         app.use("/", require("../routes/front/managehomepage.route"));
-//     }
-// };
-module.exports = function(app) {
-    app.use("/", require("../routes/front/homepage.route"));
-    app.use("/account", require("../routes/front/account.route"));
-    app.use("/search", require("../routes/front/searchpage.route"));
-    app.use("/course", require("../routes/front/course.route"));
-    app.use("/cart", require("../routes/front/cart.route"));
-    app.use("/wishlist", require("../routes/front/wishlist.route"));
+const restrict = require('../middlewares/auth.mdw');
+module.exports = function (app) {
+    app.use("/", restrict.isUser, require("../routes/user/homepage.route"));
+    app.use("/account", restrict.isUser , require("../routes/user/account.route"));
+    app.use("/search", restrict.isUser , require("../routes/user/searchpage.route"));
+    app.use("/course", restrict.isUser , require("../routes/user/course.route"));
+    app.use("/cart", restrict.isUser , require("../routes/user/cart.route"));
+    app.use("/wishlist", restrict.isUser , require("../routes/user/wishlist.route"));
+    app.use("/teacher", restrict.isTeacher, require("../routes/teacher/managehomepage.route"));
 };
-
