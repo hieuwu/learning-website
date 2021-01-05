@@ -349,7 +349,6 @@ insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,9,'2020-12-28 09:14:31',1,'video is very laggy<3');
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,10,'2020-12-28 09:14:31',1,'I didnt like this course');
 
-
 insert into WishList(IdUser,IdCourse) values(7,1);
 insert into WishList(IdUser,IdCourse) values(8,1);
 insert into WishList(IdUser,IdCourse) values(9,1);
