@@ -15,3 +15,6 @@ npm start
 cd e-learning
 npm start
 ```
+
+# App Architecture
+![](https://calvinsettachatgul.github.io/imgs/mvc-rails.png)
