@@ -4,25 +4,21 @@
     border-radius: 50%;
     align-self: center;
   }
-
   p {
     align-self: center;
     font-size: larger;
   }
-
-  .col-8 {
+  .col-8{
     display: :flex;
   }
-
-  button {
+  button{
     align-items: center;
     align-self: center;
   }
 </style>
 {{/section}}
 
-{{#section 'js'}}
-{{/section}}
+<form method="POST" action="">
 <div class="container">
   <div class="row">
     <div class="col-4">
@@ -32,16 +28,16 @@
             <ul class="list-group list-group-flush">
               <img src="../../public/avatar/avatar.png" alt="Avatar" style="width:200px">
               <p>{{user.FullName}}</p>
-              <a class="list-group-item list-group-item-action" href="/account/list-course">My Learning</a>
+              <a class="list-group-item list-group-item-action active" href="/account/list-course">My Learning</a>
               <a class="list-group-item list-group-item-action" href="/account/wishlist">My Wishlist</a>
               <a class="list-group-item list-group-item-action" href="/account/profile">Profile</a>
-              <a class="list-group-item list-group-item-action active" href="/account/edit-password">Account</a>
+              <a class="list-group-item list-group-item-action" href="/account/edit-password">Account</a>
             </ul>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-8">
+    <div class="col-8" >
       {{#if err_message}}
       <div id="error-message" class="alert alert-warning alert-dismissible fade show" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -50,23 +46,29 @@
         {{err_message}}
       </div>
       {{/if}}
-      <form method="POST" action="" id="frmChangePassword">
       <div class="container-fluid mt-4">
         <div class="form-floating mb-3">
-          <input type="password" class="form-control" id="txtCurrentPw" placeholder="Enter Current Password" name="CurrentPassword">
-          <label for="floatingInput">Enter Current Password</label>
+          <input type="text" class="form-control" id="floatingInput" placeholder="FullName" value="{{user.FullName}}" name="FullName">
+          <label for="floatingInput">FullName</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="password" class="form-control" id="txtNewPw" placeholder="Enter New Password" name="NewPassword">
-          <label for="floatingInput">Enter New Password</label>
+          <input type="email" class="form-control" id="floatingInput" placeholder="Username" value="{{user.UserName}}" name="Username" readonly>
+          <label for="floatingInput">Username</label>
         </div>
         <div class="form-floating mb-3">
-          <input type="password" class="form-control" id="txtRetypeNewPw" placeholder="Re-type New Password" name="RetypeNewPassword">
-          <label for="floatingInput">Re-type New Password</label>
+          <input type="email" class="form-control" id="floatingInput" placeholder="Email" value="{{user.Email}}" readonly>
+          <label for="floatingInput">Email</label>
         </div>
-        <button type="submit" class="btn btn-danger" formaction="/account/edit-password/edit" > Change Password</button>
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="floatingInput" placeholder="Permission" value="{{user.Permission}}" readonly>
+          <label for="floatingInput">Permission</label>
+        </div>
+        <button type="submit" class="btn btn-outline-success" formaction="/account/profile/edit">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Save
+      </button>
       </div>
-      </form>
     </div>
   </div>
 </div>
+</form>

@@ -1,7 +1,8 @@
 const bcrypt = require("bcryptjs");
 const userModel = require("../models/user.model");
 const nodemailer = require("nodemailer");
-
+const wishlistModel = require("../models/wishlist.model");
+const courseModel = require("../models/course.model");
 var transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -9,6 +10,7 @@ var transporter = nodemailer.createTransport({
     pass: process.env.MAIL_SERVER_PASSWORD,
   },
 });
+
 
 module.exports = {
   getRegister: async (req, res) => {
@@ -76,19 +78,27 @@ module.exports = {
 
     req.session.isAuth = true;
     req.session.authUser = user;
-    let url = req.session.retUrl || "/";
-    if (
-      String(req.session.retUrl).indexOf("/account/register") != -1 ||
-      String(req.session.retUrl).indexOf("/account/login") != -1
-    ) {
-      url = "/";
+
+    if (String(req.session.authUser.Permission) === "teacher") {
+      res.redirect("/teacher/");
+    } else if (String(req.session.authUser.Permission) === "admin") {
+      res.redirect("/admin/");
+    } else {
+      let url = req.session.retUrl || "/";
+      if (
+        String(req.session.retUrl).indexOf("/account/register") != -1 ||
+        String(req.session.retUrl).indexOf("/account/login") != -1
+      ) {
+        url = "/";
+      }
+      res.redirect(url);
     }
-    res.redirect(url);
   },
   postLogout: async (req, res) => {
     req.session.isAuth = false;
     req.session.authUser = null;
-    res.redirect("/");
+    req.session.cart = [];
+    res.redirect(req.headers.referer);
   },
   getProfile: async (req, res) => {
     res.render("vwAccount/profile", { user: req.session.authUser });
@@ -117,7 +127,6 @@ module.exports = {
         err_message: "Invalid password data.",
       });
     }
-    const hashCurrentPw = bcrypt.hashSync(req.body.CurrentPassword, 10);
     const hashNewPw = bcrypt.hashSync(req.body.NewPassword, 10);
 
     const compare = bcrypt.compareSync(
@@ -129,11 +138,6 @@ module.exports = {
         err_message: "Your password was incorrect.",
       });
     }
-    // if(req.session.authUser.password!= hashCurrentPw){
-    //   return res.render("vwAccount/edit-password", {
-    //     err_message: "Your password was incorrect.",
-    //   });
-    // }
     if (req.body.NewPassword != req.body.RetypeNewPassword) {
       return res.render("vwAccount/edit-password", {
         err_message: "Your new password does not match confirmation.",
@@ -146,7 +150,26 @@ module.exports = {
     req.session.authUser = await userModel.singleByUserName(req.body.Username);
     res.render("vwAccount/edit-password", { user: req.session.authUser });
   },
-
+  getListWishList: async function (req, res) {
+    const wishlist = await wishlistModel.getWishListByIdUser(
+      req.session.authUser.IdUser
+    );
+    res.render("vwAccount/wishlist", {
+      user: req.session.authUser,
+      wishlist: wishlist,
+      empty: wishlist.length === 0,
+    });
+  },
+  getListCourse: async function (req, res) {
+    const listCourse = await courseModel.getListCourseByIdUser(
+      req.session.authUser.IdUser
+    );
+    res.render("vwAccount/list-course", {
+      user: req.session.authUser,
+      listCourse: listCourse,
+      empty: listCourse.length === 0,
+    });
+  },
   getVerifyPage: async (req, res) => {
     res.render("vwAccount/otp-confirm");
   },
@@ -174,4 +197,25 @@ module.exports = {
     console.log("Data:", user);
     res.status(400).send();
   },
+  getListWishList: async function (req, res) {
+    const wishlist = await wishlistModel.getWishListByIdUser(
+      req.session.authUser.IdUser
+    );
+    res.render("vwAccount/wishlist", {
+      user: req.session.authUser,
+      wishlist: wishlist,
+      empty: wishlist.length === 0,
+    });
+  },
+  getListCourse: async function (req, res) {
+    const listCourse = await courseModel.getListCourseByIdUser(
+      req.session.authUser.IdUser
+    );
+    res.render("vwAccount/list-course", {
+      user: req.session.authUser,
+      listCourse: listCourse,
+      empty: listCourse.length === 0,
+    });
+  },
+  
 };
