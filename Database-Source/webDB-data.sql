@@ -99,6 +99,13 @@ create table `Lesson`(
     CONSTRAINT FK_ChapterLesson FOREIGN KEY (IdChapter)
     REFERENCES Chapter(IdChapter)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+DROP TABLE IF EXISTS `verification`;
+create table `verification`(
+    email varchar(100) not null,
+    otp varchar(100) not null,
+    CONSTRAINT FK_UserisTeacher FOREIGN KEY (email)
+    REFERENCES User_profile(IdUser)
+)ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 ALTER TABLE course
 ADD FULLTEXT(nameCourse);
