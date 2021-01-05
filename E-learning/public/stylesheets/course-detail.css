@@ -43,7 +43,10 @@
     background: #ffbc3b;
     color: #fff;
   }
-  
+  .btn-primary2 {
+    background: #f45a5a;
+    color: #fff;
+  }
   .btn-primary::before {
     background: #fff;
   }
@@ -257,4 +260,15 @@
   .rapStarDisable {
     cursor: default;
   }
+
+  .my-flex{
+    display: flex;
+    flex-direction: row;
+  }
+
+  .form-action{
+    display: block;
+    margin-right: 10px;
+  }
+
   

@@ -12,4 +12,6 @@ router.get('/profile', auth, controller.getProfile);
 router.get('/edit-password', auth, controller.getEditPassword);
 router.post('/profile/edit', controller.postEditProfile);
 router.post('/edit-password/edit', controller.postEditPassword);
+router.get('/list-course', auth, controller.getListCourse);
+router.get('/wishlist', auth, controller.getListWishList);
 module.exports = router;

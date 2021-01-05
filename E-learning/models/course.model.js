@@ -166,10 +166,17 @@ module.exports = {
     }
     return rows;
   },
-
   async getDomainName(domainId) {
     return await db.load(`select *
             from headercategory
             where Id = ${domainId}`);
+  },
+  async getListCourseByIdUser(IdUser) {
+    const rows = await db.load(`select *
+                    from ${TBL_ENROLLEDCOURSE} 
+                    left join ${TBL_COURSE}
+                    on course.IdCourse = enrolledcourse.IdCourse
+                    where IdUser = ${IdUser}`);
+    return rows;
   },
 };

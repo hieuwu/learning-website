@@ -108,17 +108,28 @@
           </ul>
         </div>
 
-        <div class="col-xl-3 text-sm-right order-sm-2 order-3 order-xl-3 col-sm-6 mb-4 mb-xl-0">
+        <div class="order-xl-3 mb-4 mb-xl-0 my-flex">
           {{#if isAuth}}
-          <form action="/cart/add" method="POST">
-            <button href="#" class="btn btn-primary">Wishlisted</button>
+            {{#if isWishList}}
+            <form action="/wishlist/remove" method="POST" class="form-action">
+            <button href="#" class="btn btn-primary2" type="submit">UnWishlist</button>
+            <input type="hidden" value="{{course.IdCourse}}" name="id">
+            </form>
+            {{else}}
+            <form action="/wishlist/add" method="POST" class="form-action">
+            <button href="#" class="btn btn-primary" type="submit">Wishlist</button>
+            <input type="hidden" value="{{course.IdCourse}}" name="id">
+            </form>
+            {{/if}}
             {{#if isAvailableAddCart}}
             <a href="/cart" class="btn btn-primary">Go to cart</a>
             {{else}}
+            <form action="/cart/add" method="POST" class="form-action">
             <button href="#" type="submit" class="btn btn-primary">Add to cart</button>
             <input type="hidden" value="{{course.IdCourse}}" name="id">
+            </form>
             {{/if}}
-          </form>
+            
           {{/if}}
         </div>
       </div>
