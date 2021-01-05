@@ -7,6 +7,7 @@
   $('#frmRegister').on('submit', function (e) {
     e.preventDefault();
 
+
     const username = $('#txtUsername').val();
     if (username.length === 0) {
       Swal.fire({
@@ -54,6 +55,12 @@
       })
       return;
     }
+
+    sessionStorage.setItem("username", $('#txtUsername').val());
+    sessionStorage.setItem("password", $('#txtPassword').val());
+    sessionStorage.setItem("email", $('#txtEmail').val());
+    sessionStorage.setItem("fullName", $('#txtFullName').val());
+
     const data =
       $.getJSON(`/account/is-available?user=${username}`, async function (data) {
         if (data === true) {
@@ -98,7 +105,6 @@
         <label for="txtEmail">Email</label>
         <input type="text" class="form-control" id="txtEmail" name="email" placeholder="company@gmail.com">
       </div>
-
     </div>
     <div class="card-footer text-muted">
       <button type="submit" class="btn btn-outline-success">

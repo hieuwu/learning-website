@@ -11,6 +11,7 @@
         "body-parser": "^1.19.0",
         "cookie-parser": "~1.4.4",
         "debug": "~2.6.9",
+        "dotenv": "^8.2.0",
         "express": "~4.16.1",
         "express-handlebars": "^5.2.0",
         "express-handlebars-sections": "^1.0.1",
@@ -19,6 +20,7 @@
         "http-errors": "~1.6.3",
         "morgan": "~1.9.1",
         "mysql": "^2.18.1",
+        "nodemailer": "^6.4.17",
         "numeral": "^2.0.6",
         "util": "^0.12.3"
     },

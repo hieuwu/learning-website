@@ -4,6 +4,9 @@ const controller = require('../../controller/account.controller');
 const auth = require('../../middlewares/auth.mdw');
 router.get('/register', controller.getRegister);
 router.post('/register', controller.postRegister);
+router.get('/verify', controller.getVerifyPage);
+router.post('/verify', controller.postVerifyAccount);
+
 router.get('/is-available', controller.isAvailableAccount);
 router.get('/login', controller.getLogin);
 router.post('/login', controller.postLogin);

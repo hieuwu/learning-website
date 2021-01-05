@@ -5,6 +5,7 @@ var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
 var app = express();
+var dotenv = require('dotenv').config();
 
 app.use("/public", express.static("public"));
 app.use(logger("dev"));
