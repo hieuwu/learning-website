@@ -57,7 +57,9 @@ module.exports = {
     if (req.headers.referer) {
       req.session.retUrl = req.headers.referer;
     }
-    res.render("vwAccount/login");
+    res.render("vwAccount/login", {
+      layout: false
+    });
   },
   postLogin: async (req, res) => {
     const user = await userModel.singleByUserName(req.body.username);
