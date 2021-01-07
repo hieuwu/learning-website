@@ -22,7 +22,7 @@ module.exports = {
       page_items.push(item);
     }
 
-    res.render("admin/course-admin", {
+    res.render("admin/course-all", {
       listOfCourses: listOfCourses,
       page_items: page_items,
       can_go_next: page < nPages,
