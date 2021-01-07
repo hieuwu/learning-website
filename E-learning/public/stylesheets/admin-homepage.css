@@ -48,3 +48,8 @@ body {
 .btn-add {
   margin-top: 1%;
 }
+
+.btn-dimen {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
