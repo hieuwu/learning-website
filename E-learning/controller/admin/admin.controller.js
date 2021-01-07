@@ -129,5 +129,8 @@ module.exports = {
     res.render('admin/category-all', {
       listOfCategories: listOfCategories,
     });
+  },
+  getEditCategoryPage: async (req, res) => {
+    res.render('admin/category-edit');
   }
 };
