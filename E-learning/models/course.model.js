@@ -9,37 +9,66 @@ module.exports = {
   },
 
   async getLatest() {
-    return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,
-                                course.nameCourse,category.NameCategory, course.Price, course.SaleCost, course.title
-                                from ${TBL_COURSE}
-                                left join user_profile
-                                on course.IdTeacher = user_profile.IdUser
-                                inner join category
-                                on course.IdCategory = category.Id
-                                order by IdCourse DESC limit 10`);
+    // return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,
+    //                             course.nameCourse,category.NameCategory, course.Price, course.SaleCost, course.title
+    //                             from ${TBL_COURSE}
+    //                             left join user_profile
+    //                             on course.IdTeacher = user_profile.IdUser
+    //                             inner join category
+    //                             on course.IdCategory = category.Id
+    //                             order by IdCourse DESC limit 10`);
+    return await db.load(`select 	course.IdCourse, course.Description, course.nameCourse, course.Price, 
+                        course.SaleCost, course.title, category.NameCategory, count(enrolledcourse.IdUser) as numRating
+                        from ${TBL_COURSE}
+                        left join user_profile on course.IdTeacher = user_profile.IdUser
+                        inner join category on course.IdCategory = category.Id
+                        left join enrolledcourse on course.IdCourse = enrolledcourse.IdCourse
+                        group by 
+                        course.IdCourse
+                        order by
+                        course.IdCourse desc limit 10`)
+    
   },
 
   async getMostViewed() {
-    return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,
+    // return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,
+    //                         course.nameCourse, category.NameCategory, course.Price, course.SaleCost,course.title,
+    //                         course.createdTime, course.nOViews
+    //                         from ${TBL_COURSE} 
+    //                         left join user_profile
+    //                         on course.IdTeacher = user_profile.IdUser
+    //                         inner join category
+    //                         on course.IdCategory = category.Id
+    //                         order by course.nOViews DESC limit 10`);
+    return await db.load(`select course.IdCourse, FullName, course.nameCourse, course.Description,
                             course.nameCourse, category.NameCategory, course.Price, course.SaleCost,course.title,
-                            course.createdTime, course.nOViews
+                            course.createdTime, course.nOViews, count(enrolledcourse.IdUser) as numRating
                             from ${TBL_COURSE} 
-                            left join user_profile
-                            on course.IdTeacher = user_profile.IdUser
-                            inner join category
-                            on course.IdCategory = category.Id
+                            left join user_profile on course.IdTeacher = user_profile.IdUser
+                            inner join category on course.IdCategory = category.Id
+                            left join enrolledcourse on course.IdCourse = enrolledcourse.IdCourse
+                            group by course.IdCourse, course.nOViews
                             order by course.nOViews DESC limit 10`);
   },
 
   async getMostRegistered() {
+    // return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,
+    //                         course.nameCourse, category.NameCategory, course.Price, course.SaleCost,course.title,
+    //                         course.createdTime, course.nOViews
+    //                         from ${TBL_COURSE} 
+    //                         left join user_profile
+    //                         on course.IdTeacher = user_profile.IdUser
+    //                         inner join category
+    //                         on course.IdCategory = category.Id
+    //                         order by course.nOViews DESC limit 10`);
     return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,
                             course.nameCourse, category.NameCategory, course.Price, course.SaleCost,course.title,
-                            course.createdTime, course.nOViews
+                            course.createdTime, course.nOViews, count(enrolledcourse.IdUser) as numRating
                             from ${TBL_COURSE} 
-                            left join user_profile
-                            on course.IdTeacher = user_profile.IdUser
-                            inner join category
-                            on course.IdCategory = category.Id
+                            left join user_profile on course.IdTeacher = user_profile.IdUser
+                            inner join category on course.IdCategory = category.Id
+                            left join enrolledcourse on course.IdCourse = enrolledcourse.IdCourse
+                            group by course.IdCourse, course.nOViews
                             order by course.nOViews DESC limit 10`);
   },
   async getCoursebyCateID(condition, sortBy) {
@@ -176,7 +205,20 @@ module.exports = {
                     from ${TBL_ENROLLEDCOURSE} 
                     left join ${TBL_COURSE}
                     on course.IdCourse = enrolledcourse.IdCourse
-                    where IdUser = ${IdUser}`);
+                    inner join user_profile
+                    on course.IdTeacher = user_profile.IdUser
+                    inner join category
+                    on course.IdCategory = category.Id
+                    where enrolledcourse.IdUser = ${IdUser}`);
     return rows;
+  },
+  async getNumberRatingsCourse(IdCourse) {
+    const rows = await db.load(`select count(IdUser) as numberRating
+                    from ${TBL_ENROLLEDCOURSE} 
+                    where IdCourse = ${IdCourse}`);
+    if (rows.length === 0) {
+      return null;
+    }
+    return rows[0];
   },
 };

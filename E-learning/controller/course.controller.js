@@ -29,12 +29,18 @@ module.exports = {
         isWishList = true;
       }
     } 
+    let numberRating = 0;
+    const getNumberRating = await courseModel.getNumberRatingsCourse(IdCourse);
+    if(getNumberRating != null){
+      numberRating = getNumberRating.numberRating;
+    }
     res.render("vwCourses/detail", {
       course: course,
       listCourse : listCourse,
       listRating : listRating,
       isAvailableAddCart: isAvailableAddCart,
       isWishList: isWishList,
+      numberRating: numberRating,
     });
   },
 };

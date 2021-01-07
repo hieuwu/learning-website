@@ -20,6 +20,7 @@ module.exports = {
 
     let mostRegisteredPage1 = listOfMostRegisteredCourse.slice(0,5);
     let mostRegisteredPage2 = listOfMostRegisteredCourse.slice(5 ,listOfMostRegisteredCourse.length);
+    console.log("listOfLatestCourse:",listOfLatestCourse);
     res.render("vwHomepage/home", {
       latestPage1: latestPage1,
       latestPage2: latestPage2,
