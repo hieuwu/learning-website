@@ -1,0 +1,120 @@
+{{#section 'css'}}
+{{/section}}
+
+{{#section 'js'}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+  $('#frmRegister').on('submit', function (e) {
+    e.preventDefault();
+
+
+    const username = $('#txtUsername').val();
+    if (username.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Invalid username data.',
+      })
+      return;
+    }
+    const password = $('#txtPassword').val();
+    if (password.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Invalid password data.',
+      })
+      return;
+    }
+    const confirm = $('#txtConfirm').val();
+    if (password !== confirm) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Invalid confirm password data.',
+      })
+      return;
+    }
+    const fullName = $('#txtFullName').val();
+    if (fullName.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Invalid FullName data.',
+      })
+      return;
+    }
+    const email = $('#txtEmail').val();
+    if (email.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Invalid email data.',
+      })
+      return;
+    }
+    if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Invalid email data.',
+      })
+      return;
+    }
+
+    sessionStorage.setItem("username", $('#txtUsername').val());
+    sessionStorage.setItem("password", $('#txtPassword').val());
+    sessionStorage.setItem("email", $('#txtEmail').val());
+    sessionStorage.setItem("fullName", $('#txtFullName').val());
+
+    const data =
+      $.getJSON(`/account/is-available?user=${username}`, async function (data) {
+        if (data === true) {
+          await Swal.fire({
+            icon: 'success',
+            text: 'Register successful'
+          })
+          $('#frmRegister').off('submit').submit();
+        } else {
+          Swal.fire({
+            icon: 'error',
+            text: 'Username already exists'
+          })
+        }
+      })
+  });
+
+</script>
+{{/section}}
+
+<form action="" method="post" id="frmRegister">
+  <div class="card">
+    <h5 class="card-header">Register</h5>
+    <div class="card-body">
+      <div class="form-group">
+        <label for="txtUsername">Username</label>
+        <input type="text" class="form-control" id="txtUsername" name="username" autofocus>
+      </div>
+      <div class="form-group">
+        <label for="txtPassword">Password</label>
+        <input type="password" class="form-control" id="txtPassword" name="password">
+      </div>
+      <div class="form-group">
+        <label for="txtConfirm">Confirm</label>
+        <input type="password" class="form-control" id="txtConfirm">
+      </div>
+      <div class="form-group">
+        <label for="txtFullName">FullName</label>
+        <input type="text" class="form-control" id="txtFullName" name="fullName">
+      </div>
+      <div class="form-group">
+        <label for="txtEmail">Email</label>
+        <input type="text" class="form-control" id="txtEmail" name="email" placeholder="company@gmail.com">
+      </div>
+      <div class="form-group">
+        <label for="txtEmail">Biography</label>
+        <input type="text" class="form-control" id="txtBiography" name="Biography" placeholder="writing information about the teaching experience">
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+      <button type="submit" class="btn btn-outline-success">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Register
+      </button>
+    </div>
+  </div>
+</form>

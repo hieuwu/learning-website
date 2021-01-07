@@ -1,0 +1,23 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/stylesheets/teach_nav.css">
+{{/section}}
+{{#section 'js'}}
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+  //document.getElementById("mySidenav").classList.add("fadein");
+}
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  //document.getElementById("mySidenav").classList.add("fadeout");
+}
+</script>
+{{/section}}
+
+<div id="mySidenav" class="sidenav" onmouseleave="closeNav()">
+  <a href="#">New Course</a>
+  <a href="#">Upload</a>
+  <a href="#">My course</a>
+  <a href="#">Profile</a>
+</div>
+<span style="font-size:30px;cursor:pointer" onMouseenter="openNav()">&#9776; open</span>
