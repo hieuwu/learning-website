@@ -92,7 +92,8 @@ module.exports = {
   },
   editCourse: async (req, res) => {
     const IdCourse = req.params.id;
-    console.log("Id", req.params.id);
+    let listOfCategories = await categoryModel.all();
+    let courseDetail = await courseModel.single(IdCourse);
     const {
       nameCourse,
       Description,
@@ -117,6 +118,10 @@ module.exports = {
       Price,
       SaleCost,
     });
-    res.redirect("/");
+    res.render("admin/course-edit", {
+      course: courseDetail,
+      listOfCategories: listOfCategories,
+      err_message: "Course updated successfully",
+    });
   },
 };
