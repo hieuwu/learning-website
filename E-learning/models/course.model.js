@@ -219,8 +219,20 @@ module.exports = {
         where category.Id in (select category.Id
             from headercategory
             inner join category
-            on headercategory.Id = category.HeaderCategoryId)
+            on headercategory.Id = category.HeaderCategoryId) and course.isDeleted = false
         group by course.IdCourse
         order by course.nOViews DESC limit ${config.pagination.limit} offset ${offset}`);
   },
+
+  async deleteCourse(IdCourse) {
+    const condition = {IdCourse: IdCourse}; 
+    const entity = {isDeleted: true}
+    return await db.patch(entity, condition,TBL_COURSE);
+  },
+
+  async updateCourse(IdCourse, course) {
+    const condition = {IdCourse: IdCourse}; 
+    const entity = course;
+    return await db.patch(entity, condition, TBL_COURSE);
+  }
 };
