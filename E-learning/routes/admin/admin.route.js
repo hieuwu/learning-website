@@ -7,5 +7,6 @@ router.delete('/course/:id', controller.deleteCourse);
 router.get('/course/detail/:id', controller.getCourseDetail);
 router.get('/course/edit/:id', controller.getEditCoursePage);
 router.post('/course/edit/:id', controller.editCourse);
+router.get('/category/all', controller.getCategoryPage);
 
 module.exports = router;
