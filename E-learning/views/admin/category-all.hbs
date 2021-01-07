@@ -5,14 +5,14 @@
 {{/section}}
 {{#section 'js'}}
 <script>
-  function sendCourseDeleteRequest(IdCourse) {
-    console.log(IdCourse);
+  function sendCategoryDeleteRequest(Id) {
+    console.log(Id);
     $.ajax({
-      url: `/admin/course/`+IdCourse,
+      url: `/admin/category/`+IdCourse,
         type: "DELETE",
         data: JSON.stringify(
           {
-            IdCourse: IdCourse,
+            Id: Id,
           }
         ),
         contentType: "application/json; charset=utf-8",
@@ -21,7 +21,7 @@
         complete: function (xmlHttp) {
           // xmlHttp is a XMLHttpRquest object
           if (xmlHttp.status == 200) {
-            alert("A course has been deleted");
+            alert("A category has been deleted");
             window.location.href = "/admin/course/all";
           } else {
             alert("Some thing went wrong");
@@ -55,13 +55,13 @@
     <div class="item-container">
       <div class="card" style="width: 100%;">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
+          <input value="{{this.NameCategory}}" class="card-title"></input>
+          {{!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+          </p> --}}
         </div>
          <div class="col-md-1 d-flex p-3">
-        <div><a type="button" href="/admin/course/edit/{{./this.IdCourse}}" class="btn p-2 btn-success">Edit</a></div>
-        <div><button type="button" onclick="sendCourseDeleteRequest({{./this.IdCourse}})" class="btn p-2 btn-danger">Delete</button></div>
+        <div><a type="button" href="/admin/category/edit/{{./this.Id}}"  style="margin-right: 25px;" class="btn p-2 btn-success">Edit</a></div>
+        <div><button type="button" onclick="sendCategoryDeleteRequest({{./this.IdCourse}})" class="btn p-2 btn-danger">Delete</button></div>
       </div>
       </div>
       </div>  
