@@ -43,6 +43,7 @@ create table `course`(
     IdTeacher int unsigned not null,
     createdTime datetime not null default now(),
     updatedTime datetime not null default now(),
+    isDeleted boolean not null default false,
     CONSTRAINT FK_Category FOREIGN KEY (IdCategory)
     REFERENCES Category(Id),
     CONSTRAINT FK_Teacher FOREIGN KEY (IdTeacher)
