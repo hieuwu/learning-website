@@ -124,4 +124,10 @@ module.exports = {
       err_message: "Course updated successfully",
     });
   },
+  getCategoryPage: async (req, res) => {
+    let listOfCategories = await categoryModel.all();
+    res.render('admin/category-all', {
+      listOfCategories: listOfCategories,
+    });
+  }
 };
