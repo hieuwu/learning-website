@@ -7,5 +7,5 @@ module.exports = {
     },
     async simpleSearch(text) {
         return await db.load(`select * from ${TBL_USERS} where HeaderNameCategory= '${text}'`);
-    }
+    },
 }

@@ -11,47 +11,30 @@
         {{err_message}}
       </div>
       {{/if}}
-      <h1> Course edit</h1>
+      <h1> Category edit</h1>
     </div>
     <div>
       <form method="POST">
         <div>
-          <div>Course name</div>
-          <input value="{{course.nameCourse}}" name="nameCourse" class="form-control" id="focusedInput" type="text">
+          <div>Category name</div>
+          <input value="{{category.NameCategory}}" name="NameCategory" class="form-control" id="focusedInput"
+            type="text">
         </div>
         <div>
-          <div>Description</div>
-          <input value="{{course.Description}}" name="Description" class="form-control" id="focusedInput" type="text">
-        </div>
-        <div>
-          <div>Title</div>
-          <input value="{{course.title}}" name="title" class="form-control" id="focusedInput" type="text">
-        </div>
-        <div>
-          <div>Category</div>
-          <select name="IdCategory" id="category">
-            {{#each listOfCategories}}
-            <option value="{{this.Id}}">{{this.NameCategory}}</option>
+          <div>Header category</div>
+          <select name="HeaderCategoryId" id="HeaderCategoryId">
+            {{#each headerCategories}}
+            <option  value="{{this.Id}}">{{this.HeaderNameCategory}}</option>
             {{/each}}
           </select>
         </div>
-        <div>
-          <div>Price</div>
-          <input value="{{course.Price}}" name="Price" class="form-control" id="focusedInput" type="text">
-        </div>
-        <div>
-          <div>Sale Price</div>
-          <input value="{{course.SaleCost}}" name="SaleCost" class="form-control" id="focusedInput" type="text">
-        </div>
-
+        <button type="submit" class="btn btn-outline-success" style="margin-top: 25px;">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          Save
+        </button>
+      </form>
     </div>
-    <button type="submit" class="btn btn-outline-success" onclick="console.log(`editted`)">
-      <i class="fa fa-check" aria-hidden="true"></i>
-      Save
-    </button>
-    </form>
   </div>
-</div>
-<div class="col-md-3">
-</div>
+  <div class="col-md-3">
+  </div>
 </div>

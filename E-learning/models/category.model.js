@@ -10,6 +10,19 @@ module.exports = {
     },
     async searchByFulltext(text) {
         return await db.load(`select * from ${TBL_USERS} where match(nameCategory) against('${text}')`);
+    },
+    async getCategoryById(categoryId) {
+        let rows = await db.load(`select * from ${TBL_USERS} where Id=${categoryId}`);
+        return rows[0];
+    },
+    async updateCategoryById(categoryId, category) {
+        const condition = {Id: categoryId}; 
+        const entity = category;
+        return await db.patch(entity, condition, TBL_USERS);
+    },
+    async getHeaderID(categoryId) {
+        return await db.load(`select * from ${TBL_USERS} where Id = ${categoryId}`)
     }
+
 
 };

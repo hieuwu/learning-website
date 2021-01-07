@@ -1,6 +1,7 @@
 const courseModel = require("../../models/course.model");
 const config = require("../../config/default.json");
 const categoryModel = require("../../models/category.model");
+const headercategoryModel = require("../../models/headercategory.model");
 module.exports = {
   getadminHome: async (req, res) => {
     res.render("admin/adminhomepage", {
@@ -131,6 +132,28 @@ module.exports = {
     });
   },
   getEditCategoryPage: async (req, res) => {
-    res.render('admin/category-edit');
+    const categoryId = req.params.id;
+    let headerCategories = await headercategoryModel.all();
+    let category = await categoryModel.getCategoryById(categoryId);
+    let currentHeaderCategory = await categoryModel.getHeaderID(categoryId);
+    console.log(currentHeaderCategory[0].HeaderCategoryName);
+    res.render('admin/category-edit', {
+      currentHeaderCategory: currentHeaderCategory[0].HeaderCategoryID == category.HeaderCategoryID,
+      category: category,
+      headerCategories: headerCategories
+    });
+  },
+  editCategoryById: async (req, res) => {
+    const categoryId = req.params.id;
+    const {NameCategory, HeaderCategoryId} = req.body;
+    console.log(req.body);
+    let updatedCategory = await categoryModel.updateCategoryById(categoryId,{NameCategory, HeaderCategoryId} );
+    let headerCategories = await headercategoryModel.all();
+    let category = await categoryModel.getCategoryById(categoryId);
+    res.render("admin/category-edit", {
+      err_message: "Category updated successfully",
+      category: category,
+      headerCategories: headerCategories,
+    });
   }
 };
