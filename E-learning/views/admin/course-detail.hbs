@@ -10,6 +10,33 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/public/javascript/jsRapStar.js"></script>
 <script>$('#ratingItem').jsRapStar({ enabled: false, colorFront: "yellow" });</script>
+<script>
+  function sendCourseDeleteRequest(IdCourse) {
+    console.log(IdCourse);
+    $.ajax({
+      url: `/admin/course/` + IdCourse,
+      type: "DELETE",
+      data: JSON.stringify(
+        {
+          IdCourse: IdCourse,
+        }
+      ),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+
+      complete: function (xmlHttp) {
+        // xmlHttp is a XMLHttpRquest object
+        if (xmlHttp.status == 200) {
+          alert("A course has been deleted");
+          window.location.href = "/admin/course/all";
+        } else {
+          alert("Some thing went wrong");
+          window.location.href = "/error";
+        }
+      }
+    });
+  }
+</script>
 {{/section}}
 
 
@@ -42,7 +69,14 @@
       <!-- course info -->
       <div class="row align-items-center mb-5">
         <div class="row align-items-center mb-3">
-          <h1>{{course.nameCourse}}</h1>
+          <div>
+            <h1>{{course.nameCourse}}</h1>
+          </div>
+        </div>
+        <div class="d-flex p-3">
+          <div><a type="button" href="/admin/course/edit/{{course.IdCourse}}" class="btn p-2 btn-success">Edit</a></div>
+          <div><button type="button" onclick="sendCourseDeleteRequest({{course.IdCourse}})"
+              class="btn p-2 btn-danger">Delete</button></div>
         </div>
         <div class="col-xl-10 order-sm-3 order-xl-2 col-12 order-2 mb-3">
           <ul class="list-inline text-xl-center">
@@ -110,26 +144,26 @@
 
         <div class="order-xl-3 mb-4 mb-xl-0 my-flex">
           {{#if isAuth}}
-            {{#if isWishList}}
-            <form action="/wishlist/remove" method="POST" class="form-action">
+          {{#if isWishList}}
+          <form action="/wishlist/remove" method="POST" class="form-action">
             <button href="#" class="btn btn-primary2" type="submit">UnWishlist</button>
             <input type="hidden" value="{{course.IdCourse}}" name="id">
-            </form>
-            {{else}}
-            <form action="/wishlist/add" method="POST" class="form-action">
+          </form>
+          {{else}}
+          <form action="/wishlist/add" method="POST" class="form-action">
             <button href="#" class="btn btn-primary" type="submit">Wishlist</button>
             <input type="hidden" value="{{course.IdCourse}}" name="id">
-            </form>
-            {{/if}}
-            {{#if isAvailableAddCart}}
-            <a href="/cart" class="btn btn-primary">Go to cart</a>
-            {{else}}
-            <form action="/cart/add" method="POST" class="form-action">
+          </form>
+          {{/if}}
+          {{#if isAvailableAddCart}}
+          <a href="/cart" class="btn btn-primary">Go to cart</a>
+          {{else}}
+          <form action="/cart/add" method="POST" class="form-action">
             <button href="#" type="submit" class="btn btn-primary">Add to cart</button>
             <input type="hidden" value="{{course.IdCourse}}" name="id">
-            </form>
-            {{/if}}
-            
+          </form>
+          {{/if}}
+
           {{/if}}
         </div>
       </div>
