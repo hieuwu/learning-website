@@ -225,13 +225,13 @@ module.exports = {
   },
 
   async deleteCourse(IdCourse) {
-    const condition = {IdCourse: IdCourse};
+    const condition = {IdCourse: IdCourse}; 
     const entity = {isDeleted: true}
     return await db.patch(entity, condition,TBL_COURSE);
   },
 
   async updateCourse(IdCourse, course) {
-    const condition = {IdCourse: IdCourse};
+    const condition = {IdCourse: IdCourse}; 
     const entity = course;
     return await db.patch(entity, condition, TBL_COURSE);
   }
