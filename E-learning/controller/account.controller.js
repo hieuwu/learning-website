@@ -219,5 +219,5 @@ module.exports = {
       empty: listCourse.length === 0,
     });
   },
-  
+
 };

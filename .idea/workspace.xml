@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="1c1a4ce3-882c-4326-b687-67bca9998d5a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-learning/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-learning/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-learning/config/default.json" beforeDir="false" afterPath="$PROJECT_DIR$/E-learning/config/default.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/E-learning/controller/account.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-learning/controller/account.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-learning/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/E-learning/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-learning/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/E-learning/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/E-learning/utils/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-learning/utils/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-learning/views/vwCourses/add-course.hbs" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +65,7 @@
       <workItem from="1609334499354" duration="2948000" />
       <workItem from="1609726788948" duration="82000" />
       <workItem from="1609728086358" duration="10000" />
+      <workItem from="1609939310651" duration="456000" />
     </task>
     <servers />
   </component>
@@ -73,18 +73,22 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="393" y="0" key="CommitChangelistDialog2" timestamp="1609227815478">
+    <state x="393" y="0" key="CommitChangelistDialog2" timestamp="1609939436235">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="393" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1609227815478" />
-    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1609228514478">
+    <state x="393" y="0" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1609939436235" />
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog" timestamp="1609939694310">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1609228514478" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1609726869472">
+    <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1609939694310" />
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1609939446702">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1609726869472" />
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1609939446702" />
+    <state x="593" y="332" key="Github.CreateGistDialog" timestamp="1609939489072">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="593" y="332" key="Github.CreateGistDialog/0.0.1536.824@0.0.1536.824" timestamp="1609939489072" />
     <state width="1515" height="217" key="GridCell.Tab.0.bottom" timestamp="1609339651292">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -101,9 +105,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1515" height="217" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1609339651291" />
-    <state x="418" y="152" key="VcsDiffUtil.ChangesDialog" timestamp="1609228510233">
+    <state x="418" y="152" key="VcsDiffUtil.ChangesDialog" timestamp="1609939690036">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="418" y="152" key="VcsDiffUtil.ChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1609228510233" />
+    <state x="418" y="152" key="VcsDiffUtil.ChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1609939690036" />
   </component>
 </project>
