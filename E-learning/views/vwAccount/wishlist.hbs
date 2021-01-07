@@ -1,5 +1,6 @@
 {{#section 'css'}}
 <link rel="stylesheet" href="/public/stylesheets/courseByCategory.css">
+<link rel="stylesheet" href="/public/stylesheets/jsRapStar.css" />
 <style>
   img {
     border-radius: 50%;
@@ -21,7 +22,11 @@
   }
 </style>
 {{/section}}
-
+{{#section 'js'}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/public/javascript/jsRapStar.js"></script>
+<script>$('.ratingStar').jsRapStar({ enabled: false, colorFront: "yellow" });</script>
+{{/section}}
 <form method="POST" action="">
   <div class="container">
     <div class="row">
@@ -61,15 +66,9 @@
                   </div>
                   <div class="item-teacher">{{this.FullName}}</div>
                   <div class="item-length">{{this.NameCategory}}</div>
-                  <div class="star-rating">
-                    <ul class="list-inline">
-                      <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                      <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                      <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                      <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                      <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      <li class="list-inline-item rating-number">(123)</li>
-                    </ul>
+                  <div class="d-flex col-md-5 justify-content-center">
+                    <p class="avgRating mr-1">{{this.avgRate}}</p>
+                    <div class="ratingStar" value={{this.avgRate}}></div>
                   </div>
                 </div>
                 <div>
@@ -81,7 +80,6 @@
                   </div>
                 </div>
                 <div class="col-md-1"></div>
-
               </div>
             </a>
             <div>

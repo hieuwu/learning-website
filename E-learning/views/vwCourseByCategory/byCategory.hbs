@@ -1,5 +1,12 @@
 {{#section 'css'}}
+
 <link rel="stylesheet" href="/public/stylesheets/courseByCategory.css">
+<link rel="stylesheet" href="/public/stylesheets/jsRapStar.css" />
+{{/section}}
+{{#section 'js'}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/public/javascript/jsRapStar.js"></script>
+<script>$('.ratingStar').jsRapStar({ enabled: false, colorFront: "yellow"});</script>
 {{/section}}
 <div class="row col-md-12 justify-content-center">
   <div class="col-md-1 carousel-title"></div>
@@ -13,9 +20,8 @@
     <div class="col-md-1"></div>
   </div>
 </div>
-
 {{#each listOfCourses}}
-<div class="row col-md-12 justify-content-center">
+<div class="row col-md-12 ">
   <div class="col-md-1"></div>
   <div class="col-md-10">
     <a href="/course/detail/{{this.IdCourse}}">
@@ -32,16 +38,11 @@
             {{{this.title}}}
           </div>
           <div class="item-teacher">{{this.FullName}}</div>
-          <div class="item-length">{{this.NameCategory}} | 4 hours &bull; {{this.numOfChapters}} chapters</div>
-          <div class="star-rating">
-            <ul class="list-inline">
-              <li class="list-inline-item"><i class="fa fa-star"></i></li>
-              <li class="list-inline-item"><i class="fa fa-star"></i></li>
-              <li class="list-inline-item"><i class="fa fa-star"></i></li>
-              <li class="list-inline-item"><i class="fa fa-star"></i></li>
-              <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-              <li class="list-inline-item rating-number">(123)</li>
-            </ul>
+          <div class="item-length">{{this.NameCategory}}</div>
+          <div class="d-flex col-md-5 justify-content-center">
+            <p class="avgRating mt-1">{{this.avgRate}}</p>
+            <div class="ratingStar" value={{this.avgRate}}></div>
+            <p class="mt-1">({{this.numRating}} Ratings)</p>
           </div>
         </div>
         <div>
@@ -53,7 +54,6 @@
           </div>
         </div>
         <div class="col-md-1"></div>
-
       </div>
     </a>
     <div>

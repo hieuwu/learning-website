@@ -23,10 +23,15 @@ module.exports = {
       }
     }
     let isWishList = false;
+    let isJoinCourse = false;
     if(req.session.isAuth === true){
       const checkWishList = await wishlistModel.checkCourseWishList(req.session.authUser.IdUser, IdCourse);
       if(checkWishList != null){
         isWishList = true;
+      }
+      const getIsJoinCourse = await courseModel.checkIsJoinCourse(req.session.authUser.IdUser, IdCourse);
+      if(getIsJoinCourse != null){
+        isJoinCourse = true;
       }
     } 
     let numberRating = 0;
@@ -34,6 +39,7 @@ module.exports = {
     if(getNumberRating != null){
       numberRating = getNumberRating.numberRating;
     }
+    
     res.render("vwCourses/detail", {
       course: course,
       listCourse : listCourse,
@@ -41,6 +47,7 @@ module.exports = {
       isAvailableAddCart: isAvailableAddCart,
       isWishList: isWishList,
       numberRating: numberRating,
+      isJoinCourse: isJoinCourse,
     });
   },
 };
