@@ -6,8 +6,7 @@ DROP TABLE IF EXISTS `HeaderCategory`;
 create table `HeaderCategory`(
 	Id int unsigned auto_increment primary key,
     HeaderNameCategory varchar(100) NOT NULL,
-    isDeleted boolean not null default false,
-
+    isDeleted boolean not null default false
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 DROP TABLE IF EXISTS `User_profile`;
 create table `User_profile`(
