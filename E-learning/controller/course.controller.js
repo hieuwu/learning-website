@@ -23,18 +23,31 @@ module.exports = {
       }
     }
     let isWishList = false;
+    let isJoinCourse = false;
     if(req.session.isAuth === true){
       const checkWishList = await wishlistModel.checkCourseWishList(req.session.authUser.IdUser, IdCourse);
       if(checkWishList != null){
         isWishList = true;
       }
+      const getIsJoinCourse = await courseModel.checkIsJoinCourse(req.session.authUser.IdUser, IdCourse);
+      if(getIsJoinCourse != null){
+        isJoinCourse = true;
+      }
     } 
+    let numberRating = 0;
+    const getNumberRating = await courseModel.getNumberRatingsCourse(IdCourse);
+    if(getNumberRating != null){
+      numberRating = getNumberRating.numberRating;
+    }
+    console.log("listRating:",listRating);
     res.render("vwCourses/detail", {
       course: course,
       listCourse : listCourse,
       listRating : listRating,
       isAvailableAddCart: isAvailableAddCart,
       isWishList: isWishList,
+      numberRating: numberRating,
+      isJoinCourse: isJoinCourse,
     });
   },
 };

@@ -181,8 +181,6 @@
 }
 .detail-flex-container{
   width: 70%;
-  display: flex;
-  justify-content:flex-start;
 }
 
 .side {
@@ -234,33 +232,6 @@
   }
 }
 
-/* item rating */
-  .rapStar {
-    color: white;
-    cursor: pointer;
-    font-size: 32px;
-    margin: auto;
-    position: relative;
-    text-shadow: 0 0 8px black;
-    margin: 0px auto;
-    display: table;
-    clear: both;
-    user-select: none;
-  }
-  
-  .rapStarFront {
-    top: 0px;
-    color: yellow;
-    display: block;
-    overflow: hidden;
-    position: absolute;
-    z-index: 1;
-  }
-  
-  .rapStarDisable {
-    cursor: default;
-  }
-
   .my-flex{
     display: flex;
     flex-direction: row;
@@ -270,5 +241,19 @@
     display: block;
     margin-right: 10px;
   }
+
+  .btn-add-rating{
+    float: right;
+    width: auto;
+  }
+
+  .div-display-none{
+    display: none;
+  }
+
+  .font-size-fullName{
+    font-size: 22px;
+  }
+
 
   

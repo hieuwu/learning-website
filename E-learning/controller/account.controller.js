@@ -199,25 +199,5 @@ module.exports = {
     console.log("Data:", user);
     res.status(400).send();
   },
-  getListWishList: async function (req, res) {
-    const wishlist = await wishlistModel.getWishListByIdUser(
-      req.session.authUser.IdUser
-    );
-    res.render("vwAccount/wishlist", {
-      user: req.session.authUser,
-      wishlist: wishlist,
-      empty: wishlist.length === 0,
-    });
-  },
-  getListCourse: async function (req, res) {
-    const listCourse = await courseModel.getListCourseByIdUser(
-      req.session.authUser.IdUser
-    );
-    res.render("vwAccount/list-course", {
-      user: req.session.authUser,
-      listCourse: listCourse,
-      empty: listCourse.length === 0,
-    });
-  },
 
 };
