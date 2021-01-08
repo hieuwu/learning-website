@@ -135,10 +135,10 @@ module.exports = {
     const categoryId = req.params.id;
     let headerCategories = await headercategoryModel.all();
     let category = await categoryModel.getCategoryById(categoryId);
-    let currentHeaderCategory = await categoryModel.getHeaderID(categoryId);
-    console.log(currentHeaderCategory[0].HeaderCategoryName);
+    let headerCategoryName = await headercategoryModel.getNameById(category.HeaderCategoryID);
+
     res.render('admin/category-edit', {
-      currentHeaderCategory: currentHeaderCategory[0].HeaderCategoryID == category.HeaderCategoryID,
+      headerCategoryName: headerCategoryName.HeaderNameCategory,
       category: category,
       headerCategories: headerCategories
     });
@@ -150,10 +150,17 @@ module.exports = {
     let updatedCategory = await categoryModel.updateCategoryById(categoryId,{NameCategory, HeaderCategoryId} );
     let headerCategories = await headercategoryModel.all();
     let category = await categoryModel.getCategoryById(categoryId);
+    let headerCategoryName = await headercategoryModel.getNameById(category.HeaderCategoryID);
     res.render("admin/category-edit", {
+      headerCategoryName: headerCategoryName.HeaderNameCategory,
       err_message: "Category updated successfully",
       category: category,
       headerCategories: headerCategories,
     });
+  },
+  deleteCategory: async (req, res) => {
+    const Id = req.body.Id;
+    let deletedCourse = await categoryModel.deleteCategory(Id);
+    res.redirect("/category/all");
   }
 };

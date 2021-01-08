@@ -21,12 +21,16 @@
             type="text">
         </div>
         <div>
-          <div>Header category</div>
-          <select name="HeaderCategoryId" id="HeaderCategoryId">
-            {{#each headerCategories}}
-            <option  value="{{this.Id}}">{{this.HeaderNameCategory}}</option>
-            {{/each}}
-          </select>
+          <div>
+            <h3>Header category</h3>
+          </div>
+          <div> Current : {{headerCategoryName}}</div>
+          <div>Change to: <select name="HeaderCategoryId" id="HeaderCategoryId">
+              {{#each headerCategories}}
+              <option value="{{this.Id}}">{{this.HeaderNameCategory}}</option>
+              {{/each}}
+            </select></div>
+
         </div>
         <button type="submit" class="btn btn-outline-success" style="margin-top: 25px;">
           <i class="fa fa-check" aria-hidden="true"></i>

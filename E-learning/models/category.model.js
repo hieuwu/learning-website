@@ -3,7 +3,7 @@ const db = require('../utils/db');
 const TBL_USERS = 'category';
 module.exports = {
     all() {
-        return db.load(`select * from ${TBL_USERS}`);
+        return db.load(`select * from ${TBL_USERS} where isDeleted = false`);
     },
     async getbyHeaderID(ID) {
         return await db.load(`select * from ${TBL_USERS} where HeaderCategoryID= '${ID}'`);
@@ -22,7 +22,10 @@ module.exports = {
     },
     async getHeaderID(categoryId) {
         return await db.load(`select * from ${TBL_USERS} where Id = ${categoryId}`)
+    },
+    async deleteCategory(categoryId) {
+        const condition = {Id: categoryId}; 
+        const entity = {isDeleted: true}
+        return await db.patch(entity, condition,TBL_USERS);
     }
-
-
 };

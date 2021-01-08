@@ -10,4 +10,5 @@ router.post('/course/edit/:id', controller.editCourse);
 router.get('/category/all', controller.getCategoryPage);
 router.get('/category/edit/:id', controller.getEditCategoryPage);
 router.post('/category/edit/:id', controller.editCategoryById);
+router.delete('/category/:id', controller.deleteCategory);
 module.exports = router;
