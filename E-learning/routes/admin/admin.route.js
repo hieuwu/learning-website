@@ -19,5 +19,7 @@ router.post('/headercategory/edit/:id', controller.editHeaderCategoryById);
 router.delete('/headercategory/:id', controller.deleteHeaderCategory);
 router.get('/headercategory/add', controller.getAddHeaderCategoryPage);
 router.post('/headercategory/add', controller.addNewHeaderCategory);
+router.get('/teacher/all', controller.getAllTeacher);
+router.get('/teacher/:id', controller.getUserById);
 
 module.exports = router;

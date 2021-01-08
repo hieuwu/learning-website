@@ -267,7 +267,7 @@ module.exports = {
     where category.Id in (select category.Id
         from headercategory
         inner join category
-        on headercategory.Id = category.HeaderCategoryId) and isDeleted = false`);
+        on headercategory.Id = category.HeaderCategoryId) and course.isDeleted = false`);
     return rows[0].total;
   },
 
