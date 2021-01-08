@@ -224,9 +224,6 @@ module.exports = {
                     left join user_profile
                     on ${TBL_ENROLLEDCOURSE}.IdUser = user_profile.IdUser
                     where IdCourse = ${id}`);
-    if (rows.length === 0) {
-      return null;
-    }
     return rows;
   },
   async getDomainName(domainId) {

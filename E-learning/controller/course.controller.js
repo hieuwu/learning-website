@@ -39,7 +39,7 @@ module.exports = {
     if(getNumberRating != null){
       numberRating = getNumberRating.numberRating;
     }
-    
+    console.log("listRating:",listRating);
     res.render("vwCourses/detail", {
       course: course,
       listCourse : listCourse,

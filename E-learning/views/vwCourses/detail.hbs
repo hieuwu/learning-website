@@ -39,7 +39,6 @@ onMouseleave(score){
   })
 </script>
 {{/section}}
-
 <section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
   <div class="container">
     <div class="row">
@@ -232,11 +231,11 @@ onMouseleave(score){
 {{#each listRating}}
 <hr style="border:3px solid #f1f1f1">
 <div class="DetailRatingContainer">
-  <div class="d-flex align-items-center detail-flex-container">
+  <div class="d-flex detail-flex-container">
     <p class="ti-wallet text-primary font-size-fullName mr-2">{{this.FullName}}</p>
-    <div class="text-left row justify-content-center">
+    <div class="row">
       <div class="ratingStar avgRatingLeft" value={{this.rateStar}}></div>
-      <h6 class="mb-0">{{this.Comments}}</h6>
+      <h6 class="mb-0 ">{{this.Comments}}</h6>
     </div>
   </div>
 </div>
