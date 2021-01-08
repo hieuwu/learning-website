@@ -5,7 +5,8 @@ use `websiteDB`;
 DROP TABLE IF EXISTS `HeaderCategory`;
 create table `HeaderCategory`(
 	Id int unsigned auto_increment primary key,
-    HeaderNameCategory varchar(100) NOT NULL
+    HeaderNameCategory varchar(100) NOT NULL,
+    isDeleted boolean not null default false
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 DROP TABLE IF EXISTS `User_profile`;
 create table `User_profile`(
@@ -24,6 +25,7 @@ create table `Category`(
 	Id int unsigned auto_increment primary key,
     HeaderCategoryID int unsigned not null,
     NameCategory varchar(50) not null,
+    isDeleted boolean not null default false,
     CONSTRAINT FK_FromCategory FOREIGN KEY (HeaderCategoryID)
     REFERENCES HeaderCategory(Id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

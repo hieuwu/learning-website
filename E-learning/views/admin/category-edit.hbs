@@ -1,0 +1,78 @@
+
+{{#section 'js'}}
+<script>
+  function sendCategoryDeleteRequest(Id) {
+    console.log(Id);
+    $.ajax({
+      url: `/admin/category/`+Id,
+        type: "DELETE",
+        data: JSON.stringify(
+          {
+            Id: Id,
+          }
+        ),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        complete: function (xmlHttp) {
+          // xmlHttp is a XMLHttpRquest object
+          if (xmlHttp.status == 200) {
+            alert("A category has been deleted");
+            window.location.href = "/admin/category/all";
+          } else {
+            alert("Some thing went wrong");
+            window.location.href = "/error";
+          }
+        }
+      });
+  }
+</script>
+{{/section}}
+<div class="row col-md-12">
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-6">
+    <div>
+      {{#if err_message}}
+      <div id="error-message" class="alert alert-warning alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{err_message}}
+      </div>
+      {{/if}}
+      <h1> Category edit</h1>
+    </div>
+    <div>
+      <form method="POST">
+        <div>
+          <div>Category name</div>
+          <input value="{{category.NameCategory}}" name="NameCategory" class="form-control" id="focusedInput"
+            type="text">
+        </div>
+        <div>
+          <div>
+            <h3>Header category</h3>
+          </div>
+          <div> Current : {{headerCategoryName}}</div>
+          <div>Change to: <select name="HeaderCategoryId" id="HeaderCategoryId">
+              {{#each headerCategories}}
+              <option value="{{this.Id}}">{{this.HeaderNameCategory}}</option>
+              {{/each}}
+            </select></div>
+
+        </div>
+        <button type="submit" class="btn btn-outline-success" style="margin-top: 25px;">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          Save
+        </button>
+
+      </form>
+      <div><button type="button" style="margin-top: 25px;" onclick="sendCategoryDeleteRequest({{category.Id}})"
+          class="btn p-2 btn-danger">
+                    <i class="fa fa-delete" aria-hidden="true"></i>
+          Delete</button></div>
+    </div>
+  </div>
+  <div class="col-md-3">
+  </div>
+</div>
