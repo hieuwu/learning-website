@@ -337,17 +337,10 @@ insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(17,1,'2020-12-28 09:14:31',5,'Great Course <3');
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(17,40,'2020-12-28 09:14:31',3,'this voice in video is so sweet');
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(17,46,'2020-12-28 09:14:31',1,'Bad Course <3');
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,46,'2020-12-28 09:14:31',1,'Bad Course <3');
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,1,'2020-12-28 09:14:31',5,'Great Course <3');
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,1,'2020-12-28 09:14:31',null,null);
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,5,'2020-12-28 09:14:31',null,null);
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,3,'2020-12-28 09:14:31',null,null);
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,4,'2020-12-28 09:14:31',null,null);
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,2,'2020-12-28 09:14:31',5,'alala');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,5,'2020-12-28 09:14:31',0,null);
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,3,'2020-12-28 09:14:31',0,null);
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,6,'2020-12-28 09:14:31',4,'hi every guys :D');
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,7,'2020-12-28 09:14:31',2,'Bad Course :3');
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,8,'2020-12-28 09:14:31',3,'<3');
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,9,'2020-12-28 09:14:31',1,'video is very laggy<3');
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,10,'2020-12-28 09:14:31',1,'I didnt like this course');
 
 insert into WishList(IdUser,IdCourse) values(7,1);

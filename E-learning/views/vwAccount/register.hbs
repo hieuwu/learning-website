@@ -6,8 +6,6 @@
 <script>
   $('#frmRegister').on('submit', function (e) {
     e.preventDefault();
-
-
     const username = $('#txtUsername').val();
     if (username.length === 0) {
       Swal.fire({

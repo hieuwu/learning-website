@@ -5,7 +5,7 @@ const pool = mysql.createPool({
     host: '127.0.0.1',
     port: 3306,
     user: 'root',
-    password: 'root',
+    password: '123456789',
     database: 'websitedb',
 });
 
@@ -16,4 +16,7 @@ module.exports = {
     add: (entity, tableName) => pool_query(`insert into ${tableName} set ?`, entity),
     del: (condition, tableName) => pool_query(`delete from ${tableName} where ?`, condition),
     patch: (entity, condition, tableName) => pool_query(`update ${tableName} set ? where ?`, [entity, condition]),
+    patchWith2Key: (entity, condition_1, condition_2, tableName) => {
+        pool_query(`update ${tableName} set ? where ? and ?`, [entity, condition_1, condition_2])
+    },
 };
