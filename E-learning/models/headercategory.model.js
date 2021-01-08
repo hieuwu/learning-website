@@ -6,7 +6,7 @@ module.exports = {
         return db.load(`select * from ${TBL_USERS} where isDeleted = false`);
     },
     async simpleSearch(text) {
-        return await db.load(`select * from ${TBL_USERS} where HeaderNameCategory= '${text}' where isDeleted = false`);
+        return await db.load(`select * from ${TBL_USERS} where HeaderNameCategory= '${text}' and isDeleted = false`);
     },
     async getById(id) {
         let rows =  await db.load(`select * from ${TBL_USERS} where Id = ${id}`);
