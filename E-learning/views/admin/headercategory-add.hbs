@@ -1,0 +1,33 @@
+<div class="row col-md-12">
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-6">
+    <div>
+      {{#if err_message}}
+      <div id="error-message" class="alert alert-warning alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{err_message}}
+      </div>
+      {{/if}}
+      <h1>Add new header category</h1>
+    </div>
+    <div>
+      <form method="POST">
+        <div>
+          <div>Header category name</div>
+          <input name="HeaderNameCategory" class="form-control" id="focusedInput"
+            type="text">
+        </div>
+        
+        <button type="submit" class="btn btn-outline-success" style="margin-top: 25px;">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          Add
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-3">
+  </div>
+</div>
