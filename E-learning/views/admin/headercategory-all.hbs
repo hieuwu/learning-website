@@ -1,0 +1,94 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/stylesheets/courseByCategory.css">
+<link rel="stylesheet" href="/public/stylesheets/admin-homepage.css">
+
+{{/section}}
+{{#section 'js'}}
+<script>
+  function sendHeaderCategoryDeleteRequest(Id) {
+    console.log(Id);
+    $.ajax({
+      url: `/admin//headercategory/`+Id,
+        type: "DELETE",
+        data: JSON.stringify(
+          {
+            Id: Id,
+          }
+        ),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        complete: function (xmlHttp) {
+          // xmlHttp is a XMLHttpRquest object
+          if (xmlHttp.status == 200) {
+            alert("A category has been deleted");
+            window.location.href = "/admin//headercategory/all";
+          } else {
+            alert("Some thing went wrong");
+            window.location.href = "/error";
+          }
+        }
+      });
+
+  }
+</script>
+{{/section}}
+<div class="row col-md-12 justify-content-center btn-add">
+  <div class="col-md-1 carousel-title"></div>
+  <div class="col-md-10 carousel-title btn-add">
+    <a class="btn btn-success mr-sm-2" href="/admin/headercategory/add">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+      Add header category
+    </a>
+    <div>
+      <hr />
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+</div>
+
+{{#each listOfCategories}}
+<div class="row col-md-12 justify-content-center">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <div class="item-container">
+      <div class="card" style="width: 100%;">
+        <div class="card-body">
+          <input value="{{this.HeaderNameCategory}}" class="card-title"></input>
+          {{!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+          </p> --}}
+        </div>
+         <div class="col-md-1 d-flex p-3">
+        <div><a type="button" href="/admin/headercategory/edit/{{./this.Id}}"  style="margin-right: 25px;" class="btn p-2 btn-success">Edit</a></div>
+        <div><button type="button" onclick="sendHeaderCategoryDeleteRequest({{./this.Id}})" class="btn p-2 btn-danger">Delete</button></div>
+      </div>
+      </div>
+      </div>  
+     
+    </div>
+    </a>
+    <div>
+      <hr />
+    </div>
+  </div>
+  {{/each}}
+  <div class="row justify-content-center">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item {{#unless can_go_prev}} disabled {{/unless}}">
+          <a class="page-link" href="?page={{prev_value}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        {{#each this.page_items}}
+        <li class="page-item"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+        {{/each}}
+        <li class="page-item {{#unless can_go_next}} disabled {{/unless}}">
+          <a class="page-link" href="?page={{next_value}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
