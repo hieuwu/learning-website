@@ -9,7 +9,7 @@ module.exports = {
         return await db.load(`select * from ${TBL_USERS} where HeaderCategoryID= '${ID}'`);
     },
     async searchByFulltext(text) {
-        return await db.load(`select * from ${TBL_USERS} where match(nameCategory) against('${text}')`);
+        return await db.load(`select * from ${TBL_USERS} where match(nameCategory) against('${text}') where isDeleted = false`);
     },
     async getCategoryById(categoryId) {
         let rows = await db.load(`select * from ${TBL_USERS} where Id=${categoryId}`);

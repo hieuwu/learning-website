@@ -24,6 +24,7 @@ module.exports = {
                         inner join category on course.IdCategory = category.Id
                         left join enrolledcourse on course.IdCourse = enrolledcourse.IdCourse 
                         and enrolledcourse.rateStar != 0
+                        where course.isDeleted = false
                         group by 
                         course.IdCourse
                         order by
@@ -49,6 +50,7 @@ module.exports = {
                             inner join category on course.IdCategory = category.Id
                             left join enrolledcourse on course.IdCourse = enrolledcourse.IdCourse
                             and enrolledcourse.rateStar != 0
+                            where course.isDeleted = false
                             group by course.IdCourse, course.nOViews
                             order by course.nOViews DESC limit 10`);
   },
@@ -71,12 +73,13 @@ module.exports = {
                             inner join category on course.IdCategory = category.Id
                             left join enrolledcourse on course.IdCourse = enrolledcourse.IdCourse
                             and enrolledcourse.rateStar != 0
+                            where course.isDeleted = false
                             group by course.IdCourse, course.nOViews
                             order by course.nOViews DESC limit 10`);
   },
   async getCoursebyCateID(condition, sortBy) {
     return await db.load(
-      `select * from ${TBL_COURSE} where IdCategory=${condition} order by ${sortBy}`
+      `select * from ${TBL_COURSE} where IdCategory=${condition} and isDeleted = false order by ${sortBy}`
     );
   },
   async getFullInformationByID(condition) {
@@ -90,12 +93,12 @@ module.exports = {
         on course.IdCategory = category.Id
         left join headercategory
         on category.headercategoryid=headercategory.id
-        where course.IdCourse = ${condition}
+        where course.IdCourse = ${condition} and course.isDeleted = false
         group by course.idcourse`);
     return rows;
   },
   async searchByFulltext(text, sortby) {
-    return await db.load(`select * from ${TBL_COURSE} where match(nameCourse) against('${text}')
+    return await db.load(`select * from ${TBL_COURSE} where match(nameCourse) against('${text}') and course.isDeleted = false
          order by ${sortby}`);
   },
   async getCourseListbyCategory(categoryId) {
@@ -109,7 +112,7 @@ module.exports = {
         on course.IdCategory = category.Id
         inner join chapter
         on course.IdCourse = chapter.idCourse
-        where category.Id= ${categoryId}
+        where category.Id= ${categoryId} and course.isDeleted = false
         group by course.IdCourse
         order by course.nOViews DESC limit 10`);
   },
@@ -132,7 +135,7 @@ module.exports = {
         inner join category on course.IdCategory = category.Id
         left join enrolledcourse on course.IdCourse = enrolledcourse.IdCourse
         and enrolledcourse.rateStar != 0
-        where category.Id= ${catId}
+        where category.Id= ${catId} and course.isDeleted = false
         group by course.IdCourse
         order by course.nOViews DESC limit ${config.pagination.limit} offset ${offset}`);
   },
@@ -140,7 +143,7 @@ module.exports = {
     let rows = await db.load(`select count(*) as total from ${TBL_COURSE} 
         inner join category
         on course.IdCategory = category.Id
-        where category.Id= ${catId}`);
+        where category.Id= ${catId} and course.isDeleted = false`);
     return rows[0].total;
   },
   async countByDomain(domainId) {
@@ -151,7 +154,7 @@ module.exports = {
             from headercategory
             inner join category
             on headercategory.Id = category.HeaderCategoryId
-            where category.HeaderCategoryId = ${domainId})`);
+            where category.HeaderCategoryId = ${domainId}) and course.isDeleted = false`);
     return rows[0].total;
   },
 
@@ -185,7 +188,7 @@ module.exports = {
             from headercategory
             inner join category
             on headercategory.Id = category.HeaderCategoryId
-            where category.HeaderCategoryId = ${domainId})
+            where category.HeaderCategoryId = ${domainId}) and course.isDeleted = false
         group by course.IdCourse
         order by course.nOViews DESC limit ${config.pagination.limit} offset ${offset}`);
   },
@@ -211,7 +214,8 @@ module.exports = {
                         left join user_profile on course.IdTeacher = user_profile.IdUser
                         inner join category on course.IdCategory = category.Id
                         left join enrolledcourse on course.IdCourse = enrolledcourse.IdCourse
-                        where course.IdCategory = ${IdCategory} AND course.IdCourse != ${IdCourse}
+                        where course.IdCategory = ${IdCategory} AND course.IdCourse != ${IdCourse} 
+                        and course.isDeleted = false
                         group by 
                         course.IdCourse
                         order by
@@ -238,7 +242,7 @@ module.exports = {
                     on course.IdCourse = enrolledcourse.IdCourse
                     inner join user_profile on course.IdTeacher = user_profile.IdUser
                     inner join category on course.IdCategory = category.Id
-                    where enrolledcourse.IdUser = ${IdUser}`);
+                    where enrolledcourse.IdUser = ${IdUser} and course.isDeleted = false`);
     return rows;
   },
   async getAllCourse() {
@@ -252,6 +256,7 @@ module.exports = {
     on course.IdCategory = category.Id
     inner join chapter
     on course.IdCourse = chapter.idCourse
+    where course.isDeleted = false
     group by course.IdCourse
     order by course.nOViews DESC limit 10`);
   },
@@ -262,7 +267,7 @@ module.exports = {
     where category.Id in (select category.Id
         from headercategory
         inner join category
-        on headercategory.Id = category.HeaderCategoryId)`);
+        on headercategory.Id = category.HeaderCategoryId) and isDeleted = false`);
     return rows[0].total;
   },
 
