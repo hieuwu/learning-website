@@ -1,12 +1,14 @@
 {{#section 'css'}}
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
 <link rel="stylesheet" href="/public/stylesheets/jsRapStar.css" />
 <link href="/public/stylesheets/course-detail.css" rel="stylesheet">
 
+
 {{/section}}
 
 {{#section 'js'}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/public/javascript/jsRapStar.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -150,12 +152,42 @@ onMouseleave(score){
         </div>
       </div>
 
-      <!-- course details -->
-      <div class="row">
+      <!-- about course -->
         <div class="col-12 mb-4">
           <h3>About Course</h3>
           <p>{{course.title}}</p>
         </div>
+
+        <!-- Course Content -->
+        <div class="col-12 mb-4">
+          <h3>Course Content</h3>
+
+          <div class="accordion" id="accordionExample1">
+            {{#each listChapter}}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                  data-bs-target={{this.dataBsTarget}} aria-expanded="true"
+                  aria-controls={{this.IdDiv}}>
+                  {{this.NameChapter}}
+                </button>
+              </h2>
+              <div id={{this.IdDiv}} class="accordion-collapse collapse show row"
+                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                {{#each ListLesson}}
+                <a class="accordion-body" href="/course/detail/{{this.idCourse}}/chapter/{{this.idChapter}}/lesson/{{this.idLesson}}"
+                target="_blank">
+                  {{this.NameLesson}}
+                </a>
+                {{/each}}
+              </div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+
+
+        <!-- Description -->
         <div class="col-12 mb-4">
           <h3>Description</h3>
           <p>{{{course.Description}}}</p>
@@ -172,7 +204,6 @@ onMouseleave(score){
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
 </section>
@@ -231,17 +262,21 @@ onMouseleave(score){
 {{#each listRating}}
 <hr style="border:3px solid #f1f1f1">
 <div class="DetailRatingContainer">
-  <div class="d-flex detail-flex-container">
-    <p class="ti-wallet text-primary font-size-fullName mr-2">{{this.FullName}}</p>
-    <div class="row">
-      <div class="ratingStar avgRatingLeft" value={{this.rateStar}}></div>
-      <h6 class="mb-0 ">{{this.Comments}}</h6>
+  <div class="container detail-flex-container">
+    <div class="mb-3 row">
+      <p class="ti-wallet text-primary font-size-fullName col-sm-2">{{this.FullName}}</p>
+      <div class="col-sm-8">
+        <div class="ratingStar avgRatingLeft" value={{this.rateStar}}></div>
+        <h6 class="mb-0 ">{{this.Comments}}</h6>
+      </div>
     </div>
+
   </div>
 </div>
 {{/each}}
 <hr style="border:3px solid #f1f1f1">
 {{!-- sendRating --}}
+
 {{#if isAuth}}
 {{#if isJoinCourse}}
 <form action="/rating/add" method="POST" id="frmRating" class="form-action">

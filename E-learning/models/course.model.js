@@ -314,4 +314,11 @@ module.exports = {
     }
     return rows[0];
   },
+  async getListLessonByCourseId(IdCourse) {
+    const rows = await db.load(`select *
+                    from chapter 
+                    left join lesson on lesson.idChapter = chapter.IdChapter
+                    where IdCourse = ${IdCourse}`);
+    return rows;
+  },
 };

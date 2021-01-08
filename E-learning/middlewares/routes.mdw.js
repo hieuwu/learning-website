@@ -7,6 +7,6 @@ module.exports = function (app) {
     app.use("/cart", restrict.isUser , require("../routes/user/cart.route"));
     app.use("/wishlist", restrict.isUser , require("../routes/user/wishlist.route"));
     app.use("/rating", restrict.isUser , require("../routes/user/rating.route"));
-    app.use("/teacher", restrict.isTeacher, require("../routes/teacher/teacherhomepage.route"));
-    app.use("/admin", restrict.isAdmin, require("../routes/admin/admin.route"));
+    app.use("/teacher", restrict.isUser, require("../routes/teacher/teacherhomepage.route"));
+    app.use("/admin", restrict.isUser, require("../routes/admin/admin.route"));
 };

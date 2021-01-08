@@ -217,14 +217,16 @@ insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,Id
 insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher,avgRate) values('Read Music FAST!','Learn to read music using my unique method','<p><strong>Information</strong></p> <ul>     <li>using my unique method: just see a note on a piano score and play it on the keyboard straight away</li> </ul>',209,11,430688,"unfinished",15,6,5);
 
 insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',1);
-insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',2);
-insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',3);
-insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',4);
-insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',5);
 insert into Chapter(NameChapter,idCourse) values('Chapter 2: Learning CSS',1);
+insert into Chapter(NameChapter,idCourse) values('Chapter 3: About The Course',1);
+insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',2);
 insert into Chapter(NameChapter,idCourse) values('Chapter 2: Learning CSS',2);
+insert into Chapter(NameChapter,idCourse) values('Chapter 3: About The Course',2);
+insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',3);
 insert into Chapter(NameChapter,idCourse) values('Chapter 2: Learning CSS',3);
+insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',4);
 insert into Chapter(NameChapter,idCourse) values('Chapter 2: Learning CSS',4);
+insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',5);
 insert into Chapter(NameChapter,idCourse) values('Chapter 2: Learning CSS',5);
 insert into Chapter(NameChapter,idCourse) values('Chapter 1: About The Course',6);
 insert into Chapter(NameChapter,idCourse) values('Chapter 1: About The Course',7);
@@ -275,11 +277,17 @@ insert into Chapter(NameChapter,idCourse) values('Chapter 1: About The Course',4
 insert into Chapter(NameChapter,idCourse) values('Chapter 1: About The Course',50);
 
 
-insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',1);
-insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',2);
-insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',3);
-insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',4);
-insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',5);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: Learning HTML_1','what you learning in this course',1);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 2: Learning HTML_2','what you learning in this course',1);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 3: Learning HTML_3','what you learning in this course',1);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: Learning CSS_1','what you learning in this course',2);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 2: Learning CSS_2','what you learning in this course',2);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course_1','what you learning in this course',3);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 2: About The Course_2','what you learning in this course',3);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: Learning HTML_1','what you learning in this course',4);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 2: Learning HTML_2','what you learning in this course',4);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: Learning CSS_1','what you learning in this course',5);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 2: Learning CSS_2','what you learning in this course',5);
 insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',6);
 insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',7);
 insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',8);
