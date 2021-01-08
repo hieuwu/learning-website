@@ -11,4 +11,13 @@ router.get('/category/all', controller.getCategoryPage);
 router.get('/category/edit/:id', controller.getEditCategoryPage);
 router.post('/category/edit/:id', controller.editCategoryById);
 router.delete('/category/:id', controller.deleteCategory);
+router.get('/category/add', controller.getAddCategoryPage);
+router.post('/category/add', controller.addNewCategory);
+router.get('/headercategory/all', controller.getHeaderCategoryPage);
+router.get('/headercategory/edit/:id', controller.getEditHeaderCategoryPage);
+router.post('/headercategory/edit/:id', controller.editHeaderCategoryById);
+router.delete('/headercategory/:id', controller.deleteHeaderCategory);
+router.get('/headercategory/add', controller.getAddHeaderCategoryPage);
+router.post('/headercategory/add', controller.addNewHeaderCategory);
+
 module.exports = router;

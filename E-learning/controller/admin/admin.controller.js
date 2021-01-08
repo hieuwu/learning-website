@@ -111,7 +111,7 @@ module.exports = {
       Price,
       SaleCost,
     });
-    let isUpdated = await courseModel.updateCourse(IdCourse, {
+    await courseModel.updateCourse(IdCourse, {
       nameCourse,
       Description,
       title,
@@ -147,7 +147,7 @@ module.exports = {
     const categoryId = req.params.id;
     const {NameCategory, HeaderCategoryId} = req.body;
     console.log(req.body);
-    let updatedCategory = await categoryModel.updateCategoryById(categoryId,{NameCategory, HeaderCategoryId} );
+    await categoryModel.updateCategoryById(categoryId,{NameCategory, HeaderCategoryId} );
     let headerCategories = await headercategoryModel.all();
     let category = await categoryModel.getCategoryById(categoryId);
     let headerCategoryName = await headercategoryModel.getNameById(category.HeaderCategoryID);
@@ -160,7 +160,64 @@ module.exports = {
   },
   deleteCategory: async (req, res) => {
     const Id = req.body.Id;
-    let deletedCourse = await categoryModel.deleteCategory(Id);
+    await categoryModel.deleteCategory(Id);
     res.redirect("/category/all");
+  },
+  getAddCategoryPage: async (req, res) => {
+    let headerCategories = await headercategoryModel.all();
+    res.render("admin/category-add", {
+      headerCategories: headerCategories,
+    });
+  },
+  addNewCategory: async (req, res) => {
+    console.log(req.body);
+    const {NameCategory, HeaderCategoryId} = req.body;
+    let headerCategories = await headercategoryModel.all();
+    await categoryModel.addNewCategory({NameCategory, HeaderCategoryId});
+    res.render("admin/category-add", {
+      err_message: "New category is added successfully",
+      headerCategories: headerCategories,
+    });
+  },
+
+  getHeaderCategoryPage: async (req, res) => {
+    let listOfCategories = await headercategoryModel.all();
+    res.render('admin/headercategory-all', {
+      listOfCategories: listOfCategories,
+    });
+  },
+  getEditHeaderCategoryPage: async (req, res) => {
+    const categoryId = req.params.id;
+    let category = await headercategoryModel.getById(categoryId);
+    res.render("admin/headercategory-edit", {
+      category:category
+    });
+  },
+  editHeaderCategoryById: async (req, res) => {
+    const categoryId = req.params.id;
+    const {HeaderNameCategory} = req.body;
+    console.log(req.body);
+    await headercategoryModel.updateHeaderCategoryById(categoryId,{HeaderNameCategory});
+    let category = await headercategoryModel.getById(categoryId);
+    res.render("admin/headercategory-edit", {
+      err_message: "Header category is updated successfully",
+      category:category
+    });
+  },
+  deleteHeaderCategory: async (req, res) => {
+    const Id = req.body.Id;
+    await headercategoryModel.deleteHeaderCategory(Id);
+    res.redirect("/headercategory/all");
+  },
+  getAddHeaderCategoryPage: async (req, res) => {
+    res.render('admin/headercategory-add');
+  },
+  addNewHeaderCategory: async (req, res) => {
+    console.log(req.body);
+    const {HeaderNameCategory} = req.body;
+    await headercategoryModel.addNewHeaderCategory({HeaderNameCategory});
+    res.render("admin/headercategory-add", {
+      err_message: "New category is added successfully",
+    });
   }
 };

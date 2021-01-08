@@ -27,5 +27,8 @@ module.exports = {
         const condition = {Id: categoryId}; 
         const entity = {isDeleted: true}
         return await db.patch(entity, condition,TBL_USERS);
+    },
+    async addNewCategory(newCategory) {
+        return db.add(newCategory, TBL_USERS);
     }
 };

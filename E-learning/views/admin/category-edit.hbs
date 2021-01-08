@@ -1,3 +1,32 @@
+
+{{#section 'js'}}
+<script>
+  function sendCategoryDeleteRequest(Id) {
+    console.log(Id);
+    $.ajax({
+      url: `/admin/category/`+Id,
+        type: "DELETE",
+        data: JSON.stringify(
+          {
+            Id: Id,
+          }
+        ),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        complete: function (xmlHttp) {
+          // xmlHttp is a XMLHttpRquest object
+          if (xmlHttp.status == 200) {
+            alert("A category has been deleted");
+            window.location.href = "/admin/category/all";
+          } else {
+            alert("Some thing went wrong");
+            window.location.href = "/error";
+          }
+        }
+      });
+  }
+</script>
+{{/section}}
 <div class="row col-md-12">
   <div class="col-md-3">
   </div>
@@ -36,7 +65,12 @@
           <i class="fa fa-check" aria-hidden="true"></i>
           Save
         </button>
+
       </form>
+      <div><button type="button" style="margin-top: 25px;" onclick="sendCategoryDeleteRequest({{category.Id}})"
+          class="btn p-2 btn-danger">
+                    <i class="fa fa-delete" aria-hidden="true"></i>
+          Delete</button></div>
     </div>
   </div>
   <div class="col-md-3">
