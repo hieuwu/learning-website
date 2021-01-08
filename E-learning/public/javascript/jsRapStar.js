@@ -12,7 +12,7 @@
 				colorBack: 'white',
 				enabled: true,
 				step: true,
-				starHeight: 32,
+				starHeight: 20,
 				length: 5,
 				value: value,
 				onClick: null,
