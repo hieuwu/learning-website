@@ -6,25 +6,30 @@ module.exports = {
     }
     next();
   },
+  isGuestOrUser: (req, res, next) => {
+    if (req.session.isAuth === true){
+      if (String(req.session.authUser.Permission) != "student") {
+        throw Error('Access denied!');  
+      }
+    }
+    next();
+  },
   isUser: (req, res, next) => {
-    if (String(req.session.isAuth.Permission) === "student") {
-      const url = req.originalUrl || '/';
-      return res.redirect(url);
+    if (String(req.session.authUser.Permission) != "student") {
+      throw Error('Access denied!');  
     }
     next();
   },
   isTeacher: (req, res, next) => {
-    if (String(req.session.isAuth.Permission) === "teacher") {
-      const url = req.originalUrl || '/';
-      return res.redirect(url);
+    if (String(req.session.authUser.Permission) != "teacher") {
+      throw Error('Access denied!');
     }
     next();
   },
   
   isAdmin: (req, res, next) => {
-    if (String(req.session.isAuth.Permission) === "admin") {
-      const url = req.originalUrl || '/';
-      return res.redirect(url);
+    if (String(req.session.authUser.Permission) != "admin") {
+      throw Error('Access denied!');
     }
     next();
   },

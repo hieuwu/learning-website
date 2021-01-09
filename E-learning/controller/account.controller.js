@@ -97,10 +97,17 @@ module.exports = {
     }
   },
   postLogout: async (req, res) => {
+    let url = "/";
+    if(req.session.authUser.Permission != "Student"){
+      url = "/";
+    }else{
+      url = req.headers.referer;
+    }
     req.session.isAuth = false;
     req.session.authUser = null;
     req.session.cart = [];
-    res.redirect(req.headers.referer);
+
+    res.redirect(url);
   },
   getProfile: async (req, res) => {
     res.render("vwAccount/profile", { user: req.session.authUser });
