@@ -50,4 +50,12 @@ module.exports = {
     addTeachProfile(entity) {
         return db.add(entity, TBL_Teach_profile);
     },
+    async getTeachProfileById(id) {
+        return await db.load(`select * from ${TBL_Teach_profile} where IdUser= ${id}`);
+    },
+    editBio(IdUser, Biography) {
+        const condition = { IdUser: IdUser };
+        const entity = { Biography: Biography };
+        return db.patch(entity, condition, TBL_Teach_profile);
+    },
 };
