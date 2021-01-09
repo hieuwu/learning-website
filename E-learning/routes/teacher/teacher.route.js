@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../../controller/teacher.controller');
-router.get('/', controller.getTeachHomePage);
-
+const controller = require('../../controller/teacher/teacher.controller');
+const auth = require('../../middlewares/auth.mdw');
+router.get('/', controller.getHomePage);
+router.get('/profile', controller.getProfile);
+router.get('/edit-password', controller.getEditPassword);
+router.post('/profile/edit', controller.postEditProfile);
+router.post('/edit-password/edit', controller.postEditPassword);
 module.exports = router;

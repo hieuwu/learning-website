@@ -58,7 +58,15 @@
     sessionStorage.setItem("password", $('#txtPassword').val());
     sessionStorage.setItem("email", $('#txtEmail').val());
     sessionStorage.setItem("fullName", $('#txtFullName').val());
+    if($('#txtStudent').checked)
+    {
+    sessionStorage.setItem("permission", $('#txtStudent').val());
+    }
+    else{
+    sessionStorage.setItem("permission", $('#txtTeacher').val());
 
+    }
+    sessionStorage.setItem("biography", $('#txtBio').val()); 
     const data =
       $.getJSON(`/account/is-available?user=${username}`, async function (data) {
         if (data === true) {
@@ -74,6 +82,17 @@
           })
         }
       })
+  });
+  $(document).ready(function(){
+  $("#txtStudent").click(function(){
+    $("#txtBio").css("display","none");
+    $("#labelBio").css("display","none");    
+  });
+  $("#txtTeacher").click(function(){
+    $("#txtBio").css("display","block");
+    $("#labelBio").css("display","inline-block");
+  });
+
   });
 
 </script>
@@ -102,6 +121,21 @@
       <div class="form-group">
         <label for="txtEmail">Email</label>
         <input type="text" class="form-control" id="txtEmail" name="email" placeholder="company@gmail.com">
+      </div>
+      <div class="form-group">
+        <div>
+          <h4>registration type:</h4>
+        </div>
+        <div>
+        <input type="radio" id="txtStudent" name="permission" value='student' checked>
+        <label for="txtStudent">student</label>          
+        <input type="radio"id="txtTeacher" name="permission"value='teacher'>
+        <label for="txtTeacher">teacher</label>  
+        </div>
+      </div>
+      <div>
+        <label id="labelBio" for="txtBio" style="display: none;">Biography</label>
+        <textarea name="biography" id="txtBio" class="form-control"  style="display: none;"rows="2"></textarea>
       </div>
     </div>
     <div class="card-footer text-muted">
