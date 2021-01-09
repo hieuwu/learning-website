@@ -2,6 +2,7 @@ const courseModel = require("../../models/course.model");
 const config = require("../../config/default.json");
 const categoryModel = require("../../models/category.model");
 const headercategoryModel = require("../../models/headercategory.model");
+const userModel = require('../../models/user.model');
 module.exports = {
   getadminHome: async (req, res) => {
     res.render("admin/adminhomepage", {
@@ -219,5 +220,75 @@ module.exports = {
     res.render("admin/headercategory-add", {
       err_message: "New category is added successfully",
     });
+  },
+  getAllTeacher: async (req, res) => {
+    let page = +req.query.page || 1;
+    if (page == 0) page = 1;
+    let offset = (page - 1) * config.pagination.limit;
+    let listOfTeachers = await userModel.pageByAllTeacher(offset);
+    listOfTeachers.forEach((item) => {
+      if (item.status === "Block") {
+        item.isBlocked = true;
+      }
+      else {
+        item.isBlocked = false;
+      }
+    });
+    const total = await userModel.countAllTeacher();
+    let nPages = Math.ceil(total / config.pagination.limit);
+    let page_items = [];
+    for (i = 1; i <= nPages; i++) {
+      const item = {
+        value: i,
+      };
+      page_items.push(item);
+    }
+    res.render("admin/teacher-all", {
+      listOfTeachers: listOfTeachers,
+      page_items: page_items,
+      can_go_next: page < nPages,
+      can_go_prev: page > 1,
+      prev_value: page - 1,
+      next_value: page + 1,
+    });
+  },
+  getUserById: async (req, res) => {
+    const userId = req.params.id;
+    let user = await userModel.singleTeacher(userId);
+    res.render("admin/teacher-detail", {user: user});
+  },
+  blockTeacher: async (req, res) => {
+    const Id = req.body.teacherId;
+    await userModel.blockTeacher(Id);
+    res.redirect("/teacher/all");
+  },
+  unblockTeacher: async (req, res) => {
+    const Id = req.body.teacherId;
+    await userModel.unblockTeacher(Id);
+    res.redirect("/teacher/all");
+  },
+  getPendingTeacherPage: async (req, res) => {
+    let listPendingTeachers = await userModel.getPendingTeacher();
+    listPendingTeachers.forEach((item) => {
+      if(item.status === "Processing") {
+        item.isProcessing = true;
+      }
+      else {
+        item.isProcessing = false;
+      }
+    });
+    res.render('admin/teacher-pending', {
+      listPendingTeachers: listPendingTeachers
+    });
+  },
+  approvePendingTeacher: async (req, res) => {
+    const id = req.body.teacherId;
+    await userModel.approvePendingTeacher(id);
+    res.redirect("/teacher/all/pending");
+  },
+  declineTeacher: async (req, res) => {
+    const id = req.body.teacherId;
+    await userModel.declinePendingTeacher(id);
+    res.redirect("/teacher/all/pending");
   }
 };

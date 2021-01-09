@@ -1,0 +1,132 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/stylesheets/courseByCategory.css">
+<link rel="stylesheet" href="/public/stylesheets/admin-homepage.css">
+
+{{/section}}
+{{#section 'js'}}
+<script>
+  function sendTeacherBlockRequest(teacherId) {
+    console.log(teacherId);
+    $.ajax({
+      url: `/admin/teacher/`+teacherId,
+        type: "DELETE",
+        data: JSON.stringify(
+          {
+            teacherId: teacherId,
+          }
+        ),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+
+        complete: function (xmlHttp) {
+          // xmlHttp is a XMLHttpRquest object
+          if (xmlHttp.status == 200) {
+            alert("A teacher has been blocked");
+            window.location.href = "/admin/teacher/all";
+          } else {
+            alert("Some thing went wrong");
+            window.location.href = "/error";
+          }
+        }
+      });
+  }
+  function sendTeacherUnBlockRequest(teacherId) {
+    console.log(teacherId);
+    $.ajax({
+      url: `/admin/teacher/unblock/`+teacherId,
+        type: "DELETE",
+        data: JSON.stringify(
+          {
+            teacherId: teacherId,
+          }
+        ),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        complete: function (xmlHttp) {
+          // xmlHttp is a XMLHttpRquest object
+          if (xmlHttp.status == 200) {
+            alert("A teacher has been unblocked");
+            window.location.href = "/admin/teacher/all";
+          } else {
+            alert("Some thing went wrong");
+            window.location.href = "/error";
+          }
+        }
+      });
+  }
+  
+</script>
+{{/section}}
+<div class="row col-md-12 justify-content-center btn-add">
+  <div class="col-md-1 carousel-title"></div>
+  <div class="col-md-10 carousel-title btn-add">
+    <a class="btn btn-success mr-sm-2" href="/admin/teacher/all/pending">
+      <i class="fa fa-sign-in" aria-hidden="true"></i>
+      View Pending Teacher Requests
+    </a>
+    <div>
+      <hr />
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+</div>
+
+{{#each listOfTeachers}}
+<div class="row col-md-12 justify-content-center">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <div class="item-container">
+      <div class="item-image col-md-3">
+        <img class="img-thumbnail item-image" src="../../public/avatar/avatar.png"  style="width:200px"
+          alt="Can not display">
+      </div>
+      <div class="item-content col-md-6">
+        <div>
+          <a href="/admin/teacher/{{this.IdUser}}">
+            <h3>{{this.FullName}}</h3>
+          </a>
+        </div>
+        <div> <b>Username:</b>  {{{this.UserName}}}</div>
+        <div><b>Type:</b> {{#if this.isTeacher}} <span>Teacher</span>  {{else}}  <span>Student</span> {{/if}}</div>
+        <div><b>Email:</b> {{{this.Email}}}</div>
+        <div><b>Created at:</b> {{this.createdTime}}</div>
+        <div><b>Bio:</b> {{this.Biography}}</div>
+
+        {{!-- <div class="item-teacher">{{this.FullName}}</div> --}}
+        {{!-- <div class="item-length">{{this.NameCategory}} | 4 hours &bull; {{this.numOfChapters}} chapters</div> --}}
+      </div>
+      <div class="col-md-1">
+        {{#if this.isBlocked}}
+                <div><a type="button"  onclick="sendTeacherUnBlockRequest({{./this.IdUser}})" class="btn p-2 btn-success btn-dimen">Unblock</a></div>
+        {{else}}
+              <div><button type="button" onclick="sendTeacherBlockRequest({{./this.IdUser}})" class="btn btn-danger">Block</button></div>
+        {{/if}}
+      </div>
+    </div>
+    </a>
+    <div>
+      <hr />
+    </div>
+  </div>
+  {{/each}}
+  <div class="row justify-content-center">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item {{#unless can_go_prev}} disabled {{/unless}}">
+          <a class="page-link" href="?page={{prev_value}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        {{#each this.page_items}}
+        <li class="page-item"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+        {{/each}}
+        <li class="page-item {{#unless can_go_next}} disabled {{/unless}}">
+          <a class="page-link" href="?page={{next_value}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
