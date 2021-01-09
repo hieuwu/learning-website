@@ -21,5 +21,10 @@ router.get('/headercategory/add', controller.getAddHeaderCategoryPage);
 router.post('/headercategory/add', controller.addNewHeaderCategory);
 router.get('/teacher/all', controller.getAllTeacher);
 router.get('/teacher/:id', controller.getUserById);
+router.delete('/teacher/:id', controller.blockTeacher);
+router.delete('/teacher/unblock/:id', controller.unblockTeacher);
+router.get('/teacher/all/pending', controller.getPendingTeacherPage);
+router.post('/teacher/all/pending/:id', controller.approvePendingTeacher);
+router.delete('/teacher/decline/:id', controller.declineTeacher);
 
 module.exports = router;

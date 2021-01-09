@@ -2,7 +2,7 @@ const db = require("../utils/db");
 const config = require('../config/default.json');
 const TBL_USERS = "user_profile";
 const TBL_VERIFICATION = "verification";
-
+const TBL_TEACHER_PROFILE = "teach_profile";
 module.exports = {
   all() {
     return db.load(`select * from ${TBL_USERS}`);
@@ -50,12 +50,51 @@ module.exports = {
     return await db.load(`select * from ${TBL_USERS} where isTeacher = 1`);
   },
   async pageByAllTeacher(offset) {
-    return await db.load(`select * from ${TBL_USERS} where isTeacher = 1
-        limit ${config.pagination.limit} offset ${offset}`);
+    return await db.load(`select * from ${TBL_USERS} 
+    left join teach_profile
+    on user_profile.IdUser = teach_profile.IdUser
+    where user_profile.isTeacher = 1 and teach_profile.status != "Processing"
+    limit ${config.pagination.limit} offset ${offset}`);
   },
   async countAllTeacher() {
     let rows = await db.load(`select count(*) as total from ${TBL_USERS} 
     where isTeacher = 1`);
     return rows[0].total;
   },
+  async blockTeacher(id) {
+    const condition = {IdUser: id}; 
+    const entity = {status: "Block"};
+    return await db.patch(entity, condition,TBL_TEACHER_PROFILE);    
+  },
+  async unblockTeacher(id) {
+    const condition = {IdUser: id}; 
+    const entity = {status: "Accept"};
+    return await db.patch(entity, condition,TBL_TEACHER_PROFILE);  
+  },
+  async getPendingTeacher() {
+    return await db.load(`select * from ${TBL_USERS} 
+    left join teach_profile
+    on user_profile.IdUser = teach_profile.IdUser
+    where user_profile.isTeacher = 1 and teach_profile.status = "Processing"`);
+  },
+  async approvePendingTeacher(id) {
+    const condition = {IdUser: id}; 
+    const entity = {status: "Accept"};
+    const isTeacher = {isTeacher: 1, Permission: "teacher"};
+    await db.patch(entity, condition,TBL_TEACHER_PROFILE);  
+    return await db.patch(isTeacher, condition, TBL_USERS);
+  },
+  async singleTeacher(id) {
+    const rows = await db.load(`select * from ${TBL_USERS}
+    left join teach_profile
+    on user_profile.IdUser = teach_profile.IdUser
+    where user_profile.IdUser = ${id}`);
+    if (rows.length === 0) return null;
+    return rows[0];
+  },
+  async declinePendingTeacher(id) {
+    const condition = {IdUser: id};
+    await db.del(condition, TBL_TEACHER_PROFILE);
+  }
 };
+

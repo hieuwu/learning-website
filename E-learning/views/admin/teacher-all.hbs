@@ -5,14 +5,14 @@
 {{/section}}
 {{#section 'js'}}
 <script>
-  function sendCourseDeleteRequest(IdCourse) {
-    console.log(IdCourse);
+  function sendTeacherBlockRequest(teacherId) {
+    console.log(teacherId);
     $.ajax({
-      url: `/admin/course/`+IdCourse,
+      url: `/admin/teacher/`+teacherId,
         type: "DELETE",
         data: JSON.stringify(
           {
-            IdCourse: IdCourse,
+            teacherId: teacherId,
           }
         ),
         contentType: "application/json; charset=utf-8",
@@ -21,15 +21,38 @@
         complete: function (xmlHttp) {
           // xmlHttp is a XMLHttpRquest object
           if (xmlHttp.status == 200) {
-            alert("A course has been deleted");
-            window.location.href = "/admin/course/all";
+            alert("A teacher has been blocked");
+            window.location.href = "/admin/teacher/all";
           } else {
             alert("Some thing went wrong");
             window.location.href = "/error";
           }
         }
       });
-
+  }
+  function sendTeacherUnBlockRequest(teacherId) {
+    console.log(teacherId);
+    $.ajax({
+      url: `/admin/teacher/unblock/`+teacherId,
+        type: "DELETE",
+        data: JSON.stringify(
+          {
+            teacherId: teacherId,
+          }
+        ),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        complete: function (xmlHttp) {
+          // xmlHttp is a XMLHttpRquest object
+          if (xmlHttp.status == 200) {
+            alert("A teacher has been unblocked");
+            window.location.href = "/admin/teacher/all";
+          } else {
+            alert("Some thing went wrong");
+            window.location.href = "/error";
+          }
+        }
+      });
   }
   
 </script>
@@ -37,10 +60,10 @@
 <div class="row col-md-12 justify-content-center btn-add">
   <div class="col-md-1 carousel-title"></div>
   <div class="col-md-10 carousel-title btn-add">
-    {{!-- <a class="btn btn-success mr-sm-2" href="/admin/course/add">
-      <i class="fa fa-plus" aria-hidden="true"></i>
-      Add Course
-    </a> --}}
+    <a class="btn btn-success mr-sm-2" href="/admin/teacher/all/pending">
+      <i class="fa fa-sign-in" aria-hidden="true"></i>
+      View Pending Teacher Requests
+    </a>
     <div>
       <hr />
     </div>
@@ -67,12 +90,17 @@
         <div><b>Type:</b> {{#if this.isTeacher}} <span>Teacher</span>  {{else}}  <span>Student</span> {{/if}}</div>
         <div><b>Email:</b> {{{this.Email}}}</div>
         <div><b>Created at:</b> {{this.createdTime}}</div>
+        <div><b>Bio:</b> {{this.Biography}}</div>
+
         {{!-- <div class="item-teacher">{{this.FullName}}</div> --}}
         {{!-- <div class="item-length">{{this.NameCategory}} | 4 hours &bull; {{this.numOfChapters}} chapters</div> --}}
       </div>
       <div class="col-md-1">
-        <div><a type="button" href="/admin/course/edit/{{./this.IdCourse}}" class="btn p-2 btn-success btn-dimen">Edit</a></div>
-        <div><button type="button" onclick="sendCourseDeleteRequest({{./this.IdCourse}})" class="btn btn-danger">Delete</button></div>
+        {{#if this.isBlocked}}
+                <div><a type="button"  onclick="sendTeacherUnBlockRequest({{./this.IdUser}})" class="btn p-2 btn-success btn-dimen">Unblock</a></div>
+        {{else}}
+              <div><button type="button" onclick="sendTeacherBlockRequest({{./this.IdUser}})" class="btn btn-danger">Block</button></div>
+        {{/if}}
       </div>
     </div>
     </a>

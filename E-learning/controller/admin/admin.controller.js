@@ -226,6 +226,14 @@ module.exports = {
     if (page == 0) page = 1;
     let offset = (page - 1) * config.pagination.limit;
     let listOfTeachers = await userModel.pageByAllTeacher(offset);
+    listOfTeachers.forEach((item) => {
+      if (item.status === "Block") {
+        item.isBlocked = true;
+      }
+      else {
+        item.isBlocked = false;
+      }
+    });
     const total = await userModel.countAllTeacher();
     let nPages = Math.ceil(total / config.pagination.limit);
     let page_items = [];
@@ -246,7 +254,41 @@ module.exports = {
   },
   getUserById: async (req, res) => {
     const userId = req.params.id;
-    let user = await userModel.single(userId);
+    let user = await userModel.singleTeacher(userId);
     res.render("admin/teacher-detail", {user: user});
+  },
+  blockTeacher: async (req, res) => {
+    const Id = req.body.teacherId;
+    await userModel.blockTeacher(Id);
+    res.redirect("/teacher/all");
+  },
+  unblockTeacher: async (req, res) => {
+    const Id = req.body.teacherId;
+    await userModel.unblockTeacher(Id);
+    res.redirect("/teacher/all");
+  },
+  getPendingTeacherPage: async (req, res) => {
+    let listPendingTeachers = await userModel.getPendingTeacher();
+    listPendingTeachers.forEach((item) => {
+      if(item.status === "Processing") {
+        item.isProcessing = true;
+      }
+      else {
+        item.isProcessing = false;
+      }
+    });
+    res.render('admin/teacher-pending', {
+      listPendingTeachers: listPendingTeachers
+    });
+  },
+  approvePendingTeacher: async (req, res) => {
+    const id = req.body.teacherId;
+    await userModel.approvePendingTeacher(id);
+    res.redirect("/teacher/all/pending");
+  },
+  declineTeacher: async (req, res) => {
+    const id = req.body.teacherId;
+    await userModel.declinePendingTeacher(id);
+    res.redirect("/teacher/all/pending");
   }
 };
