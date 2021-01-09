@@ -1,0 +1,65 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="/public/stylesheets/courseByCategory.css">
+<link rel="stylesheet" href="/public/stylesheets/admin-homepage.css">
+{{/section}}
+<div class="row col-md-12 justify-content-center btn-add">
+  <div class="col-md-1 carousel-title"></div>
+  <div class="col-md-10 carousel-title btn-add">
+   
+    <div>
+      <hr />
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+</div>
+
+{{#each listOfUsers}}
+<div class="row col-md-12 justify-content-center">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <div class="item-container">
+      <div class="item-image col-md-3">
+        <img class="img-thumbnail item-image" src="../../public/avatar/avatar.png"  style="width:200px"
+          alt="Can not display">
+      </div>
+      <div class="item-content col-md-6">
+        <div>
+          <a href="/admin/student/{{this.IdUser}}">
+            <h3>{{this.FullName}}</h3>
+          </a>
+        </div>
+        <div> <b>Username:</b>  {{{this.UserName}}}</div>
+        <div><b>Type:</b> {{#if this.isTeacher}} <span>Teacher</span>  {{else}}  <span>Student</span> {{/if}}</div>
+        <div><b>Email:</b> {{{this.Email}}}</div>
+        <div><b>Created at:</b> {{this.createdTime}}</div>
+      </div>
+      <div class="col-md-1">
+      </div>
+    </div>
+    </a>
+    <div>
+      <hr />
+    </div>
+  </div>
+  {{/each}}
+  <div class="row justify-content-center">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item {{#unless can_go_prev}} disabled {{/unless}}">
+          <a class="page-link" href="?page={{prev_value}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        {{#each this.page_items}}
+        <li class="page-item"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+        {{/each}}
+        <li class="page-item {{#unless can_go_next}} disabled {{/unless}}">
+          <a class="page-link" href="?page={{next_value}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>

@@ -3,13 +3,13 @@ const config = require('../config/default.json');
 const TBL_USERS = "user_profile";
 const TBL_VERIFICATION = "verification";
 const TBL_Teach_profile = "Teach_profile";
-
+const TBL_ENROLLED_COURSE= "enrolledcourse";
 module.exports = {
     all() {
         return db.load(`select * from ${TBL_USERS}`);
     },
     async single(id) {
-        const rows = await db.load(`select * from ${TBL_USERS} where id = ${id}`);
+        const rows = await db.load(`select * from ${TBL_USERS} where IdUser = ${id}`);
         if (rows.length === 0) return null;
         return rows[0];
     },
@@ -103,5 +103,27 @@ module.exports = {
       const condition = { IdUser: IdUser };
       const entity = { Biography: Biography };
       return db.patch(entity, condition, TBL_Teach_profile);
+  },
+  async allUser() {
+    return db.load(`select * from ${TBL_USERS} where isTeacher != 1 and UserName != 'admin'`);
+  },
+  async pageByAllUser(offset) {
+    return await db.load(`select * from ${TBL_USERS} 
+    where isTeacher != 1 and UserName != 'admin'
+    limit ${config.pagination.limit} offset ${offset}`);
+  },
+  async countAllUser() {
+    let rows = await db.load(`select count(*) as total from ${TBL_USERS} 
+    where isTeacher != 1 and UserName != 'admin'`);
+    return rows[0].total;
+  },
+  async countCoursesOfUser(userId) {
+    let rows = await db.load(`SELECT count(*) as total FROM ${TBL_ENROLLED_COURSE}
+    where IDUser = ${userId}`);
+    return rows[0].total;
+  },
+  async getAdminProfile() {
+    let rows =  await db.load(`select* from ${TBL_USERS} where UserName='admin'`);
+    return rows[0];
   }
 };

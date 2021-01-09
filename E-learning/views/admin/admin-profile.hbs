@@ -1,0 +1,71 @@
+{{#section 'css'}}
+<style>
+  img {
+    border-radius: 50%;
+    align-self: center;
+  }
+  p {
+    align-self: center;
+    font-size: larger;
+  }
+  .col-8{
+    display: :flex;
+  }
+  button{
+    align-items: center;
+    align-self: center;
+  }
+</style>
+{{/section}}
+
+<form method="POST" action="">
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <div class="container-fluid mt-4">
+        <div class="row">
+          <div class="card mb-3">
+            <ul class="list-group list-group-flush">
+              <img src="../../public/avatar/avatar.png" alt="Avatar" style="width:200px">
+              <p>{{user.FullName}}</p>
+             
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-8" >
+      {{#if err_message}}
+      <div id="error-message" class="alert alert-warning alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{err_message}}
+      </div>
+      {{/if}}
+      <div class="container-fluid mt-4">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="floatingInput" placeholder="FullName" value="{{user.FullName}}" name="FullName">
+          <label for="floatingInput">FullName</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="floatingInput" placeholder="Username" value="{{user.UserName}}" name="UserName" readonly>
+          <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="floatingInput" placeholder="Email" value="{{user.Email}}" readonly>
+          <label for="floatingInput">Email</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" id="floatingInput" placeholder="Permission" value="{{user.Permission}}" readonly>
+          <label for="floatingInput">Permission</label>
+        </div>
+        <button type="submit" class="btn btn-outline-success" formaction="/admin/profile/edit">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Save
+      </button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
