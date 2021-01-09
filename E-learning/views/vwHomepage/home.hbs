@@ -6,31 +6,25 @@
 {{#section 'js'}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/public/javascript/jsRapStar.js"></script>
-<script>$('.ratingStar').jsRapStar({ enabled: false, colorFront: "yellow"});</script>
+<script>$('.ratingStar').jsRapStar({ enabled: false, colorFront: "yellow" });</script>
 {{/section}}
 <div class="row justify-content-center">
     <div class="col-sm-8">
         <div class="homeslider">
             <div id="carouselExampleControls" data-interval="2000" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img class="d-block w-100" src="https://i.imgur.com/sCsZDfp.jpg" alt="First slide">
-                        <div class="carousel-caption d-md-block">
-                            <h1>Khóa học nổi bật nhất trong tuần</h1>
-                        </div>
+                    {{#each listOfHighlightCourses}}
+                    <div class="carousel-item {{#if this.isActive}} active {{/if}}">
+                        <a href="/course/detail/{{this.IdCourse}}">
+                            <img class="d-block w-100" src='/public/images/course/{{this.IdCourse}}/thumb.jpg'
+                                alt="First slide">
+                            <div class="carousel-caption d-md-block">
+                                <h1 class="bg-text">{{this.nameCourse}}</h1>
+                            </div>
+                        </a>
+
                     </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100" src="https://i.imgur.com/lbwfIoA.jpg" alt="Second slide">
-                        <div class="carousel-caption d-md-block">
-                            <h1>Khóa học nổi bật nhất trong tuần</h1>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100" src="https://i.imgur.com/vHNHZCC.jpg" alt="Third slide">
-                        <div class="carousel-caption d-md-block">
-                            <h1>Khóa học nổi bật nhất trong tuần</h1>
-                        </div>
-                    </div>
+                    {{/each}}
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -354,7 +348,7 @@
     </div>
 </div>
 <div class="mr-sm-2 mt-4 mb-4 justify-content-center flex-div-button">
-<a class="btn btn-success" href="/account/teach-register">
-    become a teacher
-</a>
+    <a class="btn btn-success" href="/account/teach-register">
+        become a teacher
+    </a>
 </div>
