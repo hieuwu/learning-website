@@ -2,7 +2,7 @@
   <a class="navbar-brand" href="/">
     <i class="fa fa-home fa-lg"></i>
   </a>
-  <a class="navbar-brand" href="/">E-teaching</a>
+  <a class="navbar-brand" href="/admin">E-teaching</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -16,9 +16,7 @@
     <form id="frmLogout" method="POST" action="/account/logout"></form>
     <ul class="navbar-nav ml-auto">
     <ul class="navbar-nav  mr-sm-2">
-      <a class="btn btn-success mr-sm-2" href="/account/register">
-          become a admin
-        </a>
+    
     {{!-- <a href="#" role="button"><span>become a teacher</span></a> --}}
     {{!-- <a href="/">Student</a> --}}
     {{!-- IF isTeacher --}}
@@ -32,7 +30,7 @@
           Welcome, <b>{{authUser.FullName}}</b>!
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/account/profile">
+          <a class="dropdown-item" href="/admin/profile">
             <i class="fa fa-user" aria-hidden="true"></i>
             Profile
           </a>

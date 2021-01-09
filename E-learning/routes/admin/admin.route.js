@@ -20,11 +20,16 @@ router.delete('/headercategory/:id', controller.deleteHeaderCategory);
 router.get('/headercategory/add', controller.getAddHeaderCategoryPage);
 router.post('/headercategory/add', controller.addNewHeaderCategory);
 router.get('/teacher/all', controller.getAllTeacher);
-router.get('/teacher/:id', controller.getUserById);
+router.get('/teacher/:id', controller.getTeacherById);
 router.delete('/teacher/:id', controller.blockTeacher);
 router.delete('/teacher/unblock/:id', controller.unblockTeacher);
 router.get('/teacher/all/pending', controller.getPendingTeacherPage);
 router.post('/teacher/all/pending/:id', controller.approvePendingTeacher);
 router.delete('/teacher/decline/:id', controller.declineTeacher);
+router.get('/student/all', controller.getAllUserPage);
+router.get('/student/:id', controller.getUserById);
+router.get('/profile', controller.getAdminProfilePage);
+router.post('/profile/edit', controller.editAdminProfile);
+router.post('/student/:id', controller.editUserByAdmin);
 
 module.exports = router;
