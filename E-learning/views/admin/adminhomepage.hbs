@@ -2,24 +2,44 @@
 <link rel="stylesheet" href="/public/stylesheets/admin-homepage.css">
 {{/section}}
 {{#section 'js'}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 <script>
-function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-  //document.getElementById("mySidenav").classList.add("fadein");
-}
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-  //document.getElementById("mySidenav").classList.add("fadeout");
-}
+var ctx = document.getElementById('myChart').getContext('2d');
+
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Development', 'Business', 'Finance & Accounting', 'IT & Software', 'Music'],
+        datasets: [{
+            label: '# of Courses',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
 </script>
 {{/section}}
-
-<div id="mySidenav" class="sidenav" onmouseleave="closeNav()">
-  <a href="/admin/course/all">Course</a>
-  <a href="/admin/category/all">Category</a>
-  <a href="/admin/headercategory/all">Header Category</a>
-  <a href="/admin/teacher/all">Teacher</a>
-  <a href="/admin/student/all">Student</a>
-
-</div>
-<span style="font-size:30px;cursor:pointer" onMouseenter="openNav()">&#9776; Management</span>
+<canvas id="myChart" width="0.5" height="0.9"></canvas>

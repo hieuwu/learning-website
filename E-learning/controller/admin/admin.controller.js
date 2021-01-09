@@ -142,7 +142,7 @@ module.exports = {
     const categoryId = req.params.id;
     let headerCategories = await headercategoryModel.all();
     let category = await categoryModel.getCategoryById(categoryId);
-    let headerCategoryName = await headercategoryModel.getNameById(
+    let headerCategoryName = await headercategoryModel.getById(
       category.HeaderCategoryID
     );
 
@@ -163,7 +163,7 @@ module.exports = {
     });
     let headerCategories = await headercategoryModel.all();
     let category = await categoryModel.getCategoryById(categoryId);
-    let headerCategoryName = await headercategoryModel.getNameById(
+    let headerCategoryName = await headercategoryModel.getById(
       category.HeaderCategoryID
     );
     res.render("admin/category-edit", {
