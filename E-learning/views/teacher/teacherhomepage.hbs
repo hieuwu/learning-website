@@ -1,1 +1,111 @@
-<h1>the managementhome.hbs</h1>
+{{#section 'css'}}
+{{!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> --}}
+<link rel="stylesheet" href="/public/stylesheets/courseByCategory.css">
+<link rel="stylesheet" href="/public/stylesheets/jsRapStar.css" />
+{{/section}}
+{{#section 'js'}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/public/javascript/jsRapStar.js"></script>
+<script>$('.ratingStar').jsRapStar({ enabled: false, colorFront: "yellow"});</script>
+{{/section}}
+<div class="row col-md-12 justify-content-center">
+  <div class="col-md-1 carousel-title"></div>
+  <div class="col-md-10 carousel-title">
+    <h1>
+      Course
+    </h1>
+    <div>
+      <hr />
+    </div>
+    <div class="col-md-10 item-container">
+      <div class="col-md-1">
+        <select class=" select-option" ng-model="ligth_r1" searchable="Order by" autofocus onChange="window.location.href=this.value">
+          <option value="" disabled selected>Order by</option>
+          <option value="/teacher/?sortBy=Published%20first">Published first</option>
+          <option value="/teacher/?sortBy=Unpublished%20first">Unpublished first</option>
+        </select>
+      </div>
+      
+      <div class="col-md-12"></div>
+      <div class="col-md-3"><a type="button"  href="/teacher/course/add/"   class="btn p-2 btn-success glyphicon glyphicon-ok">Create Course</a></div>
+    </div>
+  </div>
+</div>
+<div class="row col-md-12 justify-content-center">
+  <div class="col-md-1 carousel-title"></div>
+  <div class="col-md-10 carousel-title">
+    <h1>
+      {{title}}
+    </h1>
+    <div>
+      <hr />
+  </div>
+    <div class="col-md-1"></div>
+  </div>
+</div>
+{{#each listOfCourses}}
+<div class="row col-md-12 justify-content-center">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+      <div class="item-container">
+          <div class="item-image col-md-3">
+            <img class="img-thumbnail item-image" src='/public/images/course/{{this.IdCourse}}/thumb.jpg'
+              alt="Can not display">
+          </div>
+        <div class="item-content col-md-6">
+          <div>
+             <a href="/teacher/course/{{this.IdCourse}}">
+              <h3>{{this.nameCourse}}</h3></a>
+          </div>
+          <div>
+            {{{this.title}}}
+          </div>
+          <div class="item-teacher">{{this.FullName}}</div>
+          <div class="item-length">{{this.NameCategory}}</div>
+          <div class="d-flex col-md-5 justify-content-center">
+            <p class="avgRating mt-1">{{this.avgRate}}</p>
+            <div class="ratingStar" value={{this.avgRate}}></div>
+            <p class="mt-1">({{this.numRating}} Ratings)</p>
+          </div>
+        </div>
+        <div>
+          <div class="item-price col-md-1">
+            <div class="item-real-price">
+              <h4>${{this.SaleCost}}</h4>
+            </div>
+            <div><strike>${{this.Price}}</strike></div>
+          </div>
+        </div>
+        <div class="col-md-1">
+          <div><button type="button"  onclick=""   class="btn p-2 btn-success glyphicon glyphicon-ok">finish</button></div>
+          <div><button type="button" href="/teacher/course/edit/{{./this.IdCourse}}" class="btn mt-1 btn-danger glyphicon glyphicon-pencil"> Edit&nbsp</button></div>
+        </div>
+      </div>
+      </a>
+    <div>
+      <hr />
+    </div>
+</div>
+
+{{/each}}
+<div class="row justify-content-center">
+    <nav aria-label="Page navigation example">
+      <ul class="justify-content-center pagination " style="display: flex;">
+        <li class="page-item {{#unless can_go_prev}} disabled {{/unless}}">
+          <a class="page-link" href="?page={{prev_value}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </li>
+        {{#each this.page_items}}
+        <li class="page-item"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+        {{/each}}
+        <li class="page-item {{#unless can_go_next}} disabled {{/unless}}">
+          <a class="page-link" href="?page={{next_value}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
