@@ -107,14 +107,14 @@ module.exports = {
     let url = "/";
     console.log("req.headers.referer:",req.headers.referer);
     console.log("req.session.authUser.Permission:",req.session.authUser.Permission);
-    if(req.session.authUser.Permission != "Student"){
+    if(req.session.authUser.Permission != "student"){
       url = "/";
     }else{
       url = req.headers.referer;
     }
-    //req.session.isAuth = false;
-    //req.session.authUser = null;
-    //req.session.cart = [];
+    req.session.isAuth = false;
+    req.session.authUser = null;
+    req.session.cart = [];
 
     res.redirect(url);
   },
@@ -166,19 +166,6 @@ module.exports = {
     );
     req.session.authUser = await userModel.singleByUserName(req.body.Username);
     res.render("vwAccount/edit-password", { user: req.session.authUser });
-  },
-  postLogout: async (req, res) => {
-    let url = "/";
-    if (req.session.authUser.Permission != "Student") {
-      url = "/";
-    } else {
-      url = req.headers.referer;
-    }
-    req.session.isAuth = false;
-    req.session.authUser = null;
-    req.session.cart = [];
-
-    res.redirect(url);
   },
   getProfile: async (req, res) => {
     res.render("vwAccount/profile", { user: req.session.authUser });
