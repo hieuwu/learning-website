@@ -105,8 +105,6 @@ module.exports = {
   },
   postLogout: async (req, res) => {
     let url = "/";
-    console.log("req.headers.referer:",req.headers.referer);
-    console.log("req.session.authUser.Permission:",req.session.authUser.Permission);
     if(req.session.authUser.Permission != "student"){
       url = "/";
     }else{
