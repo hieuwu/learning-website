@@ -39,7 +39,27 @@ module.exports = {
     if(getNumberRating != null){
       numberRating = getNumberRating.numberRating;
     }
-    console.log("listRating:",listRating);
+    const getListLesson = await courseModel.getListLessonByCourseId(IdCourse);
+    let listLesson = [];
+    let listChapter = [];
+    let flag = 0;
+    for(let i = 0; i < getListLesson.length; i++){
+      for(let j = i; j < getListLesson.length; j++){
+        if(getListLesson[i].IdChapter === getListLesson[j].IdChapter){
+          listLesson.push(getListLesson[j]);
+          flag = j;
+        }
+      }
+      
+      listChapter.push({
+        NameChapter: getListLesson[i].NameChapter,
+        IdDiv: "collapse" + getListLesson[i].idChapter,
+        dataBsTarget: "#collapse" + getListLesson[i].idChapter,
+        ListLesson: listLesson,
+      });
+      listLesson = [];
+      i = flag;
+    }
     res.render("vwCourses/detail", {
       course: course,
       listCourse : listCourse,
@@ -48,6 +68,17 @@ module.exports = {
       isWishList: isWishList,
       numberRating: numberRating,
       isJoinCourse: isJoinCourse,
+      listChapter: listChapter,
+    });
+  },
+  getVideoLesson: async function (req, res) {
+    const IdCourse = req.params.idCourse;
+    const IdChapter = req.params.idChapter;
+    const IdLesson = req.params.idLesson;
+    res.render("vwLesson/lesson",{
+      layout: false,
+      IdChapter: IdChapter,
+      IdLesson: IdLesson,
     });
   },
 };

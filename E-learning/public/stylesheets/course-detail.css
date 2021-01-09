@@ -170,18 +170,13 @@
   display: flex;
   justify-content: center;
 }
-.DetailRatingContainer{
-  display: flex;
-  justify-content:center;
-}
+
 .flex-container{
   width: 50%;
   display: flex;
   justify-content: center;
 }
-.detail-flex-container{
-  width: 70%;
-}
+
 
 .side {
   float: left;
@@ -256,4 +251,22 @@
   }
 
 
-  
+  .DetailRatingContainer{
+    display: flex;
+    justify-content:center;
+  }
+  .detail-flex-container{
+    width: 70%;
+  }
+  .container-getRating{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .avgRatingLeft{
+    float: left;
+    width: 100%;
+  }
+
+
+

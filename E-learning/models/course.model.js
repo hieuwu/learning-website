@@ -310,15 +310,6 @@ module.exports = {
         }
         return rows[0];
     },
-    async checkIsJoinCourse(IdUser, IdCourse) {
-        const rows = await db.load(`select *
-                    from ${TBL_ENROLLEDCOURSE} 
-                    where IdUser = ${IdUser} and IdCourse = ${IdCourse}`);
-        if (rows.length === 0) {
-            return null;
-        }
-        return rows[0];
-    },
     async coursePageByTeacherID(TeacherId, offset) {
         return await db.load(`select ${TBL_COURSE}.*,category.NameCategory,headercategory.HeaderNameCategory,count(chapter.idChapter) as NoChapter
         from ${TBL_COURSE} right join user_profile on ${TBL_COURSE}.IdTeacher=user_profile.IdUser
@@ -334,5 +325,22 @@ module.exports = {
         left join category on ${TBL_COURSE}.IdCategory=category.Id left join headercategory on category.HeaderCategoryID=headercategory.Id
         where user_profile.IdUser=${TeacherId} and course.isDeleted = false`);
         return rows[0].total;
-    }
+    },
+    async checkIsJoinCourse(IdUser, IdCourse) {
+        const rows = await db.load(`select *
+                    from ${TBL_ENROLLEDCOURSE} 
+                    where IdUser = ${IdUser} and IdCourse = ${IdCourse}`);
+        if (rows.length === 0) {
+            return null;
+        }
+        return rows[0];
+    },
+    async getListLessonByCourseId(IdCourse) {
+        const rows = await db.load(`select *
+                    from chapter 
+                    left join lesson on lesson.idChapter = chapter.IdChapter
+                    where IdCourse = ${IdCourse}`);
+    return rows;
+     },
 };
+
