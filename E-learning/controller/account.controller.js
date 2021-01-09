@@ -104,10 +104,19 @@ module.exports = {
     }
   },
   postLogout: async (req, res) => {
-    req.session.isAuth = false;
-    req.session.authUser = null;
-    req.session.cart = [];
-    res.redirect(req.headers.referer);
+    let url = "/";
+    console.log("req.headers.referer:",req.headers.referer);
+    console.log("req.session.authUser.Permission:",req.session.authUser.Permission);
+    if(req.session.authUser.Permission != "Student"){
+      url = "/";
+    }else{
+      url = req.headers.referer;
+    }
+    //req.session.isAuth = false;
+    //req.session.authUser = null;
+    //req.session.cart = [];
+
+    res.redirect(url);
   },
   getProfile: async (req, res) => {
     res.render("vwAccount/profile", { user: req.session.authUser });
