@@ -1,74 +1,94 @@
 {{#section 'css'}}
+<link rel="stylesheet" href="/public/stylesheets/courseByCategory.css">
+<link rel="stylesheet" href="/public/stylesheets/jsRapStar.css" />
 <style>
   img {
     border-radius: 50%;
     align-self: center;
   }
+
   p {
     align-self: center;
     font-size: larger;
   }
-  .col-8{
+
+  .col-8 {
     display: :flex;
   }
-  button{
+
+  button {
     align-items: center;
     align-self: center;
   }
 </style>
 {{/section}}
-
+{{#section 'js'}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/public/javascript/jsRapStar.js"></script>
+<script>$('.ratingStar').jsRapStar({ enabled: false, colorFront: "yellow" });</script>
+{{/section}}
 <form method="POST" action="">
-<div class="container">
-  <div class="row">
-    <div class="col-4">
-      <div class="container-fluid mt-4">
-        <div class="row">
-          <div class="card mb-3">
-            <ul class="list-group list-group-flush">
-              <img src="../../public/avatar/avatar.png" alt="Avatar" style="width:200px">
-              <p>{{user.FullName}}</p>
-              <a class="list-group-item list-group-item-action active" href="/account/list-course">My Learning</a>
-              <a class="list-group-item list-group-item-action" href="/account/wishlist">My Wishlist</a>
-              <a class="list-group-item list-group-item-action" href="/account/profile">Profile</a>
-              <a class="list-group-item list-group-item-action" href="/account/edit-password">Account</a>
-            </ul>
+  <div class="container">
+    <div class="row">
+      <div class="col-4">
+        <div class="container-fluid mt-4">
+          <div class="row">
+            <div class="card mb-3">
+              <ul class="list-group list-group-flush">
+                <img src="../../public/avatar/avatar.png" alt="Avatar" style="width:200px">
+                <p>{{user.FullName}}</p>
+                <a class="list-group-item list-group-item-action active" href="/user/account/list-course">My Learning</a>
+                <a class="list-group-item list-group-item-action" href="/user/account/wishlist">My Wishlist</a>
+                <a class="list-group-item list-group-item-action" href="/user/account/profile">Profile</a>
+                <a class="list-group-item list-group-item-action" href="/user/account/edit-password">Account</a>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-8" >
-      {{#if err_message}}
-      <div id="error-message" class="alert alert-warning alert-dismissible fade show" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        {{err_message}}
-      </div>
-      {{/if}}
-      <div class="container-fluid mt-4">
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="floatingInput" placeholder="FullName" value="{{user.FullName}}" name="FullName">
-          <label for="floatingInput">FullName</label>
+      <div class="col-8">
+        {{#each listCourse}}
+        <div class="row col-md-12 justify-content-center">
+          <div class="col-md-1"></div>
+          <div class="col-md-10">
+            <a href="/course/detail/{{this.IdCourse}}">
+              <div class="item-container">
+                <div class="item-image col-md-3">
+                  <img class="img-thumbnail item-image" src='/public/images/course/{{this.IdCourse}}/thumb.jpg'
+                    alt="Can not display">
+                </div>
+                <div class="item-content col-md-6">
+                  <div>
+                    <h3>{{this.nameCourse}}</h3>
+                  </div>
+                  <div>
+                    {{{this.title}}}
+                  </div>
+                  <div class="item-teacher">{{this.FullName}}</div>
+                  <div class="item-length">{{this.NameCategory}}</div>
+                  <div class="d-flex col-md-5 justify-content-center">
+                    <p class="avgRating mr-1">{{this.avgRate}}</p>
+                    <div class="ratingStar" value={{this.avgRate}}></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="item-price col-md-1">
+                    <div class="item-real-price">
+                      <h4>${{this.SaleCost}}</h4>
+                    </div>
+                    <div><strike>${{this.Price}}</strike></div>
+                  </div>
+                </div>
+                <div class="col-md-1"></div>
+              </div>
+            </a>
+            <div>
+              <hr />
+            </div>
+          </div>
+          {{/each}}
         </div>
-        <div class="form-floating mb-3">
-          <input type="email" class="form-control" id="floatingInput" placeholder="Username" value="{{user.UserName}}" name="Username" readonly>
-          <label for="floatingInput">Username</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input type="email" class="form-control" id="floatingInput" placeholder="Email" value="{{user.Email}}" readonly>
-          <label for="floatingInput">Email</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input type="email" class="form-control" id="floatingInput" placeholder="Permission" value="{{user.Permission}}" readonly>
-          <label for="floatingInput">Permission</label>
-        </div>
-        <button type="submit" class="btn btn-outline-success" formaction="/account/profile/edit">
-        <i class="fa fa-check" aria-hidden="true"></i>
-        Save
-      </button>
       </div>
     </div>
   </div>
-</div>
 </form>

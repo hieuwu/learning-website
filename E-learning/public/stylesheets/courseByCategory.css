@@ -1,7 +1,6 @@
 .item-container {
     display: flex;
     padding-left: 4%;
-    flex-direction: row;
     justify-content: space-between;
 }
 a {
@@ -56,7 +55,6 @@ a:link {
 }
 
 .item-length {
-    display: flex;
     justify-content: row;
 }
 
@@ -80,7 +78,7 @@ a:link {
 }
 
 .item-price {
-    display: flex;
+
     flex-direction: column;
 }
 
@@ -88,7 +86,7 @@ a:link {
     padding: 0.5em;
     border-radius: 10px;
     background-color: white;
-    display: flex;
+
     align-items: center;
     justify-content: space-between;
 }

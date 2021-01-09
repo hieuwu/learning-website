@@ -18,8 +18,7 @@ module.exports = {
       };
       page_items.push(item);
     }
-
-    res.render("vwCourseByCategory/byDomain", {
+    res.render("vwCourseByCategory/byCategory", {
       listOfCourses: listOfCourses,
       page_items: page_items,
       can_go_next: page < nPages,
@@ -46,8 +45,7 @@ module.exports = {
       };
       page_items.push(item);
     }
-
-    res.render("vwCourseByCategory/byCategory", {
+    res.render("vwCourseByCategory/byDomain", {
       listOfCourses: listOfCourses,
       page_items: page_items,
       can_go_next: page < nPages,

@@ -1,19 +1,46 @@
 {{#section 'css'}}
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
-
+<link rel="stylesheet" href="/public/stylesheets/jsRapStar.css" />
 <link href="/public/stylesheets/course-detail.css" rel="stylesheet">
+
 
 {{/section}}
 
 {{#section 'js'}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/public/javascript/jsRapStar.js"></script>
-<script>$('#ratingItem').jsRapStar({ enabled: false, colorFront: "yellow" });</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>$('.ratingStar').jsRapStar({ enabled: false, colorFront: "yellow"});</script>
+<script>$('#sendRating').jsRapStar({
+onMouseleave(score){
+	$('#star').text(score);
+}});</script>
+<script>
+  $('#frmRating').on('submit', function (e) {
+    e.preventDefault();
+    const comment = $('#inputComment').val();
+    if (comment.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Invalid comment data.',
+      })
+      return;
+    }
+    const getStar = $('#star').text();
+    if (getStar === 0) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Invalid star data.',
+      })
+      return;
+    }
+    $('#RateStar').val(getStar);
+    $('#frmRating').off('submit').submit();
+  })
+</script>
 {{/section}}
-
-
-<!-- page title -->
 <section class="page-title-section overlay" data-background="images/backgrounds/page-title.jpg">
   <div class="container">
     <div class="row">
@@ -30,8 +57,7 @@
     </div>
   </div>
 </section>
-
-<!-- section -->
+<!-- course detail -->
 <section class="section-sm">
   <div class="container">
     <div class="row">
@@ -84,23 +110,13 @@
             </li>
             <li class="list-inline-item mr-4 mb-3 mb-sm-0">
               <div class=" align-items-center">
-
                 <div class="text-left">
                   <h6 class="mb-0">RATING</h6>
-                  <div class="d-flex ">
-                    <p class="mb-0">4.8</p>
-                    <div class="star-rating">
-                      <ul class="">
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
-                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-                      </ul>
-                    </div>
-                    <p class="mb-0"> (100 Ratings)</p>
+                  <div class="d-flex align-items-center">
+                    <p class="mb-0 mr-3 avgRating">{{course.avgRate}}</p>
+                    <div class="ratingStar" value={{course.avgRate}}></div>
+                    <p class="mb-0">({{this.numberRating}} Ratings)</p>
                   </div>
-
                 </div>
               </div>
             </li>
@@ -121,6 +137,8 @@
             <input type="hidden" value="{{course.IdCourse}}" name="id">
             </form>
             {{/if}}
+            {{#if isJoinCourse}}
+            {{else}}
             {{#if isAvailableAddCart}}
             <a href="/cart" class="btn btn-primary">Go to cart</a>
             {{else}}
@@ -128,18 +146,48 @@
             <button href="#" type="submit" class="btn btn-primary">Add to cart</button>
             <input type="hidden" value="{{course.IdCourse}}" name="id">
             </form>
+            {{/if}}  
             {{/if}}
-            
           {{/if}}
         </div>
       </div>
 
-      <!-- course details -->
-      <div class="row">
+      <!-- about course -->
         <div class="col-12 mb-4">
           <h3>About Course</h3>
           <p>{{course.title}}</p>
         </div>
+
+        <!-- Course Content -->
+        <div class="col-12 mb-4">
+          <h3>Course Content</h3>
+
+          <div class="accordion" id="accordionExample1">
+            {{#each listChapter}}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                  data-bs-target={{this.dataBsTarget}} aria-expanded="true"
+                  aria-controls={{this.IdDiv}}>
+                  {{this.NameChapter}}
+                </button>
+              </h2>
+              <div id={{this.IdDiv}} class="accordion-collapse collapse show row"
+                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                {{#each ListLesson}}
+                <a class="accordion-body" href="/course/detail/{{this.idCourse}}/chapter/{{this.idChapter}}/lesson/{{this.idLesson}}"
+                target="_blank">
+                  {{this.NameLesson}}
+                </a>
+                {{/each}}
+              </div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+
+
+        <!-- Description -->
         <div class="col-12 mb-4">
           <h3>Description</h3>
           <p>{{{course.Description}}}</p>
@@ -156,11 +204,9 @@
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
 </section>
-<!-- /section -->
 <section class="section pt-0">
   <div class="container">
     <div class="row">
@@ -171,13 +217,12 @@
 
   </div>
 </section>
+<!-- Related Course -->
 <div class="row justify-content-center">
   {{#each listCourse}}
   <div class="col-sm-2">
     <div class="thumb-wrapper">
-
       <img src='/public/images/course/{{this.IdCourse}}/thumb.jpg' class="img-fluid1" alt="">
-
       <div class="thumb-content course-item">
         <div class="two-line">
           <h5>{{this.nameCourse}}</h5>
@@ -192,84 +237,16 @@
         <div class="item-price"><strike>${{this.Price}}</strike>
           <span>${{this.SaleCost}}</span>
         </div>
-        <div class="star-rating">
-          <ul class="list-inline">
-            <li class="list-inline-item"><i class="fa fa-star"></i></li>
-            <li class="list-inline-item"><i class="fa fa-star"></i></li>
-            <li class="list-inline-item"><i class="fa fa-star"></i></li>
-            <li class="list-inline-item"><i class="fa fa-star"></i></li>
-            <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-          </ul>
+        <div class="d-flex align-items-center">
+          <p class="mb-0 mr-1 avgRating">{{this.avgRate}}</p>
+          <div class="ratingStar" value={{this.avgRate}}></div>
+          <p class="mb-0">({{this.numRating}} Ratings)</p>
         </div>
         <a href="/course/detail/{{this.IdCourse}}" class="btn btn-primary mb-5">View course</a>
       </div>
     </div>
   </div>
   {{/each}}
-</div>
-
-
-<hr style="border:3px solid #f1f1f1">
-
-<div class="RatingContainer">
-  <div class="row flex-container">
-
-    <div class="side">
-      <div>5 star</div>
-    </div>
-    <div class="middle">
-      <div class="bar-container">
-        <div class="bar-5"></div>
-      </div>
-    </div>
-    <div class="side right">
-      <div>150</div>
-    </div>
-    <div class="side">
-      <div>4 star</div>
-    </div>
-    <div class="middle">
-      <div class="bar-container">
-        <div class="bar-4"></div>
-      </div>
-    </div>
-    <div class="side right">
-      <div>63</div>
-    </div>
-    <div class="side">
-      <div>3 star</div>
-    </div>
-    <div class="middle">
-      <div class="bar-container">
-        <div class="bar-3"></div>
-      </div>
-    </div>
-    <div class="side right">
-      <div>15</div>
-    </div>
-    <div class="side">
-      <div>2 star</div>
-    </div>
-    <div class="middle">
-      <div class="bar-container">
-        <div class="bar-2"></div>
-      </div>
-    </div>
-    <div class="side right">
-      <div>6</div>
-    </div>
-    <div class="side">
-      <div>1 star</div>
-    </div>
-    <div class="middle">
-      <div class="bar-container">
-        <div class="bar-1"></div>
-      </div>
-    </div>
-    <div class="side right">
-      <div>20</div>
-    </div>
-  </div>
 </div>
 
 <section class="section pt-0">
@@ -285,12 +262,48 @@
 {{#each listRating}}
 <hr style="border:3px solid #f1f1f1">
 <div class="DetailRatingContainer">
-  <div class="d-flex align-items-center detail-flex-container">
-    <p class="ti-wallet text-primary icon-md mr-2">{{this.FullName}}</p>
-    <div class="text-left">
-      <div id="ratingItem" value={{this.rateStar}}></div>
-      <h6 class="mb-0">{{this.Comments}}</h6>
+  <div class="container detail-flex-container">
+    <div class="mb-3 row">
+      <p class="ti-wallet text-primary font-size-fullName col-sm-2">{{this.FullName}}</p>
+      <div class="col-sm-8">
+        <div class="ratingStar avgRatingLeft" value={{this.rateStar}}></div>
+        <h6 class="mb-0 ">{{this.Comments}}</h6>
+      </div>
     </div>
+
   </div>
 </div>
 {{/each}}
+<hr style="border:3px solid #f1f1f1">
+{{!-- sendRating --}}
+
+{{#if isAuth}}
+{{#if isJoinCourse}}
+<form action="/rating/add" method="POST" id="frmRating" class="form-action">
+  <section class="section pt-0">
+    <div class="container">
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Rating</label>
+        <div class="col-sm-1">
+          <div id="sendRating"></div>
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label class="col-sm-2 col-form-label">Comment</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="inputComment" name="Comment">
+        </div>
+      </div>
+      <div class="mb-5">
+        <button type="submit" class="btn btn-outline-success btn-add-rating mb-3">
+          Submit
+        </button>
+      </div>
+    </div>
+  </section>
+  <input type="hidden" value="{{course.IdCourse}}" name="id">
+  <input type="hidden" name="rateStar" id="RateStar">
+  <div id="star" value="0" class="div-display-none"></div>
+</form>
+{{/if}}
+{{/if}}

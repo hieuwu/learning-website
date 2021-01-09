@@ -11,12 +11,15 @@ var transporter = nodemailer.createTransport({
   },
 });
 
-
 module.exports = {
   getRegister: async (req, res) => {
     res.render("vwAccount/register");
   },
   postRegister: async (req, res) => {
+    //console.log("permission:       ", req.body.permission);
+    const permission = req.body.permission;
+    let biography = req.body.biography || "";
+    console.log("permission: ", permission, "biography: ", biography);
     const hash = bcrypt.hashSync(req.body.password, 10);
     const user = {
       FullName: req.body.fullName,
@@ -26,6 +29,10 @@ module.exports = {
       UserName: req.body.username,
       password: hash,
     };
+    if (permission == "teacher") {
+      user.biography = biography;
+      user.Permission = "teacher";
+    }
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const verificationObject = {
       email: req.body.email,
@@ -60,7 +67,7 @@ module.exports = {
       req.session.retUrl = req.headers.referer;
     }
     res.render("vwAccount/login", {
-      layout: false
+      layout: false,
     });
   },
   postLogin: async (req, res) => {
@@ -97,10 +104,19 @@ module.exports = {
     }
   },
   postLogout: async (req, res) => {
-    req.session.isAuth = false;
-    req.session.authUser = null;
-    req.session.cart = [];
-    res.redirect(req.headers.referer);
+    let url = "/";
+    console.log("req.headers.referer:",req.headers.referer);
+    console.log("req.session.authUser.Permission:",req.session.authUser.Permission);
+    if(req.session.authUser.Permission != "Student"){
+      url = "/";
+    }else{
+      url = req.headers.referer;
+    }
+    //req.session.isAuth = false;
+    //req.session.authUser = null;
+    //req.session.cart = [];
+
+    res.redirect(url);
   },
   getProfile: async (req, res) => {
     res.render("vwAccount/profile", { user: req.session.authUser });
@@ -130,7 +146,6 @@ module.exports = {
       });
     }
     const hashNewPw = bcrypt.hashSync(req.body.NewPassword, 10);
-
     const compare = bcrypt.compareSync(
       req.body.CurrentPassword,
       req.session.authUser.password
@@ -152,25 +167,35 @@ module.exports = {
     req.session.authUser = await userModel.singleByUserName(req.body.Username);
     res.render("vwAccount/edit-password", { user: req.session.authUser });
   },
-  getListWishList: async function (req, res) {
-    const wishlist = await wishlistModel.getWishListByIdUser(
-      req.session.authUser.IdUser
-    );
-    res.render("vwAccount/wishlist", {
-      user: req.session.authUser,
-      wishlist: wishlist,
-      empty: wishlist.length === 0,
-    });
+  postLogout: async (req, res) => {
+    let url = "/";
+    if (req.session.authUser.Permission != "Student") {
+      url = "/";
+    } else {
+      url = req.headers.referer;
+    }
+    req.session.isAuth = false;
+    req.session.authUser = null;
+    req.session.cart = [];
+
+    res.redirect(url);
   },
-  getListCourse: async function (req, res) {
-    const listCourse = await courseModel.getListCourseByIdUser(
-      req.session.authUser.IdUser
-    );
-    res.render("vwAccount/list-course", {
-      user: req.session.authUser,
-      listCourse: listCourse,
-      empty: listCourse.length === 0,
-    });
+  getProfile: async (req, res) => {
+    res.render("vwAccount/profile", { user: req.session.authUser });
+  },
+  postEditProfile: async (req, res) => {
+    if (req.body.FullName === "") {
+      return res.render("vwAccount/profile", {
+        err_message: "Invalid full name data.",
+        user: req.session.authUser,
+      });
+    }
+    const ret = await userModel.editName(req.body.Username, req.body.FullName);
+    req.session.authUser = await userModel.singleByUserName(req.body.Username);
+    res.render("vwAccount/profile", { user: req.session.authUser });
+  },
+  getEditPassword: async (req, res) => {
+    res.render("vwAccount/edit-password", { user: req.session.authUser });
   },
   getVerifyPage: async (req, res) => {
     res.render("vwAccount/otp-confirm");
@@ -178,10 +203,12 @@ module.exports = {
   postVerifyAccount: async (req, res) => {
     const hash = bcrypt.hashSync(req.body.password, 10);
     const code = req.body.code;
+    const Permission = req.body.permission;
+    let biography = req.body.biography;
     if (code == null) {
       res.sendStatus(404);
     }
-    const user = {
+    let user = {
       FullName: req.body.fullname,
       Email: req.body.email,
       isTeacher: 0,
@@ -189,10 +216,26 @@ module.exports = {
       UserName: req.body.username,
       password: hash,
     };
+    if (Permission == "teacher") {
+      user.Permission = "teacher";
+      if (!biography) {
+        biography = "";
+        console.log("permission: ", Permission, "biography:", biography, "a");
+      }
+    }
     let isAvailableCode = await userModel.isAvailableCode(code);
     if (isAvailableCode !== null) {
       console.log("Run here");
       await userModel.add(user);
+      if (user.Permission == "teacher") {
+        let idUser = await userModel.singleByUserName(user.UserName);
+        const teachProfile = {
+          IdUser: idUser.IdUser,
+          Biography: biography,
+          status: "Processing",
+        };
+        await userModel.addTeachProfile(teachProfile);
+      }
       res.status(200).send();
       return;
     }
@@ -219,5 +262,4 @@ module.exports = {
       empty: listCourse.length === 0,
     });
   },
-
 };

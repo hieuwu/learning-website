@@ -1,0 +1,42 @@
+<div class="row col-md-12">
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-6">
+    <div>
+      {{#if err_message}}
+      <div id="error-message" class="alert alert-warning alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        {{err_message}}
+      </div>
+      {{/if}}
+      <h1>Add new category</h1>
+    </div>
+    <div>
+      <form method="POST">
+        <div>
+          <div>Category name</div>
+          <input name="NameCategory" class="form-control" id="focusedInput"
+            type="text">
+        </div>
+        <div>
+          <div>
+            <h3>Header category</h3>
+          </div>
+          <select name="HeaderCategoryId" id="HeaderCategoryId">
+            {{#each headerCategories}}
+            <option value="{{this.Id}}">{{this.HeaderNameCategory}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <button type="submit" class="btn btn-outline-success" style="margin-top: 25px;">
+          <i class="fa fa-check" aria-hidden="true"></i>
+          Add
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-3">
+  </div>
+</div>

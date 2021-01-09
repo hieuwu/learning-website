@@ -10,6 +10,8 @@
     let password = sessionStorage.getItem("password");
     let email = sessionStorage.getItem("email");
     let fullname = sessionStorage.getItem("fullName");
+    let permission= sessionStorage.getItem("permission");
+    let biography= sessionStorage.getItem("biography");
     let otp = $('#txtCode').val();
     if (otp.toString().length === 6) {
 
@@ -23,6 +25,8 @@
             email: email,
             username: username,
             password: password,
+            permission: permission,
+            biography: biography,
             code: otp,
           }
         ),

@@ -1,11 +1,16 @@
 const restrict = require('../middlewares/auth.mdw');
-module.exports = function (app) {
-    app.use("/", restrict.isUser, require("../routes/user/homepage.route"));
-    app.use("/account", restrict.isUser , require("../routes/user/account.route"));
-    app.use("/search", restrict.isUser , require("../routes/user/searchpage.route"));
-    app.use("/course", restrict.isUser , require("../routes/user/course.route"));
+const controller = require('../controller/homepage.controller');
+module.exports = function(app) {
+    app.get('/', restrict.isGuestOrUser,controller.getLatestCourse);
+    app.use("/account" , require("../routes/account.route"));
+
+    app.use("/search", restrict.isGuestOrUser , require("../routes/user/searchpage.route"));
+    app.use("/course", restrict.isGuestOrUser , require("../routes/user/course.route"));
+
+    app.use("/user/account" ,restrict.isUser, require("../routes/user/account.route"));
     app.use("/cart", restrict.isUser , require("../routes/user/cart.route"));
     app.use("/wishlist", restrict.isUser , require("../routes/user/wishlist.route"));
-    app.use("/teacher", restrict.isTeacher, require("../routes/teacher/teacherhomepage.route"));
+    app.use("/rating", restrict.isUser , require("../routes/user/rating.route"));
+    app.use("/teacher", restrict.isTeacher, require("../routes/teacher/teacher.route"));
     app.use("/admin", restrict.isAdmin, require("../routes/admin/admin.route"));
 };

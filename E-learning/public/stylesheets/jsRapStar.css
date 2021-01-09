@@ -1,0 +1,29 @@
+.rapStar {
+	color: white;
+	cursor: pointer;
+	font-size: 32px;
+	margin: auto;
+	position: relative;
+	text-shadow: 0 0 8px black;
+	margin: 0px auto;
+	display: table;
+	clear: both;
+	user-select: none;
+}
+
+.rapStarFront {
+	top: 0px;
+	color: yellow;
+	display: block;
+	overflow: hidden;
+	position: absolute;
+	z-index: 1;
+}
+
+.rapStarDisable {
+	cursor: default;
+}
+
+.avgRating{
+	color: orange;
+}

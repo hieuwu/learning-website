@@ -1,6 +1,8 @@
 const courseModel = require("../../models/course.model");
 const config = require("../../config/default.json");
 const categoryModel = require("../../models/category.model");
+const headercategoryModel = require("../../models/headercategory.model");
+const userModel = require('../../models/user.model');
 module.exports = {
   getadminHome: async (req, res) => {
     res.render("admin/adminhomepage", {
@@ -110,7 +112,7 @@ module.exports = {
       Price,
       SaleCost,
     });
-    let isUpdated = await courseModel.updateCourse(IdCourse, {
+    await courseModel.updateCourse(IdCourse, {
       nameCourse,
       Description,
       title,
@@ -124,4 +126,169 @@ module.exports = {
       err_message: "Course updated successfully",
     });
   },
+  getCategoryPage: async (req, res) => {
+    let listOfCategories = await categoryModel.all();
+    res.render('admin/category-all', {
+      listOfCategories: listOfCategories,
+    });
+  },
+  getEditCategoryPage: async (req, res) => {
+    const categoryId = req.params.id;
+    let headerCategories = await headercategoryModel.all();
+    let category = await categoryModel.getCategoryById(categoryId);
+    let headerCategoryName = await headercategoryModel.getNameById(category.HeaderCategoryID);
+
+    res.render('admin/category-edit', {
+      headerCategoryName: headerCategoryName.HeaderNameCategory,
+      category: category,
+      headerCategories: headerCategories
+    });
+  },
+  editCategoryById: async (req, res) => {
+    const categoryId = req.params.id;
+    const {NameCategory, HeaderCategoryId} = req.body;
+    console.log(req.body);
+    await categoryModel.updateCategoryById(categoryId,{NameCategory, HeaderCategoryId} );
+    let headerCategories = await headercategoryModel.all();
+    let category = await categoryModel.getCategoryById(categoryId);
+    let headerCategoryName = await headercategoryModel.getNameById(category.HeaderCategoryID);
+    res.render("admin/category-edit", {
+      headerCategoryName: headerCategoryName.HeaderNameCategory,
+      err_message: "Category updated successfully",
+      category: category,
+      headerCategories: headerCategories,
+    });
+  },
+  deleteCategory: async (req, res) => {
+    const Id = req.body.Id;
+    await categoryModel.deleteCategory(Id);
+    res.redirect("/category/all");
+  },
+  getAddCategoryPage: async (req, res) => {
+    let headerCategories = await headercategoryModel.all();
+    res.render("admin/category-add", {
+      headerCategories: headerCategories,
+    });
+  },
+  addNewCategory: async (req, res) => {
+    console.log(req.body);
+    const {NameCategory, HeaderCategoryId} = req.body;
+    let headerCategories = await headercategoryModel.all();
+    await categoryModel.addNewCategory({NameCategory, HeaderCategoryId});
+    res.render("admin/category-add", {
+      err_message: "New category is added successfully",
+      headerCategories: headerCategories,
+    });
+  },
+
+  getHeaderCategoryPage: async (req, res) => {
+    let listOfCategories = await headercategoryModel.all();
+    res.render('admin/headercategory-all', {
+      listOfCategories: listOfCategories,
+    });
+  },
+  getEditHeaderCategoryPage: async (req, res) => {
+    const categoryId = req.params.id;
+    let category = await headercategoryModel.getById(categoryId);
+    res.render("admin/headercategory-edit", {
+      category:category
+    });
+  },
+  editHeaderCategoryById: async (req, res) => {
+    const categoryId = req.params.id;
+    const {HeaderNameCategory} = req.body;
+    console.log(req.body);
+    await headercategoryModel.updateHeaderCategoryById(categoryId,{HeaderNameCategory});
+    let category = await headercategoryModel.getById(categoryId);
+    res.render("admin/headercategory-edit", {
+      err_message: "Header category is updated successfully",
+      category:category
+    });
+  },
+  deleteHeaderCategory: async (req, res) => {
+    const Id = req.body.Id;
+    await headercategoryModel.deleteHeaderCategory(Id);
+    res.redirect("/headercategory/all");
+  },
+  getAddHeaderCategoryPage: async (req, res) => {
+    res.render('admin/headercategory-add');
+  },
+  addNewHeaderCategory: async (req, res) => {
+    console.log(req.body);
+    const {HeaderNameCategory} = req.body;
+    await headercategoryModel.addNewHeaderCategory({HeaderNameCategory});
+    res.render("admin/headercategory-add", {
+      err_message: "New category is added successfully",
+    });
+  },
+  getAllTeacher: async (req, res) => {
+    let page = +req.query.page || 1;
+    if (page == 0) page = 1;
+    let offset = (page - 1) * config.pagination.limit;
+    let listOfTeachers = await userModel.pageByAllTeacher(offset);
+    listOfTeachers.forEach((item) => {
+      if (item.status === "Block") {
+        item.isBlocked = true;
+      }
+      else {
+        item.isBlocked = false;
+      }
+    });
+    const total = await userModel.countAllTeacher();
+    let nPages = Math.ceil(total / config.pagination.limit);
+    let page_items = [];
+    for (i = 1; i <= nPages; i++) {
+      const item = {
+        value: i,
+      };
+      page_items.push(item);
+    }
+    res.render("admin/teacher-all", {
+      listOfTeachers: listOfTeachers,
+      page_items: page_items,
+      can_go_next: page < nPages,
+      can_go_prev: page > 1,
+      prev_value: page - 1,
+      next_value: page + 1,
+    });
+  },
+  getUserById: async (req, res) => {
+    const userId = req.params.id;
+    let user = await userModel.singleTeacher(userId);
+    res.render("admin/teacher-detail", {user: user});
+  },
+  blockTeacher: async (req, res) => {
+    const Id = req.body.teacherId;
+    await userModel.blockTeacher(Id);
+    res.redirect("/teacher/all");
+  },
+  unblockTeacher: async (req, res) => {
+    const Id = req.body.teacherId;
+    await userModel.unblockTeacher(Id);
+    res.redirect("/teacher/all");
+  },
+  getPendingTeacherPage: async (req, res) => {
+    let listPendingTeachers = await userModel.getPendingTeacher();
+    listPendingTeachers.forEach((item) => {
+      if(item.status === "Processing") {
+        item.isProcessing = true;
+      }
+      else {
+        item.isProcessing = false;
+      }
+    });
+    res.render('admin/teacher-pending', {
+      listPendingTeachers: listPendingTeachers
+    });
+  },
+  approvePendingTeacher: async (req, res) => {
+    const id = req.body.teacherId;
+    await userModel.approvePendingTeacher(id);
+    res.redirect("/teacher/all/pending");
+  },
+  declineTeacher: async (req, res) => {
+    const id = req.body.teacherId;
+    await userModel.declinePendingTeacher(id);
+    res.redirect("/teacher/all/pending");
+  }
 };

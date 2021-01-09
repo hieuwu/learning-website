@@ -5,7 +5,8 @@ use `websiteDB`;
 DROP TABLE IF EXISTS `HeaderCategory`;
 create table `HeaderCategory`(
 	Id int unsigned auto_increment primary key,
-    HeaderNameCategory varchar(100) NOT NULL
+    HeaderNameCategory varchar(100) NOT NULL,
+    isDeleted boolean not null default false
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 DROP TABLE IF EXISTS `User_profile`;
 create table `User_profile`(
@@ -24,6 +25,7 @@ create table `Category`(
 	Id int unsigned auto_increment primary key,
     HeaderCategoryID int unsigned not null,
     NameCategory varchar(50) not null,
+    isDeleted boolean not null default false,
     CONSTRAINT FK_FromCategory FOREIGN KEY (HeaderCategoryID)
     REFERENCES HeaderCategory(Id)
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -217,14 +219,16 @@ insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,Id
 insert into course(nameCourse,title,Description,Price,SaleCost,nOViews,status,IdCategory,IdTeacher,avgRate) values('Read Music FAST!','Learn to read music using my unique method','<p><strong>Information</strong></p> <ul>     <li>using my unique method: just see a note on a piano score and play it on the keyboard straight away</li> </ul>',209,11,430688,"unfinished",15,6,5);
 
 insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',1);
-insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',2);
-insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',3);
-insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',4);
-insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',5);
 insert into Chapter(NameChapter,idCourse) values('Chapter 2: Learning CSS',1);
+insert into Chapter(NameChapter,idCourse) values('Chapter 3: About The Course',1);
+insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',2);
 insert into Chapter(NameChapter,idCourse) values('Chapter 2: Learning CSS',2);
+insert into Chapter(NameChapter,idCourse) values('Chapter 3: About The Course',2);
+insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',3);
 insert into Chapter(NameChapter,idCourse) values('Chapter 2: Learning CSS',3);
+insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',4);
 insert into Chapter(NameChapter,idCourse) values('Chapter 2: Learning CSS',4);
+insert into Chapter(NameChapter,idCourse) values('Chapter 1: Learning HTML',5);
 insert into Chapter(NameChapter,idCourse) values('Chapter 2: Learning CSS',5);
 insert into Chapter(NameChapter,idCourse) values('Chapter 1: About The Course',6);
 insert into Chapter(NameChapter,idCourse) values('Chapter 1: About The Course',7);
@@ -275,11 +279,17 @@ insert into Chapter(NameChapter,idCourse) values('Chapter 1: About The Course',4
 insert into Chapter(NameChapter,idCourse) values('Chapter 1: About The Course',50);
 
 
-insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',1);
-insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',2);
-insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',3);
-insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',4);
-insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',5);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: Learning HTML_1','what you learning in this course',1);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 2: Learning HTML_2','what you learning in this course',1);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 3: Learning HTML_3','what you learning in this course',1);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: Learning CSS_1','what you learning in this course',2);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 2: Learning CSS_2','what you learning in this course',2);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course_1','what you learning in this course',3);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 2: About The Course_2','what you learning in this course',3);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: Learning HTML_1','what you learning in this course',4);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 2: Learning HTML_2','what you learning in this course',4);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: Learning CSS_1','what you learning in this course',5);
+insert into Lesson(NameLesson,Video,idChapter) values('Lesson 2: Learning CSS_2','what you learning in this course',5);
 insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',6);
 insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',7);
 insert into Lesson(NameLesson,Video,idChapter) values('Lesson 1: About The Course','what you learning in this course',8);
@@ -337,17 +347,10 @@ insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(17,1,'2020-12-28 09:14:31',5,'Great Course <3');
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(17,40,'2020-12-28 09:14:31',3,'this voice in video is so sweet');
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(17,46,'2020-12-28 09:14:31',1,'Bad Course <3');
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,46,'2020-12-28 09:14:31',1,'Bad Course <3');
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,1,'2020-12-28 09:14:31',5,'Great Course <3');
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,1,'2020-12-28 09:14:31',null,null);
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,5,'2020-12-28 09:14:31',null,null);
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,3,'2020-12-28 09:14:31',null,null);
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,4,'2020-12-28 09:14:31',null,null);
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,2,'2020-12-28 09:14:31',5,'alala');
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,5,'2020-12-28 09:14:31',0,null);
+insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,3,'2020-12-28 09:14:31',0,null);
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,6,'2020-12-28 09:14:31',4,'hi every guys :D');
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,7,'2020-12-28 09:14:31',2,'Bad Course :3');
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,8,'2020-12-28 09:14:31',3,'<3');
-insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,9,'2020-12-28 09:14:31',1,'video is very laggy<3');
 insert into EnrolledCourse(IdUser,IdCourse,EnrollDate,rateStar,Comments) values(18,10,'2020-12-28 09:14:31',1,'I didnt like this course');
 
 insert into WishList(IdUser,IdCourse) values(7,1);
