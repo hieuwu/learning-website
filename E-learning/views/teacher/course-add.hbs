@@ -1,0 +1,124 @@
+{{#section 'css'}}
+{{/section}}
+
+{{#section 'js'}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdn.tiny.cloud/1/wafynfll6yk0et81pwlvcwdx6r76d4pl4gy3397p9126dmzm/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+{{!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> --}}
+<script>
+      tinymce.init({
+        selector: '#txtDescription',
+        height: 300,
+        plugins:'paste image link autolink lists table media',
+        menubar: false,
+        toolbar: [
+        'undo redo | fontselect fontsizeselect | bold italic underline strikethrough | numlist bullist alignleft aligncenter alignright | forecolor  backcolor | table link image media'
+        ],
+        fontsize_formats: '10pt 12pt 14pt 16pt 18pt 24pt 36pt',
+        elementpath: false,
+        icons: 'material',
+        placeholder: 'writing description here...',
+      });
+</script>
+<script>
+  $('#frmCourse').on('submit', function (e) {
+    e.preventDefault();
+    const nameCourse=$('#txtNameCourse').val();
+    const title=$('#txtTitle').val();
+    let Price=$('#txtPrice').val();
+    console.log("asdfds",nameCourse);
+    if(nameCourse.length === 0 || title.length === 0 || Price.length === 0){
+       Swal.fire({
+        icon: 'error',
+        text: 'Empty data.',
+      })
+      return;
+    }
+    if(isNaN(Price)){
+      Swal.fire({
+      icon: 'error',
+      text: 'not a number at Price data.',
+    })
+    return;
+    }
+      if(Price<=0 || Price >999){
+       Swal.fire({
+        icon: 'error',
+        text: 'the amount is too large. Please re-write.',
+      })
+      return;
+     }
+     $('#frmCourse').off('submit').submit();
+  });
+</script>
+<script>
+$('#domain').on('change', function() {
+    let selected = $(this).val();
+    $("#categories option").each(function(){
+        let element =  $(this) ;
+        if (element.data("tag") != selected){
+            element.removeClass('visible');
+            element.addClass('hidden');
+            element.hide() ;
+        }else{
+            element.removeClass('hidden');
+            element.addClass('visible');
+            element.show();
+        }
+    });
+    let categories = $('#categories');
+    categories.prop('selectedIndex',categories.find("option.visible:eq(0)").index());
+}).triggerHandler('change');
+</script>
+{{/section}}
+
+<form action="" method="post" id="frmCourse">
+  <div class="card">
+    <h5 class="card-header">New Course</h5>
+    <div class="card-body">
+      <div class="form-group">
+        <label for="txtNameCourse">What is the course name?</label>
+        <input type="text" class="form-control" id="txtNameCourse" name="nameCourse" placeholder="" autofocus>
+      </div>
+      <div class="form-group">
+        <label for="txtNameCourse">choos the category of course:</label>
+        <select name="headerCategory" id="domain">
+          {{#each listOfHeaderCategory}}
+            <option value="{{Id}}">{{HeaderNameCategory}}</option> 
+          {{/each}}
+        </select>
+        <select name="category" id="categories">
+          {{#each listOfCategory}}
+          <option value="{{Id}}" data-tag="{{HeaderCategoryID}}">{{NameCategory}}</option>
+            
+          {{/each}}
+        </select>
+        {{!-- <input type="text" class="form-control" id="txtNameCourse" name="nameCourse" placeholder="" autofocus> --}}
+      </div>
+      <div class="form-group">
+        <label for="txtTitle">The course title is:</label>
+        <input type="text" class="form-control" id="txtTitle" name="title" placeholder="what you want to share with everybody?">
+      </div>
+      <div class="form-group">
+        <label for="txtDescription">Description of course:</label>
+        {{!-- <input type="text" class="form-control" id="txtDescription" name="Description"> --}}
+        <textarea name="Description" id="txtDescription" class="form-control"rows="2"></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label for="txtPrice" >How much do you want to post this course?</label>
+        <input type="text" class="form-control" id="txtPrice" name="Price" placeholder="$5.00">
+      </div>
+      <div>
+          Please read the course posting rules before posting
+        <a href="#">click me </a>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+      <button type="submit" class="btn btn-outline-success">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Create new course
+      </button>
+    </div>
+  </div>
+</form>

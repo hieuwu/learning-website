@@ -1,5 +1,7 @@
-const courseModel = require('../../models/course.model');
 const userModel = require("../../models/user.model");
+const courseModel = require('../../models/course.model');
+const headercategoryModel = require("../../models/headercategory.model");
+const categoryModel = require("../../models/category.model");
 const config = require("../../config/default.json");
 
 module.exports = {
@@ -108,6 +110,39 @@ module.exports = {
             layout: 'teacher',
             user: req.session.authUser,
             Biography: req.body.Biography
+        });
+    },
+    getAddCourse: async(req, res) => {
+        const listOfCategory = await categoryModel.all();
+        const listOfHeaderCategory = await headercategoryModel.all();
+        res.render("teacher/course-add", {
+            layout: 'teacher',
+            user: req.session.authUser,
+            listOfCategory: listOfCategory,
+            listOfHeaderCategory: listOfHeaderCategory
+
+        });
+    },
+    postAddCourse: async(req, res) => {
+        const newcourse = {
+                nameCourse: req.body.nameCourse,
+                title: req.body.title,
+                Description: req.body.Description,
+                Price: req.body.Price,
+                SaleCost: req.body.Price,
+                IdCategory: req.body.category,
+                avgRate: 0,
+                IdTeacher: req.session.authUser.IdUser
+            }
+            // req.body;
+            //t chưa làm xong, có lên
+        console.log(req.body);
+        console.log(newcourse);
+        const ret = await courseModel.addCourse(newcourse);
+        // res.redirect('teacher/course-add');
+        res.render("teacher/course-edit", {
+            layout: 'teacher',
+            user: req.session.authUser,
         });
     },
 };

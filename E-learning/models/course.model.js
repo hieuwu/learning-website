@@ -340,7 +340,9 @@ module.exports = {
                     from chapter 
                     left join lesson on lesson.idChapter = chapter.IdChapter
                     where IdCourse = ${IdCourse}`);
-    return rows;
-     },
+        return rows;
+    },
+    addCourse(entity) {
+        return db.add(entity, TBL_COURSE);
+    },
 };
-
