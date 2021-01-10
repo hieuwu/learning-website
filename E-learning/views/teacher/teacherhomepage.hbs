@@ -18,7 +18,7 @@
       <hr />
     </div>
     <div class="col-md-10 item-container">
-      <div class="col-md-1">
+      <div class="col-md-3">
         <select class=" select-option" ng-model="ligth_r1" searchable="Order by" autofocus onChange="window.location.href=this.value">
           <option value="" disabled selected>Order by</option>
           <option value="/teacher/?sortBy=Published%20first">Published first</option>
@@ -26,8 +26,8 @@
         </select>
       </div>
       
-      <div class="col-md-12"></div>
-      <div class="col-md-3"><a type="button"  href="/teacher/course/add"   class="btn p-2 btn-success glyphicon glyphicon-ok">Create Course</a></div>
+      <div class="col-md-10"></div>
+      <div class="col-md-3"><a type="button"  href="/teacher/course/add"   class="btn p-2 btn-success">Create Course</a></div>
     </div>
   </div>
 </div>
@@ -76,10 +76,10 @@
             <div><strike>${{this.Price}}</strike></div>
           </div>
         </div>
-        <div class="col-md-1">
-          <div><button type="button"  onclick=""   class="btn p-2 btn-success glyphicon glyphicon-ok">finish</button></div>
-          <div><button type="button" href="/teacher/course/edit/{{./this.IdCourse}}" class="btn mt-1 btn-danger glyphicon glyphicon-pencil"> Edit&nbsp</button></div>
-        </div>
+        {{!-- <div class="col-md-1">
+          <div><a type="button"  onclick=""   class="btn p-2 btn-success">finish</a></div>
+          <div><a type="button" href="/teacher/course/edit/{{./this.IdCourse} }" class="btn mt-1 btn-danger"> Edit&nbsp</a></div>
+        </div> --}}
       </div>
       </a>
     <div>

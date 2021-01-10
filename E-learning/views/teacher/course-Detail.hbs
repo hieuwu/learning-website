@@ -1,0 +1,239 @@
+{{#section 'css'}}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link rel="stylesheet" href="/public/stylesheets/bootstrap.min.css">
+<link rel="stylesheet" href="/public/stylesheets/jsRapStar.css" />
+<link href="/public/stylesheets/course-detail.css" rel="stylesheet">
+<style>
+.image-teacher {
+    height: 100px;
+    width: 100px;
+    position: relative;
+    margin-right: 10px;
+}
+</style>
+
+
+
+{{/section}}
+
+{{#section 'js'}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/public/javascript/jsRapStar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>$('.ratingStar').jsRapStar({ enabled: false, colorFront: "yellow"});</script>
+<script>$('#sendRating').jsRapStar({
+onMouseleave(score){
+	$('#star').text(score);
+}});</script>
+<script>
+  $('#frmRating').on('submit', function (e) {
+    e.preventDefault();
+    const comment = $('#inputComment').val();
+    if (comment.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Invalid comment data.',
+      })
+      return;
+    }
+    const getStar = $('#star').text();
+    if (getStar === 0) {
+      Swal.fire({
+        icon: 'error',
+        text: 'Invalid star data.',
+      })
+      return;
+    }
+    $('#RateStar').val(getStar);
+    $('#frmRating').off('submit').submit();
+  })
+</script>
+{{/section}}
+<!-- course detail -->
+<section class="section-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mb-4">
+        <!-- course thumb -->
+        <img src="/public/images/course/{{course.IdCourse}}/thumb.jpg" class="img-fluid w-100" </div>
+      </div>
+      <!-- course info -->
+      <div class="row align-items-center mb-5">
+        <div class="row align-items-center mb-3">
+          <h1>{{course.nameCourse}}</h1>
+        </div>
+        <div class="col-xl-10 order-sm-3 order-xl-2 col-12 order-2 mb-3">
+          <ul class="list-inline text-xl-center">
+            <li class="list-inline-item mr-4 mb-3 mb-sm-0">
+              <div class="d-flex align-items-center">
+                <img src="/public//icon/update-time.png" class="ti-alarm-clock text-primary icon-md mr-2" />
+                <div class="text-left">
+                  <h6 class="mb-0">UPDATE TIME</h6>
+                  <p class="mb-0">{{course.updatedTime}}</p>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item mr-4 mb-3 mb-sm-0">
+              <div class="d-flex align-items-center">
+                <img src="/public/icon//fee.png" class="ti-wallet text-primary icon-md mr-2" />
+                <div class="text-left">
+                  <h6 class="mb-0">FEE</h6>
+                  <p class="mb-0">${{course.Price}}</p>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item mr-4 mb-3 mb-sm-0">
+              <div class="d-flex align-items-center">
+                <img src="/public/icon/promotion.png" class="ti-wallet text-primary icon-md mr-2" />
+                <div class="text-left">
+                  <h6 class="mb-0">PROMOTION</h6>
+                  <p class="mb-0">${{course.SaleCost}}</p>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item mr-4 mb-3 mb-sm-0">
+              <div class="d-flex align-items-center">
+                <img src="/public/icon/student.png" class="ti-wallet text-primary icon-md mr-2" />
+                <div class="text-left">
+                  <h6 class="mb-0">STUDENTS</h6>
+                  <p class="mb-0">{{course.subscribe}}</p>
+                </div>
+              </div>
+            </li>
+            <li class="list-inline-item mr-4 mb-3 mb-sm-0">
+              <div class=" align-items-center">
+                <div class="text-left">
+                  <h6 class="mb-0">RATING</h6>
+                  <div class="d-flex align-items-center">
+                    <p class="mb-0 mr-3 avgRating">{{course.avgRate}}</p>
+                    <div class="ratingStar" value={{course.avgRate}}></div>
+                    <p class="mb-0">({{this.numberRating}} Ratings)</p>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+
+        <div class="order-xl-3 mb-4 mb-xl-0 my-flex">
+    
+        </div>
+      </div>
+
+      <!-- about course -->
+        <div class="col-12 mb-4">
+          <h3>About Course</h3>
+          <p><strong>Category: </strong>{{course.NameCategory}}</p>
+          <p><strong>Title: </strong>{{course.title}}</p>
+        </div>
+
+        <!-- Course Content -->
+        <div class="col-12 mb-4">
+            <div class="container">
+                <div class="row">
+
+                <div class="item-content col-md-3">
+                    <h3>Course Content</h3>
+                </div>
+                <div class="col-md-7"></div>
+                <div class="col-md-1 p-1">
+                    {{#if isFinish}}
+                    <a type="button" class="btn btn-success mt-2 glyphicon glyphicon-ok" >&nbspDone&nbsp</a>
+                    {{else}}
+                    <a type="button"  onclick="#"   class="btn btn-outline-success mt-2 glyphicon glyphicon-ok">&nbspis Finish&nbsp</a>
+                    {{/if}}
+                </div>
+                <div class="col-md-1 p-1">
+                    <a type="button" href="/teacher/course/{{course.IdCourse}}/edit" class="btn mt-2 btn-danger glyphicon glyphicon-pencil">&nbspUpload&nbsp</a>
+                </div>
+                <div class="iten-content col-8"></div>
+                </div>
+            </div>
+
+
+          <div class="accordion" id="accordionExample1">
+            {{#each listChapter}}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                  data-bs-target={{this.dataBsTarget}} aria-expanded="true"
+                  aria-controls={{this.IdDiv}}>
+                  {{this.NameChapter}}
+                </button>
+              </h2>
+              <div id={{this.IdDiv}} class="accordion-collapse collapse show row"
+                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                {{#each ListLesson}}
+                <a class="accordion-body" href="/teacher/course/{{this.idCourse}}/chapter/{{this.idChapter}}/lesson/{{this.idLesson}}"
+                target="_blank">
+                  {{this.NameLesson}}
+                </a>
+                {{/each}}
+              </div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+        <!-- Description -->
+        <div class="col-12 mb-4">
+          <h3>Description</h3>
+          <p>{{{course.Description}}}</p>
+        </div>
+        <!-- teacher -->
+        <div class="col-12 mb-4">
+          <h3 class="mb-3">Teacher</h3>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="media mb-2 mb-sm-0">
+              <img src="/public/images/teacher/teacher.jpg" class="image-teacher" alt="Teacher">
+              <div class="media-body">
+                <h4 class="mt-0">{{teacher.FullName}}</h4>
+                <p><strong>email:</strong>  {{teacher.Email}}</p>
+                <p><strong>biography:</strong> {{teacher.Biography}}</p>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+</section>
+<section class="section pt-0">
+  <div class="container">
+    <div class="row">
+      <div>
+        {{!-- <h2 class="section-title">Related Course</h2> --}}
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- Related Course -->
+<div class="row justify-content-center">    
+</div>
+
+<section class="section pt-0">
+  <div class="container">
+    <div class="row">
+      <div>
+        <h2 class="section-title">Ratings Course</h2>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- detail rating -->
+{{#each listRating}}
+<hr style="border:3px solid #f1f1f1">
+<div class="DetailRatingContainer">
+  <div class="container detail-flex-container">
+    <div class="mb-3 row">
+      <p class="ti-wallet text-primary font-size-fullName col-sm-2">{{this.FullName}}</p>
+      <div class="col-sm-8">
+        <div class="ratingStar avgRatingLeft" value={{this.rateStar}}></div>
+        <h6 class="mb-0 ">{{this.Comments}}</h6>
+      </div>
+    </div>
+
+  </div>
+</div>
+{{/each}}
+<hr style="border:3px solid #f1f1f1">

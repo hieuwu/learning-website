@@ -309,14 +309,14 @@ module.exports = {
         }
         return rows[0];
     },
-    async coursePageByTeacherID(TeacherId, offset) {
+    async coursePageByTeacherID(TeacherId, sortBy, offset) {
         return await db.load(`select ${TBL_COURSE}.*,category.NameCategory,headercategory.HeaderNameCategory,count(chapter.idChapter) as NoChapter
         from ${TBL_COURSE} right join user_profile on ${TBL_COURSE}.IdTeacher=user_profile.IdUser
         left join category on ${TBL_COURSE}.IdCategory=category.Id left join headercategory on category.HeaderCategoryID=headercategory.Id
         left join chapter on ${TBL_COURSE}.IdCourse=chapter.idCourse
         where user_profile.IdUser=${TeacherId} and course.isDeleted = false
         group by ${TBL_COURSE}.idCourse
-        order by ${TBL_COURSE}.nOViews DESC limit ${config.pagination.limit} offset ${offset}`);
+        order by ${sortBy},${TBL_COURSE}.nOViews DESC limit ${config.pagination.limit} offset ${offset}`);
     },
     async countCourseByTeacherID(TeacherId) {
         let rows = await db.load(`select count(*) as total
