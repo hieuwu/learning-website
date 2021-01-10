@@ -28,15 +28,14 @@ module.exports = {
                         group by 
                         course.IdCourse
                         order by
-                        course.IdCourse desc limit 10`)
-
+                        course.IdCourse desc limit 10`);
     },
 
     async getMostViewed() {
         // return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,
         //                         course.nameCourse, category.NameCategory, course.Price, course.SaleCost,course.title,
         //                         course.createdTime, course.nOViews
-        //                         from ${TBL_COURSE} 
+        //                         from ${TBL_COURSE}
         //                         left join user_profile
         //                         on course.IdTeacher = user_profile.IdUser
         //                         inner join category
@@ -59,7 +58,7 @@ module.exports = {
         // return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,
         //                         course.nameCourse, category.NameCategory, course.Price, course.SaleCost,course.title,
         //                         course.createdTime, course.nOViews
-        //                         from ${TBL_COURSE} 
+        //                         from ${TBL_COURSE}
         //                         left join user_profile
         //                         on course.IdTeacher = user_profile.IdUser
         //                         inner join category
@@ -67,7 +66,7 @@ module.exports = {
         //                         order by course.nOViews DESC limit 10`);
         return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,course.avgRate,
                             course.nameCourse, category.NameCategory, course.Price, course.SaleCost,course.title,
-                            course.createdTime, course.nOViews, count(enrolledcourse.IdUser) as numRating
+                            course.createdTime, course.nOViews,course.subscribe, count(enrolledcourse.IdUser) as numRating
                             from ${TBL_COURSE} 
                             left join user_profile on course.IdTeacher = user_profile.IdUser
                             inner join category on course.IdCategory = category.Id
@@ -75,7 +74,7 @@ module.exports = {
                             and enrolledcourse.rateStar != 0
                             where course.isDeleted = false
                             group by course.IdCourse, course.nOViews
-                            order by course.nOViews DESC limit 10`);
+                            order by course.subscribe DESC limit 10`);
     },
     async getCoursebyCateID(condition, sortBy) {
         return await db.load(
@@ -120,7 +119,7 @@ module.exports = {
         // return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,course.title,
         //     course.nameCourse, category.NameCategory, course.Price, course.SaleCost, course.createdTime, course.nOViews,
         //     count(chapter.IdChapter) as numOfChapters
-        //     from ${TBL_COURSE} 
+        //     from ${TBL_COURSE}
         //     left join user_profile on course.IdTeacher = user_profile.IdUser
         //     inner join category on course.IdCategory = category.Id
         //     inner join chapter on course.IdCourse = chapter.idCourse
@@ -162,7 +161,7 @@ module.exports = {
         // return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,course.title,
         //     course.nameCourse, category.NameCategory, course.Price, course.SaleCost, course.createdTime, course.nOViews,
         //     count(chapter.IdChapter) as numOfChapters
-        //     from ${TBL_COURSE} 
+        //     from ${TBL_COURSE}
         //     left join user_profile
         //     on course.IdTeacher = user_profile.IdUser
         //     inner join category
@@ -219,7 +218,7 @@ module.exports = {
                         group by 
                         course.IdCourse
                         order by
-                        course.IdCourse desc limit 5`)
+                        course.IdCourse desc limit 5`);
         return rows;
     },
     async getListRating(id) {
@@ -292,7 +291,7 @@ module.exports = {
 
     async deleteCourse(IdCourse) {
         const condition = { IdCourse: IdCourse };
-        const entity = { isDeleted: true }
+        const entity = { isDeleted: true };
         return await db.patch(entity, condition, TBL_COURSE);
     },
 
@@ -341,6 +340,19 @@ module.exports = {
                     left join lesson on lesson.idChapter = chapter.IdChapter
                     where IdCourse = ${IdCourse}`);
         return rows;
+    },
+    async getHighlightCourses() {
+        return await db.load(`select course.IdCourse, FullName, course.nameCourse, course.Description,course.avgRate,
+        course.nameCourse, category.NameCategory, course.Price, course.SaleCost,course.title,course.subscribe,
+        course.createdTime, course.nOViews, count(enrolledcourse.IdUser) as numRating
+        from ${TBL_COURSE} 
+        left join user_profile on course.IdTeacher = user_profile.IdUser
+        inner join category on course.IdCategory = category.Id
+        left join enrolledcourse on course.IdCourse = enrolledcourse.IdCourse
+        and enrolledcourse.rateStar != 0
+        where course.isDeleted = false 
+        group by course.IdCourse, course.nOViews
+        order by course.avgRate DESC limit 3`);
     },
     addCourse(entity) {
         return db.add(entity, TBL_COURSE);

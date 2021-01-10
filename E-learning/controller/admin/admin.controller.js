@@ -2,7 +2,8 @@ const courseModel = require("../../models/course.model");
 const config = require("../../config/default.json");
 const categoryModel = require("../../models/category.model");
 const headercategoryModel = require("../../models/headercategory.model");
-const userModel = require('../../models/user.model');
+const userModel = require("../../models/user.model");
+const wishlistModel = require("../../models/wishlist.model");
 module.exports = {
   getadminHome: async (req, res) => {
     res.render("admin/adminhomepage", {
@@ -25,6 +26,7 @@ module.exports = {
     }
 
     res.render("admin/course-all", {
+      layout: "admin",
       listOfCourses: listOfCourses,
       page_items: page_items,
       can_go_next: page < nPages,
@@ -76,6 +78,7 @@ module.exports = {
       }
     }
     res.render("admin/course-detail", {
+      layout: "admin",
       course: course,
       listCourse: listCourse,
       listRating: listRating,
@@ -88,6 +91,7 @@ module.exports = {
     let listOfCategories = await categoryModel.all();
     let courseDetail = await courseModel.single(IdCourse);
     res.render("admin/course-edit", {
+      layout: "admin",
       course: courseDetail,
       listOfCategories: listOfCategories,
     });
@@ -121,6 +125,7 @@ module.exports = {
       SaleCost,
     });
     res.render("admin/course-edit", {
+      layout: "admin",
       course: courseDetail,
       listOfCategories: listOfCategories,
       err_message: "Course updated successfully",
@@ -128,7 +133,8 @@ module.exports = {
   },
   getCategoryPage: async (req, res) => {
     let listOfCategories = await categoryModel.all();
-    res.render('admin/category-all', {
+    res.render("admin/category-all", {
+      layout: "admin",
       listOfCategories: listOfCategories,
     });
   },
@@ -136,23 +142,32 @@ module.exports = {
     const categoryId = req.params.id;
     let headerCategories = await headercategoryModel.all();
     let category = await categoryModel.getCategoryById(categoryId);
-    let headerCategoryName = await headercategoryModel.getNameById(category.HeaderCategoryID);
+    let headerCategoryName = await headercategoryModel.getById(
+      category.HeaderCategoryID
+    );
 
-    res.render('admin/category-edit', {
+    res.render("admin/category-edit", {
+      layout: "admin",
       headerCategoryName: headerCategoryName.HeaderNameCategory,
       category: category,
-      headerCategories: headerCategories
+      headerCategories: headerCategories,
     });
   },
   editCategoryById: async (req, res) => {
     const categoryId = req.params.id;
-    const {NameCategory, HeaderCategoryId} = req.body;
+    const { NameCategory, HeaderCategoryId } = req.body;
     console.log(req.body);
-    await categoryModel.updateCategoryById(categoryId,{NameCategory, HeaderCategoryId} );
+    await categoryModel.updateCategoryById(categoryId, {
+      NameCategory,
+      HeaderCategoryId,
+    });
     let headerCategories = await headercategoryModel.all();
     let category = await categoryModel.getCategoryById(categoryId);
-    let headerCategoryName = await headercategoryModel.getNameById(category.HeaderCategoryID);
+    let headerCategoryName = await headercategoryModel.getById(
+      category.HeaderCategoryID
+    );
     res.render("admin/category-edit", {
+      layout: "admin",
       headerCategoryName: headerCategoryName.HeaderNameCategory,
       err_message: "Category updated successfully",
       category: category,
@@ -167,15 +182,17 @@ module.exports = {
   getAddCategoryPage: async (req, res) => {
     let headerCategories = await headercategoryModel.all();
     res.render("admin/category-add", {
+      layout: "admin",
       headerCategories: headerCategories,
     });
   },
   addNewCategory: async (req, res) => {
     console.log(req.body);
-    const {NameCategory, HeaderCategoryId} = req.body;
+    const { NameCategory, HeaderCategoryId } = req.body;
     let headerCategories = await headercategoryModel.all();
-    await categoryModel.addNewCategory({NameCategory, HeaderCategoryId});
+    await categoryModel.addNewCategory({ NameCategory, HeaderCategoryId });
     res.render("admin/category-add", {
+      layout: "admin",
       err_message: "New category is added successfully",
       headerCategories: headerCategories,
     });
@@ -183,7 +200,8 @@ module.exports = {
 
   getHeaderCategoryPage: async (req, res) => {
     let listOfCategories = await headercategoryModel.all();
-    res.render('admin/headercategory-all', {
+    res.render("admin/headercategory-all", {
+      layout: "admin",
       listOfCategories: listOfCategories,
     });
   },
@@ -191,18 +209,22 @@ module.exports = {
     const categoryId = req.params.id;
     let category = await headercategoryModel.getById(categoryId);
     res.render("admin/headercategory-edit", {
-      category:category
+      layout: "admin",
+      category: category,
     });
   },
   editHeaderCategoryById: async (req, res) => {
     const categoryId = req.params.id;
-    const {HeaderNameCategory} = req.body;
+    const { HeaderNameCategory } = req.body;
     console.log(req.body);
-    await headercategoryModel.updateHeaderCategoryById(categoryId,{HeaderNameCategory});
+    await headercategoryModel.updateHeaderCategoryById(categoryId, {
+      HeaderNameCategory,
+    });
     let category = await headercategoryModel.getById(categoryId);
     res.render("admin/headercategory-edit", {
+      layout: "admin",
       err_message: "Header category is updated successfully",
-      category:category
+      category: category,
     });
   },
   deleteHeaderCategory: async (req, res) => {
@@ -211,13 +233,14 @@ module.exports = {
     res.redirect("/headercategory/all");
   },
   getAddHeaderCategoryPage: async (req, res) => {
-    res.render('admin/headercategory-add');
+    res.render("admin/headercategory-add", { layout: "admin" });
   },
   addNewHeaderCategory: async (req, res) => {
     console.log(req.body);
-    const {HeaderNameCategory} = req.body;
-    await headercategoryModel.addNewHeaderCategory({HeaderNameCategory});
+    const { HeaderNameCategory } = req.body;
+    await headercategoryModel.addNewHeaderCategory({ HeaderNameCategory });
     res.render("admin/headercategory-add", {
+      layout: "admin",
       err_message: "New category is added successfully",
     });
   },
@@ -229,8 +252,7 @@ module.exports = {
     listOfTeachers.forEach((item) => {
       if (item.status === "Block") {
         item.isBlocked = true;
-      }
-      else {
+      } else {
         item.isBlocked = false;
       }
     });
@@ -244,6 +266,7 @@ module.exports = {
       page_items.push(item);
     }
     res.render("admin/teacher-all", {
+      layout: "admin",
       listOfTeachers: listOfTeachers,
       page_items: page_items,
       can_go_next: page < nPages,
@@ -252,10 +275,10 @@ module.exports = {
       next_value: page + 1,
     });
   },
-  getUserById: async (req, res) => {
+  getTeacherById: async (req, res) => {
     const userId = req.params.id;
     let user = await userModel.singleTeacher(userId);
-    res.render("admin/teacher-detail", {user: user});
+    res.render("admin/teacher-detail", { user: user, layout: "admin" });
   },
   blockTeacher: async (req, res) => {
     const Id = req.body.teacherId;
@@ -270,15 +293,15 @@ module.exports = {
   getPendingTeacherPage: async (req, res) => {
     let listPendingTeachers = await userModel.getPendingTeacher();
     listPendingTeachers.forEach((item) => {
-      if(item.status === "Processing") {
+      if (item.status === "Processing") {
         item.isProcessing = true;
-      }
-      else {
+      } else {
         item.isProcessing = false;
       }
     });
-    res.render('admin/teacher-pending', {
-      listPendingTeachers: listPendingTeachers
+    res.render("admin/teacher-pending", {
+      layout: "admin",
+      listPendingTeachers: listPendingTeachers,
     });
   },
   approvePendingTeacher: async (req, res) => {
@@ -290,5 +313,68 @@ module.exports = {
     const id = req.body.teacherId;
     await userModel.declinePendingTeacher(id);
     res.redirect("/teacher/all/pending");
-  }
+  },
+  getAllUserPage: async (req, res) => {
+    let page = +req.query.page || 1;
+    if (page == 0) page = 1;
+    let offset = (page - 1) * config.pagination.limit;
+    let listOfUsers = await userModel.pageByAllUser(offset);
+    const total = await userModel.countAllUser();
+    let nPages = Math.ceil(total / config.pagination.limit);
+    let page_items = [];
+    for (i = 1; i <= nPages; i++) {
+      const item = {
+        value: i,
+      };
+      page_items.push(item);
+    }
+    res.render("admin/user-all", {
+      layout: "admin",
+      listOfUsers: listOfUsers,
+      page_items: page_items,
+      can_go_next: page < nPages,
+      can_go_prev: page > 1,
+      prev_value: page - 1,
+      next_value: page + 1,
+    });
+  },
+  getUserById: async (req, res) => {
+    const userId = req.params.id;
+    let user = await userModel.single(userId);
+    let numberOfCourses = await userModel.countCoursesOfUser(userId);
+    res.render("admin/user-detail", {
+      user: user,
+      numberOfCourses: numberOfCourses,
+      layout: "admin",
+    });
+  },
+  getAdminProfilePage: async (req, res) => {
+    let user = await userModel.getAdminProfile();
+    res.render("admin/admin-profile", {
+      layout: "admin",
+      user: user,
+    });
+  },
+  editAdminProfile: async (req, res) => {
+    console.log("Data:", req.body);
+    const { FullName, UserName } = req.body;
+    await userModel.editName(UserName, FullName);
+    let user = await userModel.getAdminProfile();
+    res.render("admin/admin-profile", {
+      layout: "admin",
+      user: user,
+    });
+  },
+  editUserByAdmin: async (req, res) => {
+    const userId = req.params.id;
+    const { FullName, Username } = req.body;
+    await userModel.editName(Username, FullName);
+    let user = await userModel.single(userId);
+    let numberOfCourses = await userModel.countCoursesOfUser(userId);
+    res.render("admin/user-detail", {
+      user: user,
+      numberOfCourses: numberOfCourses,
+      layout: "admin",
+    });
+  },
 };
