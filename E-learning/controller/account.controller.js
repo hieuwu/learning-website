@@ -134,6 +134,7 @@ module.exports = {
         res.render("vwAccount/edit-password", { user: req.session.authUser });
     },
     postEditPassword: async(req, res) => {
+        console.log('12', req.session);
         if (
             req.body.CurrentPassword === "" ||
             req.body.NewPassword === "" ||
@@ -162,7 +163,8 @@ module.exports = {
             req.session.authUser.UserName,
             hashNewPw
         );
-        req.session.authUser = await userModel.singleByUserName(req.body.Username);
+        req.session.authUser = await userModel.singleByUserName(req.session.authUser.UserName);
+        console.log('before', req.session)
         res.render("vwAccount/edit-password", { user: req.session.authUser });
     },
     getProfile: async(req, res) => {

@@ -13,7 +13,7 @@ const auth = require('../../middlewares/auth.mdw');
 router.get('/profile', controller.getProfile);
 router.get('/edit-password', controller.getEditPassword);
 router.post('/profile/edit', controller.postEditProfile);
-router.post('/edit-password/edit', controller.postEditPassword);
+router.post('/edit-password/', controller.postEditPassword);
 router.get('/list-course', controller.getListCourse);
 router.get('/wishlist', controller.getListWishList);
 module.exports = router;
