@@ -26,29 +26,6 @@
 onMouseleave(score){
 	$('#star').text(score);
 }});</script>
-<script>
-  $('#frmRating').on('submit', function (e) {
-    e.preventDefault();
-    const comment = $('#inputComment').val();
-    if (comment.length === 0) {
-      Swal.fire({
-        icon: 'error',
-        text: 'Invalid comment data.',
-      })
-      return;
-    }
-    const getStar = $('#star').text();
-    if (getStar === 0) {
-      Swal.fire({
-        icon: 'error',
-        text: 'Invalid star data.',
-      })
-      return;
-    }
-    $('#RateStar').val(getStar);
-    $('#frmRating').off('submit').submit();
-  })
-</script>
 {{/section}}
 <!-- course detail -->
 <section class="section-sm">
@@ -142,11 +119,11 @@ onMouseleave(score){
                     {{#if isFinish}}
                     <a type="button" class="btn btn-success mt-2 glyphicon glyphicon-ok" >&nbspDone&nbsp</a>
                     {{else}}
-                    <a type="button"  onclick="#"   class="btn btn-outline-success mt-2 glyphicon glyphicon-ok">&nbspis Finish&nbsp</a>
+                    <a type="button"  href="/teacher/course/upload/{{course.IdCourse}}"   class="btn btn-outline-success mt-2 glyphicon glyphicon-ok">&nbspUpload&nbsp</a>
                     {{/if}}
                 </div>
                 <div class="col-md-1 p-1">
-                    <a type="button" href="/teacher/course/{{course.IdCourse}}/edit" class="btn mt-2 btn-danger glyphicon glyphicon-pencil">&nbspUpload&nbsp</a>
+                    <a type="button" href="/teacher/course/edit/{{course.IdCourse}}" class="btn mt-2 btn-danger glyphicon glyphicon-pencil">&nbspEdit&nbsp</a>
                 </div>
                 <div class="iten-content col-8"></div>
                 </div>

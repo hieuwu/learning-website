@@ -3,6 +3,8 @@ const config = require("../config/default.json");
 
 const TBL_COURSE = "course";
 const TBL_ENROLLEDCOURSE = "enrolledcourse";
+const TBL_CHAPTER = "chapter";
+const TBL_LESSON = "lesson"
 module.exports = {
     async all() {
         return await db.load(`select * from ${TBL_COURSE}`);
@@ -76,12 +78,12 @@ module.exports = {
                             group by course.IdCourse, course.nOViews
                             order by course.subscribe DESC limit 10`);
     },
-    async getCoursebyCateID(condition, sortBy) {
+    async countCoursebyCateID(condition) {
         return await db.load(
-            `select * from ${TBL_COURSE} where IdCategory=${condition} and isDeleted = false order by ${sortBy}`
+            `select count(*) as count from ${TBL_COURSE} where IdCategory in (${condition}) and isDeleted = false`
         );
     },
-    async getFullInformationByID(condition) {
+    async getFullInformationByCate(condition, sortby, offset) {
         const rows = await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,
         course.nameCourse, category.NameCategory, course.Price, course.SaleCost,course.title,
         course.createdTime, course.nOViews,course.avgRate ,course.subscribe
@@ -92,28 +94,26 @@ module.exports = {
         on course.IdCategory = category.Id
         left join headercategory
         on category.headercategoryid=headercategory.id
-        where course.IdCourse = ${condition} and course.isDeleted = false
-        group by course.idcourse`);
+        where course.IdCategory in (${condition}) and course.isDeleted = false
+        order by ${sortby} limit ${config.pagination.limit} offset ${offset}`);
         return rows;
     },
-    async searchByFulltext(text, sortby) {
-        return await db.load(`select * from ${TBL_COURSE} where match(nameCourse) against('${text}') and course.isDeleted = false
-         order by ${sortby}`);
-    },
-    async getCourseListbyCategory(categoryId) {
-        return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,course.title,
-        course.nameCourse, category.NameCategory, course.Price, course.SaleCost, course.createdTime, course.nOViews,
-        count(chapter.IdChapter) as numOfChapters
+    async getFullInformationByID(condition, sortby, offset) {
+        const rows = await db.load(`select *
         from ${TBL_COURSE} 
         left join user_profile
         on course.IdTeacher = user_profile.IdUser
         inner join category
         on course.IdCategory = category.Id
-        inner join chapter
-        on course.IdCourse = chapter.idCourse
-        where category.Id= ${categoryId} and course.isDeleted = false
-        group by course.IdCourse
-        order by course.nOViews DESC limit 10`);
+        left join headercategory
+        on category.headercategoryid=headercategory.id
+        where course.IdCourse in (${condition}) and course.isDeleted = false
+        order by ${sortby} limit ${config.pagination.limit} offset ${offset}`);
+        return rows;
+    },
+    async searchByFulltext(text, sortby) {
+        return await db.load(`select * from ${TBL_COURSE} where match(nameCourse) against('${text}') and course.isDeleted = false
+         order by ${sortby}`);
     },
     async pageBycat(catId, offset) {
         // return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,course.title,
@@ -356,5 +356,30 @@ module.exports = {
     },
     addCourse(entity) {
         return db.add(entity, TBL_COURSE);
+    },
+    async getListChapterByCourseId(IdCourse) {
+        const rows = await db.load(`select *
+                    from chapter 
+                    where IdCourse = ${IdCourse}`);
+        return rows;
+    },
+    addChapter(entity) {
+        return db.add(entity, TBL_CHAPTER);
+    },
+    addLesson(entity) {
+        return db.add(entity, TBL_LESSON);
+    },
+    async getChapterByCourse(id) {
+        let rows = await db.load(`select * from ${TBL_CHAPTER} where idCourse='${id}' order by IdChapter desc`);
+        if (rows.length == 0) {
+            rows = null;
+        }
+        return rows;
+    },
+    async getLessonByChapter(id) {
+        return await db.load(`select * from ${TBL_LESSON} where idChapter='${id}'order by idLesson desc`);
+    },
+    async getNewCourseByIDTeacher(id) {
+        return await db.load(`select * from ${TBL_COURSE} where IdTeacher='${id}'order by IdCourse desc`);
     },
 };

@@ -1,0 +1,166 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/css/fileinput.min.css">
+{{/section}}
+
+{{#section 'js'}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/themes/fa/theme.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/js/fileinput.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdn.tiny.cloud/1/wafynfll6yk0et81pwlvcwdx6r76d4pl4gy3397p9126dmzm/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+      tinymce.init({
+        selector: '#txtDescription',
+        height: 300,
+        plugins:'paste image link autolink lists table media',
+        menubar: false,
+        toolbar: [
+        'undo redo | fontselect fontsizeselect | bold italic underline strikethrough | numlist bullist alignleft aligncenter alignright | forecolor  backcolor | table link image media'
+        ],
+        fontsize_formats: '10pt 12pt 14pt 16pt 18pt 24pt 36pt',
+        elementpath: false,
+        icons: 'material',
+        placeholder: 'writing description here...',
+      });
+</script>
+<script>
+  $('#frmCourse').on('submit', function (e) {
+    e.preventDefault();
+    const nameCourse=$('#txtNameCourse').val();
+    const title=$('#txtTitle').val();
+    let SaleCost=$('#txtSaleCost').val();
+    console.log("asdfds",nameCourse);
+    if(nameCourse.length === 0 || title.length === 0 || SaleCost.length === 0){
+       Swal.fire({
+        icon: 'error',
+        text: 'Empty data.',
+      })
+      return;
+    }
+    if(isNaN(SaleCost)){
+      Swal.fire({
+      icon: 'error',
+      text: 'not a number at SaleCost data.',
+    })
+    return;
+    }
+      if(SaleCost<=0 || SaleCost >999){
+       Swal.fire({
+        icon: 'error',
+        text: 'the amount is too large. Please re-write.',
+      })
+      return;
+     }
+     $('#frmCourse').off('submit').submit();
+  });
+</script>
+<script>
+$('#domain').on('change', function() {
+    let selected = $(this).val();
+    $("#categories option").each(function(){
+        let element =  $(this) ;
+        if (element.data("tag") != selected){
+            element.removeClass('visible');
+            element.addClass('hidden');
+            element.hide() ;
+        }else{
+            element.removeClass('hidden');
+            element.addClass('visible');
+            element.show();
+        }
+    });
+    let categories = $('#categories');
+    categories.prop('selectedIndex',categories.find("option.visible:eq(0)").index());
+}).triggerHandler('change');
+</script>
+{{/section}}
+
+<form action="" method="post" id="frmCourse"  enctype="multipart/form-data">
+  <div class="card">
+    <h3 class="card-header">Edit Course</h3>
+    <div class="card-body">
+      <div class="form-group">
+        <input type="hidden" name="IdCourse" value="{{course.IdCourse}}">
+        <label for="txtNameCourse">Course:</label>
+        <input type="text" class="form-control" id="txtNameCourse" name="nameCourse" value="{{course.nameCourse}}" placeholder="" autofocus>
+      </div>
+      <label for="fuVideo">image Course:</label>
+      <div class="form-group file-loading">
+        <input id="fuImage" name="fuImage" type="file" class="file" data-show-preview="false"  data-allowed-file-extensions='["jpg","png"]'>
+      </div>
+      <div class=" form-group">
+        <label for="domain" style="left: 30px;"> Category:</label>
+        <div class="row">
+
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" value="{{course.HeaderNameCategory}}" placeholder="" readonly>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="form-control" value="{{course.NameCategory}}" placeholder="" readonly>
+            </div>
+        </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="domain">Change to:</label>
+      <div class="row">
+        <div class="col-sm-3">
+            <div class="input-group">
+              <select name="headerCategory" id="domain" style="width: 100%;height: 35px;">
+                {{#each listOfHeaderCategory}}
+                  <option value="{{Id}}">{{HeaderNameCategory}}</option> 
+                {{/each}}
+              </select>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="input-group">
+              <select name="category" id="categories" style="width: 100%;height: 35px;">
+                {{#each listOfCategory}}
+                <option value="{{Id}}" data-tag="{{HeaderCategoryID}}">{{NameCategory}}</option>
+                {{/each}}
+              </select>
+            </div>
+        </div>
+        <div class="col-sm-10"></div>
+      </div>
+      </div>
+      <div class="form-group">
+        <label for="txtTitle">Title:</label>
+        <input type="text" class="form-control" id="txtTitle" name="title" value="{{course.title}}">
+      </div>
+      <div class="form-group">
+        <label for="txtDescription">Description:</label>
+        <textarea name="Description" id="txtDescription" class="form-control"rows="2">{{course.Description}}</textarea>
+      </div>
+      
+      <div class="form-group">
+        <label for="txtPrice" >Fee:</label>
+        <input type="text" class="form-control" id="txtPrice" name="Price" value="{{course.Price}}"readonly>
+      </div>
+      <div class="form-group">
+        <label for="txtSaleCost" >SaleCost:</label>
+        <input type="text" class="form-control" id="txtSaleCost" name="SaleCost" value="{{course.SaleCost}}" placeholder="5.00">
+      </div>
+      <div class="form-group">
+        <label for="txtStatus" >Status:</label>
+        <div class="input-group">
+        <select name="status" id="txtStatus" style="width:150px;height: 35px;">
+                <option value="unfinished">unfinish</option>
+                <option value="finished">finish</option>
+        </select>
+        </div>
+        {{!-- <input type="text" class="form-control" id="txtStatus" name="Status" value="{{course.status}}" placeholder="{{course.status}}"> --}}
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+      <a class="btn btn-success" href="/teacher/course/{{course.IdCourse}}">Go Back</a>
+      <button type="submit" class="btn btn-outline-success" style="float: right;">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Save
+      </button>
+    </div>
+  </div>
+</form>

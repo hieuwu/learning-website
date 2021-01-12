@@ -1,0 +1,160 @@
+{{#section 'css'}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/css/fileinput.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/css/fileinput-rtl.min.css">
+{{/section}}
+{{#section 'js'}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/themes/fa/theme.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/js/fileinput.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $("#fuVideo").fileinput({
+        maxFileCount: 10,
+        allowedFileTypes: ["mp4", "mov", "avi"]
+    });
+});
+
+</script>
+<script>
+$('#frmCourse').on('submit',function(e){
+  e.preventDefault();
+  url="/teacher/course/upload/"+{{idCourse}}+"?newChapter="+$('#txtNameChapter').val()+"&newLesson="+$('#txtNameLesson').val()+"&idChapter="+$('#txtChapter').val()+"&idLesson="+$('#txtLesson').val();
+  console.log('url=',url)
+  if($('#txtChapter').val()== 'new'){
+    if($('#txtNameChapter').val()==''){
+      Swal.fire({
+        icon: 'error',
+        text: 'Empty name of new Chapter.',
+      })
+      return;
+    }
+    if($('#txtNameLesson').val()==''){
+      Swal.fire({
+        icon: 'error',
+        text: 'Empty name of new Lesson.',
+      })
+      return;
+    }
+    console.log('if roi');
+  }else{
+    if($('#txtLesson').val() == 'new' && $('#txtNameLesson').val()==''){
+      console.log('else roi')
+        Swal.fire({
+          icon: 'error',
+          text: 'Empty name of new Lesson.',
+        });
+        return;
+      }
+  };
+  $('#frmCourse').attr('action',url);
+  $('#frmCourse').off('submit').submit();
+});
+$('#txtChapter').on('change', function() {
+    let selected = $(this).val();
+    let url;
+    console.log('abc')
+    $("#txtLesson option").each(function(){
+        let element =  $(this) ;
+        if (element.data("tag") != selected && element.data("tag") !="new"){
+            element.removeClass('visible');
+            element.addClass('hidden');
+            element.hide() ;
+        }else{
+            element.removeClass('hidden');
+            element.addClass('visible');
+            element.show();
+        }
+    });
+  if(selected=="new"){
+      $('#txtNameChapter').removeClass('hidden');
+      $('#txtNameChapter').addClass('visible');
+      $('#txtNameChapter').show();
+      $('#txtNameLesson').removeClass('hidden');
+      $('#txtNameLesson').addClass('visible');
+      $('#txtNameLesson').show();
+      
+      $('frmCourse').attr('action',url);
+    }else{
+      $('#txtNameChapter').removeClass('visible');
+      $('#txtNameChapter').addClass('hidden');
+      $('#txtNameChapter').hide();
+    };
+    $('#frmCourse').attr('action',)
+    let txtLesson = $('#txtLesson',);
+    txtLesson.prop('selectedIndex',txtLesson.find("option.visible:eq(0)").index());
+}).triggerHandler('change');
+$('#txtLesson').on('change', function() {
+      let selected = $(this).val();
+  if(selected=="new"){
+        $('#txtNameLesson').removeClass('hidden');
+        $('#txtNameLesson').addClass('visible');
+        $('#txtNameLesson').show();
+      }else{
+        $('#txtNameLesson').removeClass('visible');
+        $('#txtNameLesson').addClass('hidden');
+        $('#txtNameLesson').hide();
+    }
+}).triggerHandler('change');
+</script>
+{{/section}}
+
+<form method="post" id="frmCourse" enctype="multipart/form-data" action="/teacher/course/upload/{{idCourse}}?newlesson=new&newChapter=new">
+  <div class="card">
+    <h3 class="card-header">Upload</h3>
+    <div class="card-body">
+      <div class="form-group">
+        <input type="hidden" name="IdCourse" id="txtIdCourse" value="{{idCourse}}">
+      </div>
+      <div class="form-group">
+      <div class="row">
+        <div style="width: 15px;"></div>
+         <label for="chapter">Chapter:</label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                <select name="chapter" id="txtChapter" style="width: 100%;height: 35px;">
+                    <option value="new" id="new" selected>New Chapter</option>
+                    {{#each listChapter}}
+                    <option value="{{IdChapter}}" id="{{IdChapter}}">{{NameChapter}}</option>
+                    {{/each}}
+                </select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+              <input type="text" id="txtNameChapter" name="newNameChapter" placeholder=" fill new chapter"style="width: 100%;height: 35px;">
+            </div>
+      </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+        <div style="width: 15px;"></div>
+            <label for="lesson">Lesson:</label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                <select name="lesson" id="txtLesson" style="width: 100%;height: 35px;">
+                   <option value="new" data-tag="new" selected>New Lesson</option>
+                    {{#each listLession}}
+                    <option value="{{idLesson}}" data-tag="{{idChapter}}">{{NameLesson}}</option>
+                    {{/each}}
+                </select>
+                </div>
+            </div>
+            <div class="col-sm-4">
+              <input type="text" id="txtNameLesson" name="newNameLesson" placeholder=" fill new lesson" style="width: 100%;height: 35px;">
+            </div>
+            <div class="col-sm-10"></div>
+        </div>
+      </div>
+      <div class="form-group file-loading">
+        <label for="fuVideo">Video:</label>
+        <input id="fuVideo" name="fuVideo" type="file" class="file" data-allowed-file-extensions='["mp4", "mov", "avi"]'>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+        <a class="btn btn-success" href="/teacher/course/{{idCourse}}">Go Back</a>
+      <button class="btn btn-outline-success" style="float: right;">
+        <i class="fa fa-check" aria-hidden="true"><strong>Save</strong></i>
+      </button>
+    </div>
+  </div>
+</form>
+
