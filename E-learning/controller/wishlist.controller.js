@@ -10,6 +10,8 @@ module.exports = {
     res.redirect(req.headers.referer);
   },
   postRemove: async function (req, res) {
+    console.log("req.body.id:",req.body.id);
+    console.log("req.session.authUser.IdUser:",req.session.authUser.IdUser);
     wishlistModel.del(req.session.authUser.IdUser, req.body.id)
     res.redirect(req.headers.referer);
   },

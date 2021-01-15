@@ -27,7 +27,8 @@ module.exports = {
     return db.add(entity, TBL_WISHLIST);
   },
   del(IdUser, IdCourse) {
-    const condition = { IdUser: IdUser, IdCourse: IdCourse };
-    return db.del(condition, TBL_WISHLIST);
+    const condition_1 = { IdUser: IdUser };
+    const condition_2 = { IdCourse: IdCourse };
+    return db.delWith2Key(condition_1, condition_2, TBL_WISHLIST);
   },
 };
