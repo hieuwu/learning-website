@@ -48,8 +48,7 @@
       </div>
       <div class="col-8">
         {{#each wishlist}}
-        <div class="row col-md-14 justify-content-center">
-          <div class="col-md-2"></div>
+        <div class="row col-md-12 justify-content-center">
           <div class="col-md-11">
             <table class="table table-hover">
               <td>
@@ -68,6 +67,7 @@
                       </div>
                       <div class="item-teacher">{{this.FullName}}</div>
                       <div class="item-length">{{this.NameCategory}}</div>
+                      <div class="item-length">{{this.status}}</div>
                       <div class="d-flex col-md-5 justify-content-center">
                         <p class="avgRating mr-1">{{this.avgRate}}</p>
                         <div class="ratingStar" value={{this.avgRate}}></div>

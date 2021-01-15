@@ -167,23 +167,6 @@ module.exports = {
         console.log('before', req.session)
         res.render("vwAccount/edit-password", { user: req.session.authUser });
     },
-    getProfile: async(req, res) => {
-        res.render("vwAccount/profile", { user: req.session.authUser });
-    },
-    postEditProfile: async(req, res) => {
-        if (req.body.FullName === "") {
-            return res.render("vwAccount/profile", {
-                err_message: "Invalid full name data.",
-                user: req.session.authUser,
-            });
-        }
-        const ret = await userModel.editName(req.body.Username, req.body.FullName);
-        req.session.authUser = await userModel.singleByUserName(req.body.Username);
-        res.render("vwAccount/profile", { user: req.session.authUser });
-    },
-    getEditPassword: async(req, res) => {
-        res.render("vwAccount/edit-password", { user: req.session.authUser });
-    },
     getVerifyPage: async(req, res) => {
         res.render("vwAccount/otp-confirm");
     },
