@@ -51,20 +51,15 @@ module.exports = {
             }
             let list1 = await courseModel.countCoursebyCateID(list);
             total = list1[0].count;
-            console.log(total)
             courseresult = await courseModel.getFullInformationByCate(list, sortBy, offset);
-            // courseresult = courseresult.concat(fullimforation);
-            // console.log('course: ', courseresult);
         } else {
             //search by Course Name
             cDisplay = true;
             searchedCourse = await courseModel.searchByFulltext(searchValue, sortBy);
             total = searchedCourse.length;
-            console.log(total);
             for (const iterator of searchedCourse) {
                 list = list + "," + iterator.IdCourse;
             }
-            // console.log('searchedCourse', searchedCourse);
             if (searchedCourse.length !== 0) {
                 courseresult = await courseModel.getFullInformationByID(list, sortBy, offset);
             }
@@ -77,7 +72,6 @@ module.exports = {
             };
             page_items.push(item);
         }
-        // console.log('courses', courseresult);
         console.log(page_items)
         res.render('vwSearch/fulltextsearch', {
             listOfCourses: courseresult,
