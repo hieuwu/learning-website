@@ -6,7 +6,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/themes/fa/theme.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.1.3/js/fileinput.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="https://cdn.tiny.cloud/1/wafynfll6yk0et81pwlvcwdx6r76d4pl4gy3397p9126dmzm/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
 <script>
       tinymce.init({
         selector: '#txtDescription',
@@ -28,7 +28,6 @@
     const nameCourse=$('#txtNameCourse').val();
     const title=$('#txtTitle').val();
     let SaleCost=$('#txtSaleCost').val();
-    console.log("asdfds",nameCourse);
     if(nameCourse.length === 0 || title.length === 0 || SaleCost.length === 0){
        Swal.fire({
         icon: 'error',

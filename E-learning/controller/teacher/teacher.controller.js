@@ -101,7 +101,6 @@ module.exports = {
             hashNewPw
         );
         req.session.authUser = await userModel.singleByUserName(req.session.authUser.UserName);
-        console.log(req.session)
         res.render("teacher/edit-password", {
             layout: 'teacher',
             user: req.session.authUser,
