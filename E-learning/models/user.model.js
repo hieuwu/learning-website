@@ -60,7 +60,7 @@ module.exports = {
     async blockTeacher(id) {
         const condition = { IdUser: id };
         const entity = { status: "Block" };
-        return await db.patch(entity, condition, );
+        return await db.patch(entity, condition,TBL_Teach_profile);
     },
     async unblockTeacher(id) {
         const condition = { IdUser: id };
@@ -124,5 +124,15 @@ module.exports = {
     async getAdminProfile() {
         let rows = await db.load(`select* from ${TBL_USERS} where UserName='admin'`);
         return rows[0];
+    },
+    async blockStudent(id) {
+        const condition = { IdUser: id };
+        const entity = { isBlocked: true };
+        return await db.patch(entity, condition,TBL_USERS);
+    },
+    async unblockStudent(id) {
+        const condition = { IdUser: id };
+        const entity = { isBlocked: false };
+        return await db.patch(entity, condition,TBL_USERS);
     }
 };

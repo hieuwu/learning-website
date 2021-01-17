@@ -2,10 +2,63 @@
 <link rel="stylesheet" href="/public/stylesheets/courseByCategory.css">
 <link rel="stylesheet" href="/public/stylesheets/admin-homepage.css">
 {{/section}}
+{{#section 'js'}}
+<script>
+  function sendStudentBlockRequest(teacherId) {
+    console.log(teacherId);
+    $.ajax({
+      url: `/admin/student/`+teacherId,
+        type: "PUT",
+        data: JSON.stringify(
+          {
+            teacherId: teacherId,
+          }
+        ),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+
+        complete: function (xmlHttp) {
+          // xmlHttp is a XMLHttpRquest object
+          if (xmlHttp.status == 200) {
+            alert("A user has been blocked");
+            window.location.href = "/admin/student/all";
+          } else {
+            alert("Some thing went wrong");
+            window.location.href = "/error";
+          }
+        }
+      });
+  }
+  function sendStudentUnblockRequest(teacherId) {
+    console.log(teacherId);
+    $.ajax({
+      url: `/admin/student/unblock/`+teacherId,
+        type: "PUT",
+        data: JSON.stringify(
+          {
+            teacherId: teacherId,
+          }
+        ),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        complete: function (xmlHttp) {
+          // xmlHttp is a XMLHttpRquest object
+          if (xmlHttp.status == 200) {
+            alert("A user has been unblocked");
+            window.location.href = "/admin/student/all";
+          } else {
+            alert("Some thing went wrong");
+            window.location.href = "/error";
+          }
+        }
+      });
+  }
+  
+</script>
+{{/section}}
 <div class="row col-md-12 justify-content-center btn-add">
   <div class="col-md-1 carousel-title"></div>
   <div class="col-md-10 carousel-title btn-add">
-   
     <div>
       <hr />
     </div>
@@ -34,6 +87,11 @@
         <div><b>Created at:</b> {{this.createdTime}}</div>
       </div>
       <div class="col-md-1">
+         {{#if this.isBlocked}}
+                <div><a type="button"  onclick="sendStudentUnblockRequest({{./this.IdUser}})" class="btn p-2 btn-success btn-dimen">Unblock</a></div>
+         {{else}}
+              <div><button type="button" onclick="sendStudentBlockRequest({{./this.IdUser}})" class="btn btn-danger">Block</button></div>
+         {{/if}}
       </div>
     </div>
     </a>

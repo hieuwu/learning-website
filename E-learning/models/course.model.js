@@ -272,7 +272,7 @@ module.exports = {
 
     async pageByAll(offset) {
         return await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,course.title,
-        course.nameCourse, category.NameCategory, course.Price, course.SaleCost, course.createdTime, course.nOViews,
+        course.nameCourse, category.NameCategory, course.Price, course.SaleCost, course.createdTime, course.nOViews,course.isDeleted,
         count(chapter.IdChapter) as numOfChapters
         from ${TBL_COURSE} 
         left join user_profile
@@ -284,7 +284,7 @@ module.exports = {
         where category.Id in (select category.Id
             from headercategory
             inner join category
-            on headercategory.Id = category.HeaderCategoryId) and course.isDeleted = false
+            on headercategory.Id = category.HeaderCategoryId)
         group by course.IdCourse
         order by course.nOViews DESC limit ${config.pagination.limit} offset ${offset}`);
     },
@@ -292,6 +292,12 @@ module.exports = {
     async deleteCourse(IdCourse) {
         const condition = { IdCourse: IdCourse };
         const entity = { isDeleted: true };
+        return await db.patch(entity, condition, TBL_COURSE);
+    },
+
+    async enableCourse(IdCourse) {
+        const condition = { IdCourse: IdCourse };
+        const entity = { isDeleted: false };
         return await db.patch(entity, condition, TBL_COURSE);
     },
 

@@ -24,6 +24,7 @@ module.exports = {
       };
       page_items.push(item);
     }
+    console.log(listOfCourses[0]);
 
     res.render("admin/course-all", {
       layout: "admin",
@@ -39,7 +40,7 @@ module.exports = {
   deleteCourse: async (req, res) => {
     const IdCourse = req.body.IdCourse;
     console.log(IdCourse);
-    let deletedCourse = await courseModel.deleteCourse(IdCourse);
+    await courseModel.deleteCourse(IdCourse);
     res.redirect("/course/all");
   },
 
@@ -377,4 +378,19 @@ module.exports = {
       layout: "admin",
     });
   },
+  enableCourse: async (req, res) => {
+    const IdCourse = req.body.IdCourse;
+    await courseModel.enableCourse(IdCourse);
+    res.redirect("/course/all");
+  },
+  blockStudent: async (req, res) => {
+    const Id = req.body.teacherId;
+    await userModel.blockStudent(Id);
+    res.redirect("admin/user-all");
+  },
+  unblockStudent: async (req, res) => {
+    const Id = req.body.teacherId;
+    await userModel.unblockStudent(Id);
+    res.redirect("admin/user-all");
+  }
 };

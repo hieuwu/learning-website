@@ -18,7 +18,8 @@ Permission varchar(100) default "student",
 UserName varchar(50) not null,
 `password` varchar(225) not null,
 createdTime datetime not null default now(),
-updatedTime datetime not null default now()
+updatedTime datetime not null default now(),
+isBlocked boolean not null default false
 )ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 DROP TABLE IF EXISTS `Category`;
 create table `Category`(

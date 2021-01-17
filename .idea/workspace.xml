@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1c1a4ce3-882c-4326-b687-67bca9998d5a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-learning/config/default.json" beforeDir="false" afterPath="$PROJECT_DIR$/E-learning/config/default.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-learning/controller/account.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-learning/controller/account.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-learning/utils/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-learning/utils/db.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-learning/views/vwCourses/add-course.hbs" beforeDir="false" />
-    </list>
+    <list default="true" id="1c1a4ce3-882c-4326-b687-67bca9998d5a" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,6 +60,7 @@
       <workItem from="1609726788948" duration="82000" />
       <workItem from="1609728086358" duration="10000" />
       <workItem from="1609939310651" duration="456000" />
+      <workItem from="1610375748903" duration="12000" />
     </task>
     <servers />
   </component>

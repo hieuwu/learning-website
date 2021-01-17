@@ -29,7 +29,31 @@
           }
         }
       });
+  }
 
+  function sendCourseEnableRequest(IdCourse) {
+    $.ajax({
+      url: `/admin/course/`+IdCourse,
+        type: "PUT",
+        data: JSON.stringify(
+          {
+            IdCourse: IdCourse,
+          }
+        ),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+
+        complete: function (xmlHttp) {
+          // xmlHttp is a XMLHttpRquest object
+          if (xmlHttp.status == 200) {
+            alert("A course has been updated");
+            window.location.href = "/admin/course/all";
+          } else {
+            alert("Some thing went wrong");
+            window.location.href = "/error";
+          }
+        }
+      });
   }
   
 </script>
@@ -89,7 +113,13 @@
       </div>  
       <div class="col-md-1">
         <div><a type="button" href="/admin/course/edit/{{./this.IdCourse}}" class="btn p-2 btn-success btn-dimen">Edit</a></div>
-        <div><button type="button" onclick="sendCourseDeleteRequest({{./this.IdCourse}})" class="btn btn-danger">Delete</button></div>
+        {{#if this.isDeleted}}
+            <div><button type="button" onclick="sendCourseEnableRequest({{./this.IdCourse}})" class="btn btn-success">Enable</button></div>
+        {{else}}
+        <div><button type="button" onclick="sendCourseDeleteRequest({{./this.IdCourse}})" class="btn btn-danger">Disable</button></div>
+        {{/if}}
+       
+     
       </div>
     </div>
     </a>
