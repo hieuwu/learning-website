@@ -178,13 +178,36 @@ onMouseleave(score){
                 <a class="accordion-body" href="/course/detail/{{this.idCourse}}/chapter/{{this.idChapter}}/lesson/{{this.idLesson}}"
                 target="_blank">
                   {{this.NameLesson}}
-                </a>
+                </a>           
+                {{/each}}
+              </div>
+            </div>
+            {{/each}}
+          </div>
+          {{else}}
+          <div class="accordion" id="accordionExample1">
+            {{#each listChapter}}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                  data-bs-target={{this.dataBsTarget}} aria-expanded="true"
+                  aria-controls={{this.IdDiv}}>
+                  {{this.NameChapter}}
+                </button>
+              </h2>
+              <div id={{this.IdDiv}} class="accordion-collapse collapse show row"
+                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                {{#each ListLesson}}
+                <a class="accordion-body isDisabled-link-a" onclick="return false" href="">
+                  {{this.NameLesson}}
+                </a>              
                 {{/each}}
               </div>
             </div>
             {{/each}}
           </div>
           {{/if}}
+          
         </div>
 
 

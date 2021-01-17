@@ -332,3 +332,7 @@ a.text-primary:hover {
     float: left;
     width: 100%;
 }
+
+.isDisabled-link-a{
+    pointer-events: none;
+}
