@@ -161,7 +161,7 @@ onMouseleave(score){
         <!-- Course Content -->
         <div class="col-12 mb-4">
           <h3>Course Content</h3>
-
+          {{#if isAuth}}
           <div class="accordion" id="accordionExample1">
             {{#each listChapter}}
             <div class="accordion-item">
@@ -184,6 +184,7 @@ onMouseleave(score){
             </div>
             {{/each}}
           </div>
+          {{/if}}
         </div>
 
 
