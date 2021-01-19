@@ -362,7 +362,7 @@ module.exports = {
         inner join category on course.IdCategory = category.Id
         left join enrolledcourse on course.IdCourse = enrolledcourse.IdCourse
         and enrolledcourse.rateStar != 0
-        where course.isDeleted = false 
+        where course.isDeleted = false and DATEDIFF(now(), course.createdTime) <= 7
         group by course.IdCourse, course.nOViews
         order by course.avgRate DESC limit 3`);
     },
