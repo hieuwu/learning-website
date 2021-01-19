@@ -14,15 +14,15 @@
       <strong>
         
         {{#if hDisplay}}
-          Students also learn
+          Students also learn:
           {{#each this.listOfCategories}}
             <a href="/course/domain/{{HeaderCategoryID}}/category/{{Id}}">{{NameCategory}}</a>
           {{/each}}
         {{/if}}     
         {{#if this.cateDisplay}}
-          Students also learn
+          Students also learn:
           {{#each listOfCategories}}
-            <a href="/course/domain/{{HeaderCategoryID}}/category/{{Id}}">{{NameCategory}}</a>
+            <a href="/course/domain/{{HeaderCategoryID}}/category/{{Id}}">{{NameCategory}} </a>
           {{/each}}
         {{/if}}       
       </strong>

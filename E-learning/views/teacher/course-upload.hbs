@@ -19,7 +19,6 @@
 $('#frmCourse').on('submit',function(e){
   e.preventDefault();
   url="/teacher/course/upload/"+{{idCourse}}+"?newChapter="+$('#txtNameChapter').val()+"&newLesson="+$('#txtNameLesson').val()+"&idChapter="+$('#txtChapter').val()+"&idLesson="+$('#txtLesson').val();
-  console.log('url=',url)
   if($('#txtChapter').val()== 'new'){
     if($('#txtNameChapter').val()==''){
       Swal.fire({
@@ -35,10 +34,8 @@ $('#frmCourse').on('submit',function(e){
       })
       return;
     }
-    console.log('if roi');
   }else{
     if($('#txtLesson').val() == 'new' && $('#txtNameLesson').val()==''){
-      console.log('else roi')
         Swal.fire({
           icon: 'error',
           text: 'Empty name of new Lesson.',
@@ -52,7 +49,6 @@ $('#frmCourse').on('submit',function(e){
 $('#txtChapter').on('change', function() {
     let selected = $(this).val();
     let url;
-    console.log('abc')
     $("#txtLesson option").each(function(){
         let element =  $(this) ;
         if (element.data("tag") != selected && element.data("tag") !="new"){

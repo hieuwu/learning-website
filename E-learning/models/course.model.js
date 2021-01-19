@@ -86,7 +86,7 @@ module.exports = {
     async getFullInformationByCate(condition, sortby, offset) {
         const rows = await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,
         course.nameCourse, category.NameCategory, course.Price, course.SaleCost,course.title,
-        course.createdTime, course.nOViews,course.avgRate ,course.subscribe
+        course.createdTime, course.nOViews,course.avgRate ,course.subscribe, count(enrolledcourse.IdUser) as numRating
         from ${TBL_COURSE} 
         left join user_profile
         on course.IdTeacher = user_profile.IdUser
@@ -94,12 +94,16 @@ module.exports = {
         on course.IdCategory = category.Id
         left join headercategory
         on category.headercategoryid=headercategory.id
+        left join enrolledcourse on course.IdCourse = enrolledcourse.IdCourse
         where course.IdCategory in (${condition}) and course.isDeleted = false
+        group by course.IdCourse
         order by ${sortby} limit ${config.pagination.limit} offset ${offset}`);
         return rows;
     },
     async getFullInformationByID(condition, sortby, offset) {
-        const rows = await db.load(`select *
+        const rows = await db.load(`select course.IdCourse, FullName, nameCourse, course.Description,course.title,
+        course.nameCourse, category.NameCategory, course.Price, course.SaleCost, course.createdTime,
+        course.nOViews, course.avgRate,count(enrolledcourse.IdUser) as numRating
         from ${TBL_COURSE} 
         left join user_profile
         on course.IdTeacher = user_profile.IdUser
@@ -107,7 +111,9 @@ module.exports = {
         on course.IdCategory = category.Id
         left join headercategory
         on category.headercategoryid=headercategory.id
+        left join enrolledcourse on course.IdCourse = enrolledcourse.IdCourse
         where course.IdCourse in (${condition}) and course.isDeleted = false
+        group by course.IdCourse
         order by ${sortby} limit ${config.pagination.limit} offset ${offset}`);
         return rows;
     },

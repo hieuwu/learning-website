@@ -7,9 +7,6 @@ module.exports = {
     searchbody: async function(req, res) {
         const searchValue = req.body.searchValue;
         const sortBy = req.body.sortBy;
-
-        // console.log(req.body, "123jaslkfjal;kjflka")
-        // const page = req.body;
         res.redirect(`/search/category?name=${searchValue}&sortBy=${sortBy}`);
     },
     searchvalue: async function(req, res) {
@@ -72,7 +69,7 @@ module.exports = {
             };
             page_items.push(item);
         }
-        console.log(page_items)
+
         res.render('vwSearch/fulltextsearch', {
             listOfCourses: courseresult,
             listOfCategories: cateresult,
