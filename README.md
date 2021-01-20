@@ -34,6 +34,3 @@ npm start
 
 # App Architecture
 ![](https://calvinsettachatgul.github.io/imgs/mvc-rails.png)
-
-# ER Diagram
-![](https://i.imgur.com/cpyqbPV.png)
