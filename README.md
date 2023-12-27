@@ -29,7 +29,7 @@ npm start
 `john - 123456`
 
 **User:**
-`minhhien - 1223456`
+`minhhien - 123456`
 
 
 # App Architecture
